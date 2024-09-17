@@ -11,7 +11,7 @@ import Avatar from '@mui/material/Avatar';
 
 
 export const columns = [
-  { field: 'pageTitle', headerName: 'Acompanhamentos', flex: 1.5, minWidth: 200 },
+  { field: 'pageTitle', headerName: 'Internos', flex: 1.5, minWidth: 200 },
  
   {
     field: 'users',
