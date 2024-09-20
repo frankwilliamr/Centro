@@ -16,14 +16,9 @@ export default function CadastroInternos() {
         Cadastro de Internos
       </Typography>
      
-      
-      
       <CustomizedCadastroInternos />
-          
-        
-        
       
-      <Copyright sx={{ my: 4 }} />
+      <Copyright sx={{ my: 4}} />
     </Box>
   );
 }

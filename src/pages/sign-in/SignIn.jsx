@@ -15,7 +15,7 @@ import MuiCard from '@mui/material/Card';
 import { ThemeProvider, createTheme, styled } from '@mui/material/styles';
 import ForgotPassword from './ForgotPassword.jsx';
 import getSignInTheme from './theme/getSignInTheme.jsx';
-import { GoogleIcon, FacebookIcon, SitemarkIcon, LogoTeste } from './CustomIcons.jsx';
+import { Logo } from './CustomIcons.jsx';
 import TemplateFrame from './TemplateFrame.jsx';
 
 
@@ -141,7 +141,7 @@ export default function SignIn() {
         <CssBaseline enableColorScheme />
         <SignInContainer direction="column" justifyContent="space-between">
           <Card variant="outlined">
-            <LogoTeste/>
+            <Logo/>
            
              
            
