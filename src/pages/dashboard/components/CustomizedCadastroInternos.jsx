@@ -12,7 +12,8 @@ import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import TesteJoao from './teste';
+import CadastroEndereco from './CadastroEndereco';
+
 
 
 export default function CostumizedCadastroInternos() {
@@ -195,7 +196,7 @@ export default function CostumizedCadastroInternos() {
         />
       </Grid>
 
-      
+      <CadastroEndereco/>
 
        
       
