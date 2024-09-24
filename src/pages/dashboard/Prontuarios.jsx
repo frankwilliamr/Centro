@@ -16,7 +16,7 @@ export default function Prontuarios() {
   const defaultTheme = createTheme({ palette: { mode } });
   // This code only runs on the client side, to determine the system color preference
   React.useEffect(() => {
-    // Check if there is a preferred mode in localStorage
+    // Check if there is a preferred mode in localStorage teste
     const savedMode = localStorage.getItem('themeMode');
     if (savedMode) {
       setMode(savedMode);
