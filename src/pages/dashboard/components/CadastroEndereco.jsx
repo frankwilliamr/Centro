@@ -1,12 +1,16 @@
 import * as React from 'react';
 import axios from 'axios';
 import Grid from '@mui/material/Grid2';
-import { useState } from 'react';
+import Select from '@mui/material/Select';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 
 export default function CadastroEndereco () {
-    const [cep, setCep] = useState('');
-    const [endereco, setEndereco]= useState({
+    const [cep, setCep] = React.useState('');
+    const [zona, setZona] = React.useState('');
+    const [endereco, setEndereco]= React.useState({
         logradouro: '',
         cidade: '',
         estado: '',
@@ -43,8 +47,12 @@ export default function CadastroEndereco () {
           [name]: value,
         }));
       };
+
+      const handleChange = (event) => {
+        setZona(event.target.value);
+      };
     return (
-        <Grid container spacing={2} sx={{ width: '100%', margin: '0 auto', justifyContent: 'center', alignItems: 'flex-start' }}>
+        <Grid container spacing={2} sx={{ width: '100%', margin: '0 auto', justifyContent: 'center'}}>
         <Grid item xs={12} sm={6} md={4} lg={3}>
         <TextField
           sx={{ width: '30ch' }}
@@ -110,6 +118,28 @@ export default function CadastroEndereco () {
           
           
         />
+      </Grid>
+
+      <Grid item xs={12} sm={6} md={4} lg={3}>
+      <FormControl variant="standard" sx={{ minWidth: 120 }}
+          >
+        <InputLabel required id="sexo" shrink sx={{ fontSize: '1.2rem' }}>Zona</InputLabel>
+        
+        <Select
+          
+          labelId="Zona"
+          id="zona"
+          value={zona}
+          onChange={handleChange}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={10}>Zona Rural</MenuItem>
+          <MenuItem value={20}>Zona Urbana</MenuItem>
+          
+        </Select>
+      </FormControl>
       </Grid>
       </Grid>
     );
