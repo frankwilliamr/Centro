@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid2';
+import Grid2 from '@mui/material/Grid2';
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
@@ -19,8 +19,8 @@ export default function DadosSociais(){
 
       };
     return (
-        <Grid container spacing={2} sx={{ width: '100%', margin: '0 auto', justifyContent: 'center', alignItems: 'flex-start' }}>
-           <Grid item xs={12} sm={6} lg={3}  >
+        <Grid2 container spacing={2} sx={{ width: '100%', margin: '0 auto', justifyContent: 'center', alignItems: 'flex-start' }}>
+           <Grid2 item xs={12} sm={6} lg={3}  >
         <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
           >
         <InputLabel required id="escolaridade" shrink sx={{ fontSize: '1.2rem' }}>Religião</InputLabel>
@@ -56,8 +56,8 @@ export default function DadosSociais(){
       )}
         
       </FormControl>
-      </Grid>
-          <Grid item xs={12} sm={6} lg={3}  >
+      </Grid2>
+          <Grid2 item xs={12} sm={6} lg={3}  >
         <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
           >
         <InputLabel required id="escolaridade" shrink sx={{ fontSize: '1.2rem' }}>Escolaridade</InputLabel>
@@ -85,9 +85,9 @@ export default function DadosSociais(){
 
         
       </FormControl>
-      </Grid>
+      </Grid2>
 
-        <Grid item xs={12} sm={6} lg={3}  >
+        <Grid2 item xs={12} sm={6} lg={3}  >
         <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
           >
         <InputLabel required id="Ocupacao" shrink sx={{ fontSize: '1.2rem' }}>Ocupação Atual</InputLabel>
@@ -124,9 +124,9 @@ export default function DadosSociais(){
         />
       )}
       </FormControl>
-      </Grid>
+      </Grid2>
 
-      <Grid item xs={12} sm={6} lg={3}  >
+      <Grid2 item xs={12} sm={6} lg={3}  >
         <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
           >
         <InputLabel required id="Ocupacao" shrink sx={{ fontSize: '1.2rem' }}>Vinculo previdênciario</InputLabel>
@@ -155,8 +155,8 @@ export default function DadosSociais(){
         />
       )}
       </FormControl>
-      </Grid>
-      <Grid item xs={12} sm={6} lg={3}  >
+      </Grid2>
+      <Grid2 item xs={12} sm={6} lg={3}  >
         <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
           >
         <InputLabel required id="Ocupacao" shrink sx={{ fontSize: '1.2rem' }}>Benefícios Sociais</InputLabel>
@@ -187,9 +187,9 @@ export default function DadosSociais(){
         />
       )}
       </FormControl>
-      </Grid>
+      </Grid2>
 
-      <Grid item xs={12} sm={6} lg={3}  >
+      <Grid2 item xs={12} sm={6} lg={3}  >
         <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
           >
         <InputLabel required id="Ocupacao" shrink sx={{ fontSize: '1.2rem' }}>Moradia Atual</InputLabel>
@@ -223,9 +223,9 @@ export default function DadosSociais(){
         />
       )}
       </FormControl>
-      </Grid>
+      </Grid2>
 
-        </Grid>
+        </Grid2>
 
 
 

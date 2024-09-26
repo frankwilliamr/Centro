@@ -1,11 +1,13 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid2';
+
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
+import Grid2 from '@mui/material/Grid2';
+
 
 
 
@@ -23,83 +25,84 @@ export default function DadosPessoais() {
   return (
     
       
-      <Grid container spacing={2} sx={{ width: '100%', margin: '0 auto', justifyContent: 'center'}}>
-      <Grid item  xs={12} sm={6} md={4} lg={3}>
+      <Grid2 container spacing={2} sx={{ width: '100%', margin: '0 auto', justifyContent: 'center'}}>
+      <Grid2 item  xs={12} sm={6} md={4} lg={3}>
       
         <TextField
-          sx={{ width: '50ch' }}
+          sx={{  width: '50ch', paddingTop: '10px' }}
           required
-          id="Nome"
+          id="outlined-required"
           label="Nome Completo"
-          variant="standard"
+          
           
         />
-      </Grid>
-      <Grid item xs={12} sm={6} md={4} lg={3}>
+      </Grid2>
+      <Grid2 item xs={12} sm={6} md={4} lg={3}>
         <TextField
-          sx={{ width: '20ch' }}
+          sx={{ width: '20ch', paddingTop: '10px' }}
           required
           id="CPF"
           label="CPF"
-          variant="standard"
+          
           type='text'
           
         />
-      </Grid>
-      <Grid item xs={12} sm={6} md={4} lg={3}>
+      </Grid2>
+      <Grid2 item xs={12} sm={6} md={4} lg={3}>
         <TextField
+          sx={{  paddingTop: '10px' }}
           required
           type='date'
           id="nascimento"
           label= "Data de nascimento"
-          variant="standard"
+          
           InputLabelProps={{
             shrink: true, // Faz com que o label seja retraído para cima do campo
           }}
           
           
         />
-      </Grid>
-      <Grid item xs={12} sm={6} md={4} lg={3}>
+      </Grid2>
+      <Grid2 item xs={12} sm={6} md={4} lg={3}>
       
         <TextField
-        sx={{ width: '20ch' }}
+        sx={{ width: '20ch', paddingTop: '10px' }}
         required
         type='text'
         id='RG'
         label='RG'
-        variant="standard"
+        
         
         /> 
           
 
-      </Grid>
+      </Grid2>
       
-      <Grid item xs={12} sm={6} md={4} lg={3}>
+      <Grid2 item xs={12} sm={6} md={4} lg={3}>
         <TextField
-          sx={{ width: '20ch' }}
+          sx={{ width: '20ch', paddingTop: '10px' }}
           required
           id="Celular"
           label="Contato"
-          variant="standard"
+          
           
         />
-      </Grid>
+      </Grid2>
 
-      <Grid item xs={12} sm={6} md={4} lg={3}>
+      <Grid2 item xs={12} sm={6} md={4} lg={3}>
       
        
         <TextField
-          sx={{ width: '50ch' }}
+          sx={{ width: '50ch', paddingTop: '10px' }}
           required
           id="Responsavel"
           label="Responsavel"
-          variant="standard"
+          
           fullWidth
           
         /> 
-      </Grid>
-      <Grid item xs={12} sm={6} md={4} lg={3} >
+      </Grid2>
+      <Grid2 item xs={12} sm={6} md={4} lg={3} >
       <FormControl  variant="standard" sx={{ minWidth: 120 }}
           >
         <InputLabel required id="Parentesco" shrink sx={{ fontSize: '1.2rem' }}>Parentesco</InputLabel>
@@ -119,11 +122,11 @@ export default function DadosPessoais() {
           <MenuItem value={30}>Avô/Avó</MenuItem>
         </Select>
       </FormControl>
-      </Grid>
+      </Grid2>
 
       
 
-      <Grid item xs={12} sm={6} md={4} lg={3}>
+      <Grid2 item xs={12} sm={6} md={4} lg={3}>
       <FormControl variant="standard" sx={{ minWidth: 120 }}
           >
         <InputLabel required id="sexo" shrink sx={{ fontSize: '1.2rem' }}>Sexo</InputLabel>
@@ -143,31 +146,31 @@ export default function DadosPessoais() {
           
         </Select>
       </FormControl>
-      </Grid>
+      </Grid2>
 
-      <Grid item xs={12} sm={6} md={4} lg={3}>
+      <Grid2 item xs={12} sm={6} md={4} lg={3}>
         <TextField
-          sx={{ width: '50ch' }}
+          sx={{ width: '50ch' , paddingTop: '10px'}}
           required
           id="mae"
           label="Nome da Mãe"
-          variant="standard"
+          
           
         />
-      </Grid>
+      </Grid2>
 
-      <Grid item xs={12} sm={6} md={4} lg={3}>
+      <Grid2 item xs={12} sm={6} md={4} lg={3}>
         <TextField
-          sx={{ width: '50ch' }}
+          sx={{ width: '50ch', paddingTop: '10px' }}
           required
           id="pai"
           label="Nome do Pai"
-          variant="standard"
+          
           
         />
-      </Grid>
+      </Grid2>
 
-      <Grid item xs={12} sm={6} md={4} lg={3} >
+      <Grid2 item xs={12} sm={6} md={4} lg={3} >
       <FormControl  variant="standard" sx={{ minWidth: 120 }}
           >
         <InputLabel required id="Parentesco" shrink sx={{ fontSize: '1.2rem' }}>Nacionalidade</InputLabel>
@@ -187,20 +190,20 @@ export default function DadosPessoais() {
           <MenuItem value={30}>Venezuelano</MenuItem>
         </Select>
       </FormControl>
-      </Grid>
+      </Grid2>
 
-      <Grid item xs={12} sm={6} md={4} lg={3}>
+      <Grid2 item xs={12} sm={6} md={4} lg={3}>
         <TextField
-          sx={{ width: '50ch' }}
+          sx={{ width: '50ch', paddingTop: '10px' }}
           required
           id="naturalidade"
           label="Naturalidade"
-          variant="standard"
+          
           
         />
-      </Grid>
+      </Grid2>
 
-      </Grid>
-    
+      </Grid2>
+      
   );
 }

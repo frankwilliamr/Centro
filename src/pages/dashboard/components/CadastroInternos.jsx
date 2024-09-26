@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Grid from '@mui/material/Grid2';
+
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Copyright from '../internals/components/Copyright';
@@ -13,9 +13,8 @@ import CheckIcon from '@mui/icons-material/Check';
 import SaveIcon from '@mui/icons-material/Save';
 import DadosSociais from './DadosSociais';
 import VinculosSociais from './VinculosSociais';
-
-
-
+import Divider from '@mui/material/Divider';
+import { Card } from '@mui/material';
 export default function CadastroInternos() {
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
@@ -45,29 +44,41 @@ export default function CadastroInternos() {
   return (
     <Box sx={{ width: '100%', maxWidth: { sm: '100%', md: '1700px' }}}>
       {/* cards */}
-      <Typography component="h2" variant="h6" sx={{ mb: 2, marginTop:'20px' }}>
+      <Card sx={{ mb: 2, marginTop:'20px' }}>
+      <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
         Dados Pessoais
+        <Divider />
       </Typography>
-     
+      
       <DadosPessoais/>
+      </Card>
 
-      <Typography component="h2" variant="h6" sx={{ mb: 2, marginTop:'20px' }}>
+      <Card sx={{ mb: 2, marginTop:'20px' }}>
+      <Typography component="h2" variant="h6" sx={{  mb: 4 }}>
         Endereço
+        <Divider />
       </Typography>
 
       <CadastroEndereco/>
-
-      <Typography component="h2" variant="h6" sx={{ mb: 2, marginTop:'20px' }}>
+      </Card>
+      <Card sx={{ mb: 2, marginTop:'20px' }}>
+      <Typography component="h2" variant="h6" sx={{ mb: 4 }}>
         Dados Socio-Demograficos
+        <Divider />
       </Typography>
 
         <DadosSociais/>
+      </Card>
 
-        <Typography component="h2" variant="h6" sx={{ mb: 2, marginTop:'20px' }}>
+      <Card sx={{ mb: 2, marginTop:'20px' }}>
+        <Typography component="h2" variant="h6" sx={{ mb: 4 }}>
         Vinculos Sociais
+        <Divider />
       </Typography>
 
       <VinculosSociais/>
+      </Card>
+      
     <Box sx={{ m: 4, position: 'relative', display: 'flex', justifyContent: 'center' }}>
     <Box sx={{position: 'relative'}}>
         <Fab
