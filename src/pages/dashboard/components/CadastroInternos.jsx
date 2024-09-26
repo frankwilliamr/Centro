@@ -11,7 +11,7 @@ import Button from '@mui/material/Button';
 import Fab from '@mui/material/Fab';
 import CheckIcon from '@mui/icons-material/Check';
 import SaveIcon from '@mui/icons-material/Save';
-
+import DadosSociais from './DadosSociais';
 
 
 
@@ -57,8 +57,11 @@ export default function CadastroInternos() {
 
       <CadastroEndereco/>
 
+      <Typography component="h2" variant="h6" sx={{ mb: 2, marginTop:'20px' }}>
+        Dados Socio-Demograficos
+      </Typography>
 
-
+        <DadosSociais/>
     <Box sx={{ m: 4, position: 'relative', display: 'flex', justifyContent: 'center' }}>
     <Box sx={{position: 'relative'}}>
         <Fab

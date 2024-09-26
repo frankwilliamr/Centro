@@ -82,7 +82,7 @@ export default function CadastroEndereco () {
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <TextField
-          sx={{ width: '80ch' }}
+          sx={{ width: '50ch' }}
           required
           name = 'endereco'
           label="Endereço"
