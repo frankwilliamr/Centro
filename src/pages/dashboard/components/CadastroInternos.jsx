@@ -12,7 +12,7 @@ import Fab from '@mui/material/Fab';
 import CheckIcon from '@mui/icons-material/Check';
 import SaveIcon from '@mui/icons-material/Save';
 import DadosSociais from './DadosSociais';
-
+import VinculosSociais from './VinculosSociais';
 
 
 
@@ -62,6 +62,12 @@ export default function CadastroInternos() {
       </Typography>
 
         <DadosSociais/>
+
+        <Typography component="h2" variant="h6" sx={{ mb: 2, marginTop:'20px' }}>
+        Vinculos Sociais
+      </Typography>
+
+      <VinculosSociais/>
     <Box sx={{ m: 4, position: 'relative', display: 'flex', justifyContent: 'center' }}>
     <Box sx={{position: 'relative'}}>
         <Fab
