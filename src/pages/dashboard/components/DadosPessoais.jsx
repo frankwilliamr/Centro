@@ -1,7 +1,5 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
@@ -13,12 +11,21 @@ import Grid2 from '@mui/material/Grid2';
 
 
 export default function DadosPessoais() {
-  
-  const [Parentesco, setParentesco] = React.useState('');
+  const [nome, setNome] = React.useState('');
+  const [cpf, setCpf] = React.useState('');
+  const [nascimento, setNascimento] = React.useState('');
+  const [rg, setRg] = React.useState('');
+  const [contato, setContato] = React.useState('');
+  const [responsavel, setResponsavel] = React.useState('');
+  const [parentesco, setParentesco] = React.useState('');
+  const [contatoResponsavel, setContatoResponsavel] = React.useState('');
+  const [sexo, setSexo] = React.useState('');
+  const [mae, setMae] = React.useState('');
+  const [pai, setPai] = React.useState('');
+  const [nacionalidade, setNacionalidade] = React.useState(''); 
+  const [naturalidade, setNaturalidade] = React.useState('');
 
-  const handleChange = (event) => {
-    setParentesco(event.target.value);
-  };
+ 
 
   
   
@@ -33,21 +40,26 @@ export default function DadosPessoais() {
           required
           id="outlined-required"
           label="Nome Completo"
+          value={nome}
+          onChange={(e)=> setNome(e.target.value)}
           
           
         />
       </Grid2>
+
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
         <TextField
           sx={{ width: '20ch', paddingTop: '10px' }}
           required
           id="CPF"
           label="CPF"
+          value={cpf}
+          onChange={(e) => setCpf(e.target.value)}
           
-          type='text'
           
         />
       </Grid2>
+
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
         <TextField
           sx={{  paddingTop: '10px' }}
@@ -55,9 +67,10 @@ export default function DadosPessoais() {
           type='date'
           id="nascimento"
           label= "Data de nascimento"
-          
+          value={nascimento}
+          onChange={(e) => setNascimento(e.target.value)}
           InputLabelProps={{
-            shrink: true, // Faz com que o label seja retraído para cima do campo
+            shrink: true
           }}
           
           
@@ -71,7 +84,8 @@ export default function DadosPessoais() {
         type='text'
         id='RG'
         label='RG'
-        
+        value={rg}
+        onChange={(e) => setRg(e.target.value) }
         
         /> 
           
@@ -84,7 +98,8 @@ export default function DadosPessoais() {
           required
           id="Celular"
           label="Contato"
-          
+          value={contato}
+          onChange={(e) => setContato(e.target.value) }
           
         />
       </Grid2>
@@ -97,7 +112,8 @@ export default function DadosPessoais() {
           required
           id="Responsavel"
           label="Responsavel"
-          
+          value={responsavel}
+          onChange={(e) => setResponsavel(e.target.value)}
           fullWidth
           
         /> 
@@ -111,19 +127,30 @@ export default function DadosPessoais() {
           
           labelId="Parentesco"
           id="Parentesco"
-          value={Parentesco}
-          onChange={handleChange}
+          value={parentesco}
+          onChange={(e) => setParentesco(e.target.value)}
         >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value={10}>Pai</MenuItem>
-          <MenuItem value={20}>Mãe</MenuItem>
-          <MenuItem value={30}>Avô/Avó</MenuItem>
+          <MenuItem value='Pai'>Pai</MenuItem>
+          <MenuItem value='Mãe'>Mãe</MenuItem>
+          <MenuItem value='Avô/Avó'>Avô/Avó</MenuItem>
         </Select>
       </FormControl>
       </Grid2>
 
+      <Grid2 item xs={12} sm={6} md={4} lg={3}>
+        <TextField
+          sx={{ width: '20ch', paddingTop: '10px' }}
+          required
+          id="Celular"
+          label="Contato Responsavel"
+          value={contatoResponsavel}
+          onChange={(e) => setContatoResponsavel(e.target.value) }
+          
+        />
+      </Grid2>
       
 
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
@@ -135,14 +162,15 @@ export default function DadosPessoais() {
           
           labelId="sexo"
           id="sexo"
-          value={Parentesco}
-          onChange={handleChange}
+          value={sexo}
+          onChange={(e) => setSexo(e.target.value)}
+          
         >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value={10}>Masculino</MenuItem>
-          <MenuItem value={20}>Feminino</MenuItem>
+          <MenuItem value='Masculino'>Masculino</MenuItem>
+          <MenuItem value='Feminino'>Feminino</MenuItem>
           
         </Select>
       </FormControl>
@@ -154,7 +182,8 @@ export default function DadosPessoais() {
           required
           id="mae"
           label="Nome da Mãe"
-          
+          value={mae}
+          onChange={(e) => setMae(e.target.value)}
           
         />
       </Grid2>
@@ -165,31 +194,23 @@ export default function DadosPessoais() {
           required
           id="pai"
           label="Nome do Pai"
-          
+          value={pai}
+          onChange={(e) => setPai(e.target.value)}
           
         />
       </Grid2>
 
       <Grid2 item xs={12} sm={6} md={4} lg={3} >
-      <FormControl  variant="standard" sx={{ minWidth: 120 }}
-          >
-        <InputLabel required id="Parentesco" shrink sx={{ fontSize: '1.2rem' }}>Nacionalidade</InputLabel>
-        
-        <Select
+      <TextField
+          sx={{ width: '50ch', paddingTop: '10px' }}
+          required
+          id="nacionalidade"
+          label="Nacionalidade"
+          value={nacionalidade}
+          onChange={(e) => setNacionalidade(e.target.value)}
           
-          labelId="Parentesco"
-          id="Parentesco"
-          value={Parentesco}
-          onChange={handleChange}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Brasileiro(a)</MenuItem>
-          <MenuItem value={20}>Argentino</MenuItem>
-          <MenuItem value={30}>Venezuelano</MenuItem>
-        </Select>
-      </FormControl>
+          
+        />
       </Grid2>
 
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
@@ -198,7 +219,8 @@ export default function DadosPessoais() {
           required
           id="naturalidade"
           label="Naturalidade"
-          
+          value={naturalidade}
+          onChange={(e) => setNaturalidade(e.target.value)}
           
         />
       </Grid2>

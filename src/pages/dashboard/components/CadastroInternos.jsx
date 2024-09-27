@@ -54,7 +54,7 @@ export default function CadastroInternos() {
       </Card>
 
       <Card sx={{ mb: 2, marginTop:'20px' }}>
-      <Typography component="h2" variant="h6" sx={{  mb: 4 }}>
+      <Typography component="h2" variant="h6" sx={{  mb: 3 }}>
         Endereço
         <Divider />
       </Typography>
@@ -62,7 +62,7 @@ export default function CadastroInternos() {
       <CadastroEndereco/>
       </Card>
       <Card sx={{ mb: 2, marginTop:'20px' }}>
-      <Typography component="h2" variant="h6" sx={{ mb: 4 }}>
+      <Typography component="h2" variant="h6" sx={{ mb: 3 }}>
         Dados Socio-Demograficos
         <Divider />
       </Typography>
@@ -71,7 +71,7 @@ export default function CadastroInternos() {
       </Card>
 
       <Card sx={{ mb: 2, marginTop:'20px' }}>
-        <Typography component="h2" variant="h6" sx={{ mb: 4 }}>
+        <Typography component="h2" variant="h6" sx={{ mb: 3 }}>
         Vinculos Sociais
         <Divider />
       </Typography>

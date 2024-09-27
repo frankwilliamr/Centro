@@ -10,13 +10,12 @@ import TextField from '@mui/material/TextField';
 export default function CadastroEndereco () {
     const [cep, setCep] = React.useState('');
     const [zona, setZona] = React.useState('');
-    const [endereco, setEndereco]= React.useState({
-        
-        cidade: '',
-        estado: '',
-        bairro: '',
-    });
     const [logradouro, setLogradouro] = React.useState('');
+    const [cidade, setCidade] = React.useState('');
+    const [estado, setEstado] = React.useState('');
+    const [bairro, setBairro] = React.useState('');
+    
+    
     const handleCepChange = async (event) => {
         const cepValue = event.target.value.replace(/\D/g, ''); // Remove non-numeric characters
         setCep(cepValue);
@@ -26,13 +25,11 @@ export default function CadastroEndereco () {
             const response = await axios.get(`https://viacep.com.br/ws/${cepValue}/json/`);
             const data = response.data;
             if (!data.erro) {
-              setEndereco({
-                
-                cidade: data.localidade || '',
-                estado: data.estado || '',
-                bairro: data.bairro || '',
-              });
+              
               setLogradouro(data.logradouro || '')
+              setCidade(data.localidade || '')
+              setEstado(data.estado || '')
+              setBairro(data.bairro || '')
             } else {
               alert('CEP não encontrado!');
             }
@@ -42,13 +39,7 @@ export default function CadastroEndereco () {
         }
       };
 
-      const handleEnderecoChange = (event) => {
-        const { name, value } = event.target;
-        setEndereco((prevEndereco) => ({
-          ...prevEndereco,
-          [name]: value,
-        }));
-      };
+      
 
       const handleChange = (event) => {
         setZona(event.target.value);
@@ -57,13 +48,13 @@ export default function CadastroEndereco () {
         <Grid2 container spacing={2} sx={{ width: '100%', margin: '0 auto', justifyContent: 'center'}}>
         <Grid2 item xs={12} sm={6} md={4} lg={3}>
         <TextField
-          sx={{ width: '30ch' }}
+          sx={{ width: '30ch', padding: '10px', paddingLeft: '5px', mr: -2 }}
           required
           
           label="CEP"
           value = {cep}
           onChange = {handleCepChange}
-          variant="standard"
+          
           
           
         />
@@ -71,52 +62,52 @@ export default function CadastroEndereco () {
       
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
         <TextField
-          sx={{ width: '30ch' }}
+          sx={{ width: '30ch', padding: '10px', paddingLeft: '5px', mr: -2}}
           
           name = 'bairro'
           label="Bairro"
-          value = {endereco.bairro}
-          onChange = {handleEnderecoChange}
-          variant="standard"
+          value = {bairro}
+          onChange = {(e) => setBairro(e.target.value)}
+          
           
           
         />
       </Grid2>
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
         <TextField
-          sx={{ width: '50ch' }}
+          sx={{ width: '50ch', padding: '10px', paddingLeft: '5px', mr: -2 }}
           required
           
           label="Endereço"
           value = {logradouro}
           onChange = {(e)=> setLogradouro(e.target.value)}
-          variant="standard"
+          
           
           
         />
       </Grid2>
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
         <TextField
-          sx={{ width: '30ch' }}
+          sx={{ width: '30ch', padding: '10px', paddingLeft: '5px', mr: -2 }}
           required
           name = 'cidade'
           label="Municipio de Residência"
-          value = {endereco.cidade}
-          onChange = {handleEnderecoChange}
-          variant="standard"
+          value = {cidade}
+          onChange = {(e) => setCidade(e.target.value)}
+          
           
           
         />
       </Grid2>
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
         <TextField
-          sx={{ width: '30ch' }}
+          sx={{ width: '30ch', padding: '10px', paddingLeft: '5px', mr: -2 }}
           required
           name = 'estado'
           label="Estado"
-          value = {endereco.estado}
-          onChange = {handleEnderecoChange}
-          variant="standard"
+          value = {estado}
+          onChange = {(e) => setEstado(e.target.value)}
+          
           
           
         />
@@ -125,7 +116,7 @@ export default function CadastroEndereco () {
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
       <FormControl variant="standard" sx={{ minWidth: 120 }}
           >
-        <InputLabel required id="sexo" shrink sx={{ fontSize: '1.2rem' }}>Zona</InputLabel>
+        <InputLabel required id="Zona" shrink sx={{ fontSize: '1.2rem' }}>Zona</InputLabel>
         
         <Select
           
