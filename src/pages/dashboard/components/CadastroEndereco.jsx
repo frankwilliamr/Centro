@@ -7,7 +7,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 
-export default function CadastroEndereco () {
+export default function CadastroEndereco ({onChange}) {
     const [cep, setCep] = React.useState('');
     const [zona, setZona] = React.useState('');
     const [logradouro, setLogradouro] = React.useState('');
@@ -15,6 +15,11 @@ export default function CadastroEndereco () {
     const [estado, setEstado] = React.useState('');
     const [bairro, setBairro] = React.useState('');
     
+    React.useEffect(() => {
+      onChange({
+        cep, zona, logradouro, cidade, estado, bairro
+      });
+    }, [cep, zona, logradouro, cidade, estado, bairro]);
     
     const handleCepChange = async (event) => {
         const cepValue = event.target.value.replace(/\D/g, ''); // Remove non-numeric characters

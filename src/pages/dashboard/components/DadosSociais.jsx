@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+
 import TextField from '@mui/material/TextField';
 import Grid2 from '@mui/material/Grid2';
 import Select from '@mui/material/Select';
@@ -7,50 +7,51 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 
-export default function DadosSociais(){
-  const [Ocupacao, setOcupacao] = useState ('');  
-  const [OutraOcupacao, setOutraOcupacao] = useState('');
+export default function DadosSociais({onChange}){
+  const [religiao, setReligiao] = React.useState ('');  
+  const [outraReligiao, setOutraReligiao] = React.useState('');
     
-    const handleChange = (event) => {
-        setOcupacao(event.target.value);
-      };
-      const handleOcupacaoChange = (event) => {
-        setOutraOcupacao(event.target.value);
-
-      };
+  React.useEffect(() => {
+    const religiaoFinal = religiao === 'outro' ? outraReligiao : religiao;
+    onChange({
+      religiao: religiaoFinal
+    });
+  }, [religiao, outraReligiao]);
+     
     return (
         <Grid2 container spacing={2} sx={{ width: '100%', margin: '0 auto', justifyContent: 'center', alignItems: 'flex-start' }}>
            <Grid2 item xs={12} sm={6} lg={3}  >
         <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
           >
-        <InputLabel required id="escolaridade" shrink sx={{ fontSize: '1.2rem' }}>Religião</InputLabel>
+        <InputLabel required id="religiao" shrink sx={{ fontSize: '1.2rem' }}>Religião</InputLabel>
         
         <Select
           sx={{ width: '20ch'}}
-          labelId="Parentesco"
-          id="Parentesco"
-          value={Ocupacao}
-          onChange={handleChange}
+          labelId="religiao"
+          id="religiao"
+          value={religiao}
+          onChange={(e) => setReligiao(e.target.value)}
         >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value='Desempregado'>Católico</MenuItem>
-          <MenuItem value='Empregado'>Protestante</MenuItem>
-          <MenuItem value='Autonomo'>Espírita</MenuItem>
-          <MenuItem value='Dona de Casa'>Candomblé</MenuItem>
-          <MenuItem value='Estudante'>Evangelico</MenuItem>
+          <MenuItem value='Católico'>Católico</MenuItem>
+          <MenuItem value='Protestante'>Protestante</MenuItem>
+          <MenuItem value='Espírita'>Espírita</MenuItem>
+          <MenuItem value='Candomblé'>Candomblé</MenuItem>
+          <MenuItem value='Evangelico'>Evangelico</MenuItem>
           <MenuItem value='outro'>Outros</MenuItem>
 
       
           
         </Select>
-        {Ocupacao === 'outro' && (
+
+        {religiao === 'outro' && (
         <TextField
           label="Outros"
           variant="standard"
-          value={OutraOcupacao}
-          onChange={handleOcupacaoChange}
+          value={outraReligiao}
+          onChange={(e) => setOutraReligiao(e.target.value)}
           sx={{ marginLeft: 2 }}
         />
       )}
@@ -66,8 +67,8 @@ export default function DadosSociais(){
           sx={{ width: '20ch'}}
           labelId="Parentesco"
           id="Parentesco"
-          value={Ocupacao}
-          onChange={handleChange}
+          
+          
         >
           <MenuItem value="">
             <em>None</em>
@@ -96,8 +97,7 @@ export default function DadosSociais(){
           sx={{ width: '20ch'}}
           labelId="Parentesco"
           id="Parentesco"
-          value={Ocupacao}
-          onChange={handleChange}
+         
         >
           <MenuItem value="">
             <em>None</em>
@@ -114,15 +114,7 @@ export default function DadosSociais(){
           <MenuItem value='outro'>Outro</MenuItem>
         </Select>
 
-        {Ocupacao === 'outro' && (
-        <TextField
-          label="Outro"
-          variant="standard"
-          value={OutraOcupacao}
-          onChange={handleOcupacaoChange}
-          sx={{ marginLeft: 2 }}
-        />
-      )}
+        
       </FormControl>
       </Grid2>
 
@@ -135,8 +127,7 @@ export default function DadosSociais(){
           sx={{ width: '20ch'}}
           labelId="Parentesco"
           id="Parentesco"
-          value={Ocupacao}
-          onChange={handleChange}
+       
         >
           <MenuItem value="">
             <em>None</em>
@@ -145,15 +136,7 @@ export default function DadosSociais(){
           <MenuItem value='outro'>Sim</MenuItem>
         </Select>
 
-        {Ocupacao === 'outro' && (
-        <TextField
-          label="Quais"
-          variant="standard"
-          value={OutraOcupacao}
-          onChange={handleOcupacaoChange}
-          sx={{ marginLeft: 2 }}
-        />
-      )}
+     
       </FormControl>
       </Grid2>
       <Grid2 item xs={12} sm={6} lg={3}  >
@@ -165,8 +148,7 @@ export default function DadosSociais(){
           sx={{ width: '20ch'}}
           labelId="Parentesco"
           id="Parentesco"
-          value={Ocupacao}
-          onChange={handleChange}
+        
         >
           <MenuItem value="">
             <em>None</em>
@@ -177,15 +159,7 @@ export default function DadosSociais(){
 
         </Select>
 
-        {Ocupacao === 'outro' && (
-        <TextField
-          label="Outros"
-          variant="standard"
-          value={OutraOcupacao}
-          onChange={handleOcupacaoChange}
-          sx={{ marginLeft: 2 }}
-        />
-      )}
+     
       </FormControl>
       </Grid2>
 
@@ -198,8 +172,7 @@ export default function DadosSociais(){
           sx={{ width: '20ch'}}
           labelId="Parentesco"
           id="Parentesco"
-          value={Ocupacao}
-          onChange={handleChange}
+         
         >
           <MenuItem value="">
             <em>None</em>
@@ -213,15 +186,7 @@ export default function DadosSociais(){
           <MenuItem value='outro'>Outro</MenuItem>
         </Select>
 
-        {Ocupacao === 'outro' && (
-        <TextField
-          label="Outro"
-          variant="standard"
-          value={OutraOcupacao}
-          onChange={handleOcupacaoChange}
-          sx={{ marginLeft: 2 }}
-        />
-      )}
+   
       </FormControl>
       </Grid2>
 

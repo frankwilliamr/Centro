@@ -10,7 +10,7 @@ import Grid2 from '@mui/material/Grid2';
 
 
 
-export default function DadosPessoais() {
+export default function DadosPessoais({onChange}) {
   const [nome, setNome] = React.useState('');
   const [cpf, setCpf] = React.useState('');
   const [nascimento, setNascimento] = React.useState('');
@@ -25,8 +25,13 @@ export default function DadosPessoais() {
   const [nacionalidade, setNacionalidade] = React.useState(''); 
   const [naturalidade, setNaturalidade] = React.useState('');
 
- 
-
+  React.useEffect(() => {
+    onChange({
+      nome, cpf, nascimento, rg, contato, responsavel, parentesco,
+      contatoResponsavel, sexo, mae, pai, nacionalidade, naturalidade
+    });
+  }, [nome, cpf, nascimento, rg, contato, responsavel, parentesco, 
+      contatoResponsavel, sexo, mae, pai, nacionalidade, naturalidade]);
   
   
   return (
