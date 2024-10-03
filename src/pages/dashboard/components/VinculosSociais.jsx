@@ -7,50 +7,43 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 
-export default function VinculosSociais(){
-  const [Ocupacao, setOcupacao] = useState ('');  
-  const [OutraOcupacao, setOutraOcupacao] = useState('');
+export default function VinculosSociais({receberOcupacao, receberDados, receberOutraOcupacao, outraOcupacao}){
+  
     
-    const handleChange = (event) => {
-        setOcupacao(event.target.value);
-      };
-      const handleOcupacaoChange = (event) => {
-        setOutraOcupacao(event.target.value);
-
-      };
+    
     return (
         <Grid2 container spacing={2} sx={{ width: '100%', margin: '0 auto', justifyContent: 'center', alignItems: 'flex-start' }}>
            <Grid2 item xs={12} sm={6} lg={3}  >
         <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
           >
-        <InputLabel required id="escolaridade" shrink sx={{ fontSize: '1.2rem' }}>Situação Conjugal</InputLabel>
+        <InputLabel required id="ocupacao" shrink sx={{ fontSize: '1.2rem' }}>Situação Conjugal</InputLabel>
         
         <Select
           sx={{ width: '20ch'}}
-          labelId="Parentesco"
-          id="Parentesco"
-          value={Ocupacao}
-          onChange={handleChange}
+          labelId="ocupacao"
+          id="ocupacao"
+          value={receberOcupacao}
+          onChange={(e) => receberDados(e.target.value)}
         >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value='Desempregado'>Solteiro</MenuItem>
-          <MenuItem value='Empregado'>Separado de fato, não legalmente</MenuItem>
-          <MenuItem value='Autonomo'>Viúvo</MenuItem>
-          <MenuItem value='Dona de Casa'>Casado ou unido consensualmente</MenuItem>
-          <MenuItem value='Estudante'>Divorciado legalmente</MenuItem>
+          <MenuItem value='Solteiro'>Solteiro</MenuItem>
+          <MenuItem value='Separado de fato, não legalmente'>Separado de fato, não legalmente</MenuItem>
+          <MenuItem value='Viúvo'>Viúvo</MenuItem>
+          <MenuItem value='Dona deCasado ou unido consensualmente'>Casado ou unido consensualmente</MenuItem>
+          <MenuItem value='Divorciado legalmente'>Divorciado legalmente</MenuItem>
           <MenuItem value='outro'>Outros</MenuItem>
 
       
           
         </Select>
-        {Ocupacao === 'outro' && (
+        {receberOcupacao === 'outro' && (
         <TextField
           label="Outros"
           variant="standard"
-          value={OutraOcupacao}
-          onChange={handleOcupacaoChange}
+          value={outraOcupacao}
+          onChange={(e) => receberOutraOcupacao(e.target.value)}
           sx={{ marginLeft: 2 }}
         />
       )}
@@ -66,8 +59,7 @@ export default function VinculosSociais(){
           sx={{ width: '30ch'}}
           labelId="Parentesco"
           id="Parentesco"
-          value={Ocupacao}
-          onChange={handleChange}
+          
         >
           <MenuItem value="">
             <em>None</em>
@@ -79,12 +71,11 @@ export default function VinculosSociais(){
           <MenuItem value='outro'>Outros</MenuItem>
           
         </Select>
-        {Ocupacao === 'outro' && (
+        {receberOcupacao === 'outro' && (
         <TextField
           label="Outro"
           variant="standard"
-          value={OutraOcupacao}
-          onChange={handleOcupacaoChange}
+          
           sx={{ marginLeft: 2 }}
         />
       )}
@@ -101,8 +92,7 @@ export default function VinculosSociais(){
           sx={{ width: '30ch'}}
           labelId="Parentesco"
           id="Parentesco"
-          value={Ocupacao}
-          onChange={handleChange}
+         
         >
           <MenuItem value="">
             <em>None</em>

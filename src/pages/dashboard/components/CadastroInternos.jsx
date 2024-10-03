@@ -22,6 +22,11 @@ export default function CadastroInternos() {
   const [dadosPessoais, setDadosPessoais] = React.useState({});
   const [dadosEndereco, setDadosEndereco] = React.useState({}); 
   const [dadosSociais, setDadosSociais] = React.useState({})
+
+  const [ocupacao, setOcupacao] = React.useState ('');  
+  const [outraOcupacao, setOutraOcupacao] = React.useState('');
+  
+
   const timer = React.useRef(null);
 
   const handleSubmit = async () => {
@@ -31,30 +36,31 @@ export default function CadastroInternos() {
     setLoading(true);
 
     try {
+      const ocupacaoFinal = ocupacao === 'outro' ? outraOcupacao : ocupacao;
+      
       // Unindo os dados de diferentes componentes
       const dadosParaEnvio = {
         ...dadosPessoais,
         ...dadosEndereco,
         ...dadosSociais,
+        ocupacaoFinal,
+        
       };
-
+            
       // Enviando os dados via axios
       const response = await axios.post('https://jsonplaceholder.typicode.com/posts', dadosParaEnvio);
       console.log('Dados enviados com sucesso:', response.data);
       
+      
       // Se os dados forem enviados com sucesso, define success como true
-      timer.current = setTimeout(() => {
-        setSuccess(true);
-      }, 2000);
+      setLoading(false);
+      setSuccess(true);
+      
       
     } catch (error) {
       console.error('Erro ao enviar os dados:', error);
-    } finally {
-      // Após 2 segundos, retorna ao estado inicial
-      timer.current = setTimeout(() => {
-        setLoading(false);
-      }, 2000);
-    }
+      setLoading(false);
+    } 
   };
 
   // Função callback que vai receber os dados do componente filho
@@ -115,7 +121,11 @@ export default function CadastroInternos() {
         <Divider />
       </Typography>
 
-      <VinculosSociais/>
+      <VinculosSociais 
+      receberDados={setOcupacao}
+      receberOcupacao={ocupacao}
+      receberOutraOcupacao={setOutraOcupacao}
+      />
       </Card>
       
     <Box sx={{ m: 4, position: 'relative', display: 'flex', justifyContent: 'center' }}>

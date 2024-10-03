@@ -10,13 +10,28 @@ import MenuItem from '@mui/material/MenuItem';
 export default function DadosSociais({onChange}){
   const [religiao, setReligiao] = React.useState ('');  
   const [outraReligiao, setOutraReligiao] = React.useState('');
+  const [escolaridade, setEscolaridade] = React.useState('');
+  const [ocupacao, setOcupacao] = React.useState('');
+  const [OutraOcupacao, setOutraOcupaccao] = React.useState('');
+  const [previdencia, setPrevidencia] = React.useState('');
+  const [outraPrevidencia, setOutraPrevidencia] = React.useState('');
+  const [beneficios, setBeneficios] = React.useState('');
+  const [outrosBeneficios, setOutrosBeneficios] = React.useState('');
+  const [moradia, setMoradia] = React.useState('');
+  const [outraMoradia, setOutraMoradia] = React.useState('');
+
     
   React.useEffect(() => {
     const religiaoFinal = religiao === 'outro' ? outraReligiao : religiao;
+    const ocupacaoFinal = ocupacao === 'outro' ? OutraOcupacao : ocupacao;
+    const previdenciaFinal = previdencia === 'sim' ? outraPrevidencia : previdencia;
+    const beneficiosFinal = beneficios === 'outro' ? outrosBeneficios : beneficios;
+    const moradiaFinal = moradia === 'outro' ? outraMoradia : moradia;
+
     onChange({
-      religiao: religiaoFinal
+      religiao: religiaoFinal, ocupacao: ocupacaoFinal, previdencia: previdenciaFinal, beneficios: beneficiosFinal, moradia: moradiaFinal
     });
-  }, [religiao, outraReligiao]);
+  }, [religiao, outraReligiao, ocupacao, OutraOcupacao, previdencia, outraPrevidencia, beneficios, outrosBeneficios, moradia, outraMoradia ]);
      
     return (
         <Grid2 container spacing={2} sx={{ width: '100%', margin: '0 auto', justifyContent: 'center', alignItems: 'flex-start' }}>
@@ -65,22 +80,23 @@ export default function DadosSociais({onChange}){
         
         <Select
           sx={{ width: '20ch'}}
-          labelId="Parentesco"
-          id="Parentesco"
-          
+          labelId="escolaridade"
+          id="escolaridade"
+          value={escolaridade}
+          onChange={(e) => setEscolaridade(e.target.value)}
           
         >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value='Desempregado'>Analfabeto</MenuItem>
-          <MenuItem value='Empregado'>1º Grau inclompelto</MenuItem>
-          <MenuItem value='Autonomo'>2º Grau inclompelto</MenuItem>
-          <MenuItem value='Dona de Casa'>3º Grau inclompelto</MenuItem>
-          <MenuItem value='Estudante'>Analfabeto (Escreve o nome)</MenuItem>
-          <MenuItem value='EmpregadoFixo'>1º Grau completo</MenuItem>
-          <MenuItem value='Empregador'>2º Grau completo</MenuItem>
-          <MenuItem value='Mercado Informal'>3º Grau completo</MenuItem>
+          <MenuItem value='Analfabeto'>Analfabeto</MenuItem>
+          <MenuItem value='1º Grau inclompelto'>1º Grau inclompelto</MenuItem>
+          <MenuItem value='2º Grau inclompelto'>2º Grau inclompelto</MenuItem>
+          <MenuItem value='3º Grau inclompelto'>3º Grau inclompelto</MenuItem>
+          <MenuItem value='Analfabeto (Escreve o nome)'>Analfabeto (Escreve o nome)</MenuItem>
+          <MenuItem value='1º Grau completo'>1º Grau completo</MenuItem>
+          <MenuItem value='2º Grau completo'>2º Grau completo</MenuItem>
+          <MenuItem value='3º Grau completo'>3º Grau completo</MenuItem>
           
         </Select>
 
@@ -91,13 +107,14 @@ export default function DadosSociais({onChange}){
         <Grid2 item xs={12} sm={6} lg={3}  >
         <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
           >
-        <InputLabel required id="Ocupacao" shrink sx={{ fontSize: '1.2rem' }}>Ocupação Atual</InputLabel>
+        <InputLabel required id="ocupacao" shrink sx={{ fontSize: '1.2rem' }}>Ocupação Atual</InputLabel>
         
         <Select
           sx={{ width: '20ch'}}
-          labelId="Parentesco"
-          id="Parentesco"
-         
+          labelId="ocupacao"
+          id="ocupacao"
+         value={ocupacao}
+         onChange={(e) => setOcupacao(e.target.value)}
         >
           <MenuItem value="">
             <em>None</em>
@@ -113,7 +130,16 @@ export default function DadosSociais({onChange}){
           <MenuItem value='Aposentado'>Aposentado</MenuItem>
           <MenuItem value='outro'>Outro</MenuItem>
         </Select>
-
+        
+        {ocupacao === 'outro' && (
+        <TextField
+          label="Outros"
+          variant="standard"
+          value={OutraOcupacao}
+          onChange={(e) => setOutraOcupaccao(e.target.value)}
+          sx={{ marginLeft: 2 }}
+        />
+      )}
         
       </FormControl>
       </Grid2>
@@ -121,43 +147,61 @@ export default function DadosSociais({onChange}){
       <Grid2 item xs={12} sm={6} lg={3}  >
         <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
           >
-        <InputLabel required id="Ocupacao" shrink sx={{ fontSize: '1.2rem' }}>Vinculo previdênciario</InputLabel>
+        <InputLabel required id="previdencia" shrink sx={{ fontSize: '1.2rem' }}>Vinculo previdênciario</InputLabel>
         
         <Select
           sx={{ width: '20ch'}}
-          labelId="Parentesco"
-          id="Parentesco"
+          labelId="previdencia"
+          id="previdencia"
+          value={previdencia}
+          onChange={(e) => setPrevidencia(e.target.value)}
        
         >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value='Desempregado'  >Não</MenuItem>
-          <MenuItem value='outro'>Sim</MenuItem>
+          <MenuItem value='Não'  >Não</MenuItem>
+          <MenuItem value='sim'>Sim</MenuItem>
         </Select>
 
-     
+        {previdencia === 'sim' && (
+        <TextField
+          label="Quais"
+          variant="standard"
+          value={outraPrevidencia}
+          onChange={(e) => setOutraPrevidencia(e.target.value)}
+          sx={{ marginLeft: 2 }}
+        />)}
+
       </FormControl>
       </Grid2>
       <Grid2 item xs={12} sm={6} lg={3}  >
         <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
           >
-        <InputLabel required id="Ocupacao" shrink sx={{ fontSize: '1.2rem' }}>Benefícios Sociais</InputLabel>
+        <InputLabel required id="beneficio" shrink sx={{ fontSize: '1.2rem' }}>Benefícios Sociais</InputLabel>
         
         <Select
           sx={{ width: '20ch'}}
-          labelId="Parentesco"
-          id="Parentesco"
+          labelId="beneficio"
+          id="beneficio"
         
         >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value='Desempregado'  >BPC</MenuItem>
-          <MenuItem value='bolsa'>Bolsa Família</MenuItem>
+          <MenuItem value='BPC'>BPC</MenuItem>
+          <MenuItem value='Bolsa Família'>Bolsa Família</MenuItem>
           <MenuItem value='outro'>Outros</MenuItem>
 
         </Select>
+        {beneficios === 'outros' && (
+        <TextField
+          label="Outros"
+          variant="standard"
+          value={outrosBeneficios}
+          onChange={(e) => setOutrosBeneficios(e.target.value)}
+          sx={{ marginLeft: 2 }}
+        />)}
 
      
       </FormControl>
@@ -172,20 +216,30 @@ export default function DadosSociais({onChange}){
           sx={{ width: '20ch'}}
           labelId="Parentesco"
           id="Parentesco"
+          value={moradia}
+          onChange={(e) => setMoradia(e.target.value)}
          
         >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value='Desempregado'  >Em situação de rua</MenuItem>
-          <MenuItem value='Empregado'>Albergado em abrigos públicos</MenuItem>
-          <MenuItem value='Autonomo'>Serviço residencial terapêutico</MenuItem>
-          <MenuItem value='Dona de Casa'>Não possui residência fixa</MenuItem>
-          <MenuItem value='Estudante'>Moradia regular sozinho</MenuItem>
-          <MenuItem value='EmpregadoFixo'>Moradia regular com familiar</MenuItem>
+          <MenuItem value='Em situação de rua'  >Em situação de rua</MenuItem>
+          <MenuItem value='Albergado em abrigos públicos'>Albergado em abrigos públicos</MenuItem>
+          <MenuItem value='Serviço residencial terapêutico'>Serviço residencial terapêutico</MenuItem>
+          <MenuItem value='Não possui residência fixa'>Não possui residência fixa</MenuItem>
+          <MenuItem value='Moradia regular sozinho'>Moradia regular sozinho</MenuItem>
+          <MenuItem value='Moradia regular com familiar'>Moradia regular com familiar</MenuItem>
           <MenuItem value='outro'>Outro</MenuItem>
         </Select>
-
+        {moradia === 'outro' && (
+        <TextField
+          label="Outros"
+          variant="standard"
+          value={outraMoradia}
+          onChange={(e) => setOutraMoradia(e.target.value)}
+          sx={{ marginLeft: 2 }}
+        />
+      )}
    
       </FormControl>
       </Grid2>
