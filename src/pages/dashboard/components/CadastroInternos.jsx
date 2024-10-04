@@ -18,13 +18,23 @@ import axios from 'axios';
 export default function CadastroInternos() {
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
-  
-  const [dadosPessoais, setDadosPessoais] = React.useState({});
-  const [dadosEndereco, setDadosEndereco] = React.useState({}); 
-  const [dadosSociais, setDadosSociais] = React.useState({})
 
-  const [ocupacao, setOcupacao] = React.useState ('');  
-  const [outraOcupacao, setOutraOcupacao] = React.useState('');
+  //Dados Sociais
+  const [religiao, setReligiao] = React.useState ('');  
+  const [outraReligiao, setOutraReligiao] = React.useState('');
+  const [escolaridade, setEscolaridade] = React.useState('');
+  const [ocupacao, setOcupacao] = React.useState('');
+  const [outraOcupacao, setOutraOcupaccao] = React.useState('');
+  const [previdencia, setPrevidencia] = React.useState('');
+  const [outraPrevidencia, setOutraPrevidencia] = React.useState('');
+  const [beneficios, setBeneficios] = React.useState('');
+  const [outrosBeneficios, setOutrosBeneficios] = React.useState('');
+  const [moradia, setMoradia] = React.useState('');
+  const [outraMoradia, setOutraMoradia] = React.useState('');
+  
+  //Vinculos Sociais
+  
+  
   
 
   const timer = React.useRef(null);
@@ -36,14 +46,22 @@ export default function CadastroInternos() {
     setLoading(true);
 
     try {
+      //Dados Sociais - Verificando se a opção outros foi utilizada.
+      const religiaoFinal = religiao === 'outro' ? outraReligiao : religiao;
       const ocupacaoFinal = ocupacao === 'outro' ? outraOcupacao : ocupacao;
-      
+      const previdenciaFinal = previdencia === 'sim' ? outraPrevidencia : previdencia;
+      const beneficiosFinal = beneficios === 'outro' ? outrosBeneficios : beneficios;
+      const moradiaFinal = moradia === 'outro' ? outraMoradia : moradia;
+
       // Unindo os dados de diferentes componentes
       const dadosParaEnvio = {
-        ...dadosPessoais,
-        ...dadosEndereco,
-        ...dadosSociais,
+        //Dados Sociais
+        religiaoFinal,
+        escolaridade,
         ocupacaoFinal,
+        previdenciaFinal,
+        beneficiosFinal,
+        moradiaFinal,
         
       };
             
@@ -63,17 +81,7 @@ export default function CadastroInternos() {
     } 
   };
 
-  // Função callback que vai receber os dados do componente filho
-  const receberDadosPessoais = (dados) => {
-    setDadosPessoais(dados);
-  };
-  const receberDadosEndereco = (dados) => {
-    setDadosEndereco(dados);
-  };
-  const receberDadosSociais = (dados) => {
-    setDadosSociais(dados);
-  };
-
+  
   const buttonSx = {
     ...(success && {
       bgcolor: green[500],
@@ -95,7 +103,7 @@ export default function CadastroInternos() {
         <Divider />
       </Typography>
       
-      <DadosPessoais onChange={receberDadosPessoais}/>
+      <DadosPessoais />
       </Card>
 
       <Card sx={{ mb: 2, marginTop:'20px' }}>
@@ -104,7 +112,7 @@ export default function CadastroInternos() {
         <Divider />
       </Typography>
 
-      <CadastroEndereco onChange={receberDadosEndereco}/>
+      <CadastroEndereco />
       </Card>
       <Card sx={{ mb: 2, marginTop:'20px' }}>
       <Typography component="h2" variant="h6" sx={{ mb: 3 }}>
@@ -112,7 +120,26 @@ export default function CadastroInternos() {
         <Divider/>
       </Typography>
 
-        <DadosSociais onChange={receberDadosSociais} />
+        <DadosSociais 
+        receberReligiao={religiao} 
+        alterarReligiao={setReligiao}
+        alterarOutraReligiao={setOutraReligiao}
+        receberEscolaridade={escolaridade}
+        alterarEscolaridade={setEscolaridade}
+        receberOcupacao={ocupacao}
+        alterarOcupacao={setOcupacao}
+        alterarOutraOcupacao={setOutraOcupaccao}
+        receberPrevidencia={previdencia}
+        alterarPrevidencia={setPrevidencia}
+        alterarOutraPrevidencia={setOutraPrevidencia}
+        receberBeneficios={beneficios}
+        alterarBeneficios={setBeneficios}
+        alterarOutrosBeneficios={setOutrosBeneficios}
+        receberMoradia={moradia}
+        alterarMoradia={setMoradia}
+        alterarOutraMoradia={setOutraMoradia}
+        
+        />
       </Card>
 
       <Card sx={{ mb: 2, marginTop:'20px' }}>
@@ -122,9 +149,7 @@ export default function CadastroInternos() {
       </Typography>
 
       <VinculosSociais 
-      receberDados={setOcupacao}
-      receberOcupacao={ocupacao}
-      receberOutraOcupacao={setOutraOcupacao}
+      
       />
       </Card>
       

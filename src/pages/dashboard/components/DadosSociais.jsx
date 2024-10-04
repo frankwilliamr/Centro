@@ -7,31 +7,28 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 
-export default function DadosSociais({onChange}){
-  const [religiao, setReligiao] = React.useState ('');  
-  const [outraReligiao, setOutraReligiao] = React.useState('');
-  const [escolaridade, setEscolaridade] = React.useState('');
-  const [ocupacao, setOcupacao] = React.useState('');
-  const [OutraOcupacao, setOutraOcupaccao] = React.useState('');
-  const [previdencia, setPrevidencia] = React.useState('');
-  const [outraPrevidencia, setOutraPrevidencia] = React.useState('');
-  const [beneficios, setBeneficios] = React.useState('');
-  const [outrosBeneficios, setOutrosBeneficios] = React.useState('');
-  const [moradia, setMoradia] = React.useState('');
-  const [outraMoradia, setOutraMoradia] = React.useState('');
+export default function DadosSociais({ receberReligiao,
+  alterarReligiao,
+  alterarOutraReligiao,
+  receberEscolaridade,
+  alterarEscolaridade,
+  receberOcupacao,
+  alterarOcupacao,
+  alterarOutraOcupacao,
+  receberPrevidencia,
+  alterarPrevidencia,
+  alterarOutraPrevidencia,
+  receberBeneficios,
+  alterarBeneficios,
+  alterarOutrosBeneficios,
+  receberMoradia,
+  alterarMoradia,
+  alterarOutraMoradia
+}){
+ 
 
     
-  React.useEffect(() => {
-    const religiaoFinal = religiao === 'outro' ? outraReligiao : religiao;
-    const ocupacaoFinal = ocupacao === 'outro' ? OutraOcupacao : ocupacao;
-    const previdenciaFinal = previdencia === 'sim' ? outraPrevidencia : previdencia;
-    const beneficiosFinal = beneficios === 'outro' ? outrosBeneficios : beneficios;
-    const moradiaFinal = moradia === 'outro' ? outraMoradia : moradia;
-
-    onChange({
-      religiao: religiaoFinal, ocupacao: ocupacaoFinal, previdencia: previdenciaFinal, beneficios: beneficiosFinal, moradia: moradiaFinal
-    });
-  }, [religiao, outraReligiao, ocupacao, OutraOcupacao, previdencia, outraPrevidencia, beneficios, outrosBeneficios, moradia, outraMoradia ]);
+  
      
     return (
         <Grid2 container spacing={2} sx={{ width: '100%', margin: '0 auto', justifyContent: 'center', alignItems: 'flex-start' }}>
@@ -44,8 +41,8 @@ export default function DadosSociais({onChange}){
           sx={{ width: '20ch'}}
           labelId="religiao"
           id="religiao"
-          value={religiao}
-          onChange={(e) => setReligiao(e.target.value)}
+          value={receberReligiao}
+          onChange={(e) => alterarReligiao(e.target.value)}
         >
           <MenuItem value="">
             <em>None</em>
@@ -61,12 +58,12 @@ export default function DadosSociais({onChange}){
           
         </Select>
 
-        {religiao === 'outro' && (
+        {receberReligiao === 'outro' && (
         <TextField
           label="Outros"
           variant="standard"
-          value={outraReligiao}
-          onChange={(e) => setOutraReligiao(e.target.value)}
+          
+          onChange={(e) => alterarOutraReligiao(e.target.value)}
           sx={{ marginLeft: 2 }}
         />
       )}
@@ -82,8 +79,8 @@ export default function DadosSociais({onChange}){
           sx={{ width: '20ch'}}
           labelId="escolaridade"
           id="escolaridade"
-          value={escolaridade}
-          onChange={(e) => setEscolaridade(e.target.value)}
+          value={receberEscolaridade}
+          onChange={(e) => alterarEscolaridade(e.target.value)}
           
         >
           <MenuItem value="">
@@ -113,8 +110,8 @@ export default function DadosSociais({onChange}){
           sx={{ width: '20ch'}}
           labelId="ocupacao"
           id="ocupacao"
-         value={ocupacao}
-         onChange={(e) => setOcupacao(e.target.value)}
+         value={receberOcupacao}
+         onChange={(e) => alterarOcupacao(e.target.value)}
         >
           <MenuItem value="">
             <em>None</em>
@@ -131,12 +128,12 @@ export default function DadosSociais({onChange}){
           <MenuItem value='outro'>Outro</MenuItem>
         </Select>
         
-        {ocupacao === 'outro' && (
+        {receberOcupacao === 'outro' && (
         <TextField
           label="Outros"
           variant="standard"
-          value={OutraOcupacao}
-          onChange={(e) => setOutraOcupaccao(e.target.value)}
+          
+          onChange={(e) => alterarOutraOcupacao(e.target.value)}
           sx={{ marginLeft: 2 }}
         />
       )}
@@ -153,8 +150,8 @@ export default function DadosSociais({onChange}){
           sx={{ width: '20ch'}}
           labelId="previdencia"
           id="previdencia"
-          value={previdencia}
-          onChange={(e) => setPrevidencia(e.target.value)}
+          value={receberPrevidencia}
+          onChange={(e) => alterarPrevidencia(e.target.value)}
        
         >
           <MenuItem value="">
@@ -164,12 +161,12 @@ export default function DadosSociais({onChange}){
           <MenuItem value='sim'>Sim</MenuItem>
         </Select>
 
-        {previdencia === 'sim' && (
+        {receberPrevidencia === 'sim' && (
         <TextField
           label="Quais"
           variant="standard"
-          value={outraPrevidencia}
-          onChange={(e) => setOutraPrevidencia(e.target.value)}
+          
+          onChange={(e) => alterarOutraPrevidencia(e.target.value)}
           sx={{ marginLeft: 2 }}
         />)}
 
@@ -184,6 +181,8 @@ export default function DadosSociais({onChange}){
           sx={{ width: '20ch'}}
           labelId="beneficio"
           id="beneficio"
+          value={receberBeneficios}
+          onChange={(e) => alterarBeneficios(e.target.value)}
         
         >
           <MenuItem value="">
@@ -194,12 +193,12 @@ export default function DadosSociais({onChange}){
           <MenuItem value='outro'>Outros</MenuItem>
 
         </Select>
-        {beneficios === 'outros' && (
+        {receberBeneficios === 'outro' && (
         <TextField
           label="Outros"
           variant="standard"
-          value={outrosBeneficios}
-          onChange={(e) => setOutrosBeneficios(e.target.value)}
+          
+          onChange={(e) => alterarOutrosBeneficios(e.target.value)}
           sx={{ marginLeft: 2 }}
         />)}
 
@@ -216,8 +215,8 @@ export default function DadosSociais({onChange}){
           sx={{ width: '20ch'}}
           labelId="Parentesco"
           id="Parentesco"
-          value={moradia}
-          onChange={(e) => setMoradia(e.target.value)}
+          value={receberMoradia}
+          onChange={(e) => alterarMoradia(e.target.value)}
          
         >
           <MenuItem value="">
@@ -231,12 +230,12 @@ export default function DadosSociais({onChange}){
           <MenuItem value='Moradia regular com familiar'>Moradia regular com familiar</MenuItem>
           <MenuItem value='outro'>Outro</MenuItem>
         </Select>
-        {moradia === 'outro' && (
+        {receberMoradia === 'outro' && (
         <TextField
           label="Outros"
           variant="standard"
-          value={outraMoradia}
-          onChange={(e) => setOutraMoradia(e.target.value)}
+          
+          onChange={(e) => alterarOutraMoradia(e.target.value)}
           sx={{ marginLeft: 2 }}
         />
       )}
