@@ -10,20 +10,33 @@ import Grid2 from '@mui/material/Grid2';
 
 
 
-export default function DadosPessoais() {
-  const [nome, setNome] = React.useState('');
-  const [cpf, setCpf] = React.useState('');
-  const [nascimento, setNascimento] = React.useState('');
-  const [rg, setRg] = React.useState('');
-  const [contato, setContato] = React.useState('');
-  const [responsavel, setResponsavel] = React.useState('');
-  const [parentesco, setParentesco] = React.useState('');
-  const [contatoResponsavel, setContatoResponsavel] = React.useState('');
-  const [sexo, setSexo] = React.useState('');
-  const [mae, setMae] = React.useState('');
-  const [pai, setPai] = React.useState('');
-  const [nacionalidade, setNacionalidade] = React.useState(''); 
-  const [naturalidade, setNaturalidade] = React.useState('');
+export default function DadosPessoais({alterarNome,
+  alterarCpf,
+  alterarNascimento,
+  alterarRg,
+  alterarContato,
+  alterarResponsavel,
+  alterarParentesco,
+  alterarContatoResponsavel,
+  alterarSexo,
+  alterarMae,
+  alterarPai,
+  alterarNacionalidade,
+  alterarNaturalidade,
+  nome,
+  cpf,
+  nascimento,
+  rg,
+  contato,
+  responsavel,
+  parentesco,
+  contatoResponsavel,
+  sexo,
+  mae,
+  pai,
+  nacionalidade,
+  naturalidade,}) {
+  
 
  
   
@@ -40,7 +53,7 @@ export default function DadosPessoais() {
           id="outlined-required"
           label="Nome Completo"
           value={nome}
-          onChange={(e)=> setNome(e.target.value)}
+          onChange={(e)=> alterarNome(e.target.value)}
           
           
         />
@@ -53,7 +66,7 @@ export default function DadosPessoais() {
           id="CPF"
           label="CPF"
           value={cpf}
-          onChange={(e) => setCpf(e.target.value)}
+          onChange={(e) => alterarCpf(e.target.value)}
           
           
         />
@@ -67,7 +80,7 @@ export default function DadosPessoais() {
           id="nascimento"
           label= "Data de nascimento"
           value={nascimento}
-          onChange={(e) => setNascimento(e.target.value)}
+          onChange={(e) => alterarNascimento(e.target.value)}
           InputLabelProps={{
             shrink: true
           }}
@@ -84,7 +97,7 @@ export default function DadosPessoais() {
         id='RG'
         label='RG'
         value={rg}
-        onChange={(e) => setRg(e.target.value) }
+        onChange={(e) => alterarRg(e.target.value) }
         
         /> 
           
@@ -98,7 +111,7 @@ export default function DadosPessoais() {
           id="Celular"
           label="Contato"
           value={contato}
-          onChange={(e) => setContato(e.target.value) }
+          onChange={(e) => alterarContato(e.target.value) }
           
         />
       </Grid2>
@@ -112,7 +125,7 @@ export default function DadosPessoais() {
           id="Responsavel"
           label="Responsavel"
           value={responsavel}
-          onChange={(e) => setResponsavel(e.target.value)}
+          onChange={(e) => alterarResponsavel(e.target.value)}
           fullWidth
           
         /> 
@@ -127,7 +140,7 @@ export default function DadosPessoais() {
           labelId="Parentesco"
           id="Parentesco"
           value={parentesco}
-          onChange={(e) => setParentesco(e.target.value)}
+          onChange={(e) => alterarParentesco(e.target.value)}
         >
           <MenuItem value="">
             <em>None</em>
@@ -143,10 +156,10 @@ export default function DadosPessoais() {
         <TextField
           sx={{ width: '20ch', paddingTop: '10px' }}
           required
-          id="Celular"
+          id="ContatoResponsavel"
           label="Contato Responsavel"
           value={contatoResponsavel}
-          onChange={(e) => setContatoResponsavel(e.target.value) }
+          onChange={(e) => alterarContatoResponsavel(e.target.value) }
           
         />
       </Grid2>
@@ -162,7 +175,7 @@ export default function DadosPessoais() {
           labelId="sexo"
           id="sexo"
           value={sexo}
-          onChange={(e) => setSexo(e.target.value)}
+          onChange={(e) => alterarSexo(e.target.value)}
           
         >
           <MenuItem value="">
@@ -182,7 +195,7 @@ export default function DadosPessoais() {
           id="mae"
           label="Nome da Mãe"
           value={mae}
-          onChange={(e) => setMae(e.target.value)}
+          onChange={(e) => alterarMae(e.target.value)}
           
         />
       </Grid2>
@@ -194,7 +207,7 @@ export default function DadosPessoais() {
           id="pai"
           label="Nome do Pai"
           value={pai}
-          onChange={(e) => setPai(e.target.value)}
+          onChange={(e) => alterarPai(e.target.value)}
           
         />
       </Grid2>
@@ -206,7 +219,7 @@ export default function DadosPessoais() {
           id="nacionalidade"
           label="Nacionalidade"
           value={nacionalidade}
-          onChange={(e) => setNacionalidade(e.target.value)}
+          onChange={(e) => alterarNacionalidade(e.target.value)}
           
           
         />
@@ -219,7 +232,7 @@ export default function DadosPessoais() {
           id="naturalidade"
           label="Naturalidade"
           value={naturalidade}
-          onChange={(e) => setNaturalidade(e.target.value)}
+          onChange={(e) => alterarNaturalidade(e.target.value)}
           
         />
       </Grid2>

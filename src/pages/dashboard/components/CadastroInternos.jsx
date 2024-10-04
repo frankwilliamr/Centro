@@ -19,6 +19,21 @@ export default function CadastroInternos() {
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
 
+  //Dados Pessoais
+  const [nome, setNome] = React.useState('');
+  const [cpf, setCpf] = React.useState('');
+  const [nascimento, setNascimento] = React.useState('');
+  const [rg, setRg] = React.useState('');
+  const [contato, setContato] = React.useState('');
+  const [responsavel, setResponsavel] = React.useState('');
+  const [parentesco, setParentesco] = React.useState('');
+  const [contatoResponsavel, setContatoResponsavel] = React.useState('');
+  const [sexo, setSexo] = React.useState('');
+  const [mae, setMae] = React.useState('');
+  const [pai, setPai] = React.useState('');
+  const [nacionalidade, setNacionalidade] = React.useState(''); 
+  const [naturalidade, setNaturalidade] = React.useState('');
+
   //Dados Sociais
   const [religiao, setReligiao] = React.useState ('');  
   const [outraReligiao, setOutraReligiao] = React.useState('');
@@ -55,6 +70,21 @@ export default function CadastroInternos() {
 
       // Unindo os dados de diferentes componentes
       const dadosParaEnvio = {
+        //Dados Pessoais
+        nome,
+        cpf,
+        nascimento,
+        rg,
+        contato,
+        responsavel,
+        parentesco,
+        contatoResponsavel,
+        sexo,
+        mae,
+        pai,
+        nacionalidade,
+        naturalidade,
+
         //Dados Sociais
         religiaoFinal,
         escolaridade,
@@ -103,7 +133,34 @@ export default function CadastroInternos() {
         <Divider />
       </Typography>
       
-      <DadosPessoais />
+      <DadosPessoais 
+        nome={nome}
+        cpf={cpf}
+        nascimento={nascimento}
+        rg={rg}
+        contato={contato}
+        responsavel={responsavel}
+        parentesco={parentesco}
+        contatoResponsavel={contatoResponsavel}
+        sexo={sexo}
+        mae={mae}
+        pai={pai}
+        nacionalidade={nacionalidade}
+        naturalidade={naturalidade}
+        alterarNome={setNome}
+        alterarCpf={setCpf}
+        alterarNascimento={setNascimento}
+        alterarRg={setRg}
+        alterarContato={setContato}
+        alterarResponsavel={setResponsavel}
+        alterarParentesco={setParentesco}
+        alterarSexo={setSexo}
+        alterarMae={setMae}
+        alterarPai={setPai}
+        alterarNacionalidade={setNacionalidade}
+        alterarNaturalidade={setNaturalidade}
+        alterarContatoResponsavel={setContatoResponsavel}
+      />
       </Card>
 
       <Card sx={{ mb: 2, marginTop:'20px' }}>
