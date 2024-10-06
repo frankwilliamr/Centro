@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+
 import TextField from '@mui/material/TextField';
 import Grid2 from '@mui/material/Grid2';
 import Select from '@mui/material/Select';
@@ -7,7 +7,19 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 
-export default function VinculosSociais({receberOcupacao, receberDados, receberOutraOcupacao, outraOcupacao}){
+export default function VinculosSociais({
+  estadoCivil,
+  outroEstadoCivil,
+  ajuda,
+  outraAjuda,
+  capacidade,
+  alterarEstadoCivil,
+  alterarOutroEstadoCivil,
+  alterarAjuda,
+  alterarOutraAjuda,
+  alterarCapacidade,
+
+}){
   
     
     
@@ -16,14 +28,14 @@ export default function VinculosSociais({receberOcupacao, receberDados, receberO
            <Grid2 item xs={12} sm={6} lg={3}  >
         <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
           >
-        <InputLabel required id="ocupacao" shrink sx={{ fontSize: '1.2rem' }}>Situação Conjugal</InputLabel>
+        <InputLabel required id="estadoCivil" shrink sx={{ fontSize: '1.2rem' }}>Situação Conjugal</InputLabel>
         
         <Select
           sx={{ width: '20ch'}}
-          labelId="ocupacao"
-          id="ocupacao"
-          value={receberOcupacao}
-          onChange={(e) => receberDados(e.target.value)}
+          labelId="estadoCivil"
+          id="estadoCivil"
+          value={estadoCivil}
+          onChange={(e) => alterarEstadoCivil(e.target.value)}
         >
           <MenuItem value="">
             <em>None</em>
@@ -38,12 +50,12 @@ export default function VinculosSociais({receberOcupacao, receberDados, receberO
       
           
         </Select>
-        {receberOcupacao === 'outro' && (
+        {estadoCivil === 'outro' && (
         <TextField
           label="Outros"
           variant="standard"
-          value={outraOcupacao}
-          onChange={(e) => receberOutraOcupacao(e.target.value)}
+          value={outroEstadoCivil}
+          onChange={(e) => alterarOutroEstadoCivil(e.target.value)}
           sx={{ marginLeft: 2 }}
         />
       )}
@@ -59,23 +71,24 @@ export default function VinculosSociais({receberOcupacao, receberDados, receberO
           sx={{ width: '30ch'}}
           labelId="Parentesco"
           id="Parentesco"
-          
+          value={ajuda}
+          onChange={(e) => alterarAjuda(e.target.value)}
         >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value='Desempregado'>Com ninguém</MenuItem>
-          <MenuItem value='Empregado'>Vizinhos / Amigos</MenuItem>
-          <MenuItem value='Autonomo'>Familiares</MenuItem>
-          
+          <MenuItem value='Com ninguém'>Com ninguém</MenuItem>
+          <MenuItem value='Vizinhos / Amigos'>Vizinhos / Amigos</MenuItem>
+          <MenuItem value='Familiares'>Familiares</MenuItem>
           <MenuItem value='outro'>Outros</MenuItem>
           
         </Select>
-        {receberOcupacao === 'outro' && (
+        {ajuda === 'outro' && (
         <TextField
           label="Outro"
           variant="standard"
-          
+          value={outraAjuda}
+          onChange={(e) => alterarOutraAjuda(e.target.value)}
           sx={{ marginLeft: 2 }}
         />
       )}
@@ -86,22 +99,24 @@ export default function VinculosSociais({receberOcupacao, receberDados, receberO
         <Grid2 item xs={12} sm={6} lg={3}  >
         <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
           >
-        <InputLabel required id="Ocupacao" shrink sx={{ fontSize: '1.2rem' }}>Capacidades e Habilidades</InputLabel>
+        <InputLabel required id="capacidade" shrink sx={{ fontSize: '1.2rem' }}>Capacidades e Habilidades</InputLabel>
         
         <Select
           sx={{ width: '30ch'}}
-          labelId="Parentesco"
-          id="Parentesco"
+          labelId="capacidade"
+          id="capacidade"
+          value={capacidade}
+          onChange={(e) => alterarCapacidade(e.target.value)}
          
         >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value='Desempregado'  >Totalmente Dependente</MenuItem>
-          <MenuItem value='Empregado'>Moderadamente grave(rever supervisão constante)</MenuItem>
-          <MenuItem value='Autonomo'>Moderado (requer mínimo de supervisão ou estímulo diário)</MenuItem>
-          <MenuItem value='Dona de Casa'> Leve (requer mínimo de supervisão ou estímulo)</MenuItem>
-          <MenuItem value='Estudante'>Completamente independente </MenuItem>
+          <MenuItem value='Totalmente Dependente'  >Totalmente Dependente</MenuItem>
+          <MenuItem value='Moderadamente grave(rever supervisão constante)'>Moderadamente grave(rever supervisão constante)</MenuItem>
+          <MenuItem value='Moderado (requer mínimo de supervisão ou estímulo diário)'>Moderado (requer mínimo de supervisão ou estímulo diário)</MenuItem>
+          <MenuItem value='Leve (requer mínimo de supervisão ou estímulo)'> Leve (requer mínimo de supervisão ou estímulo)</MenuItem>
+          <MenuItem value='Completamente independente'>Completamente independente </MenuItem>
           
         </Select>
 

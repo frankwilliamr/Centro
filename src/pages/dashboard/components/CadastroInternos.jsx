@@ -47,8 +47,19 @@ export default function CadastroInternos() {
   const [moradia, setMoradia] = React.useState('');
   const [outraMoradia, setOutraMoradia] = React.useState('');
   
+  //Endereço
+    const [cep, setCep] = React.useState('');
+    const [zona, setZona] = React.useState('');
+    const [logradouro, setLogradouro] = React.useState('');
+    const [cidade, setCidade] = React.useState('');
+    const [estado, setEstado] = React.useState('');
+    const [bairro, setBairro] = React.useState('');
   //Vinculos Sociais
-  
+    const [estadoCivil, setEstadoCivil] = React.useState('');
+    const [outroEstadoCivil, setOutroEstadoCivil] = React.useState('');
+    const [ajuda, setAjuda] = React.useState('');
+    const [outraAjuda, setOutraAjuda] = React.useState('');
+    const [capacidade, setCapacidade] = React.useState('');
   
   
 
@@ -67,6 +78,11 @@ export default function CadastroInternos() {
       const previdenciaFinal = previdencia === 'sim' ? outraPrevidencia : previdencia;
       const beneficiosFinal = beneficios === 'outro' ? outrosBeneficios : beneficios;
       const moradiaFinal = moradia === 'outro' ? outraMoradia : moradia;
+
+      //Vinculos Sociais - Verificando se a opção outros foi utilizada.
+      const estadoCivilFinal = estadoCivil === 'outro' ? outroEstadoCivil : estadoCivil;
+      const ajudaFinal = ajuda ==='outro' ? outraAjuda : ajuda;
+
 
       // Unindo os dados de diferentes componentes
       const dadosParaEnvio = {
@@ -92,6 +108,19 @@ export default function CadastroInternos() {
         previdenciaFinal,
         beneficiosFinal,
         moradiaFinal,
+
+        //Endereço
+        cep,
+        zona,
+        logradouro,
+        cidade,
+        estado,
+        bairro,
+
+       // Vinculo social
+       ajudaFinal,
+       estadoCivilFinal,
+       capacidade,
         
       };
             
@@ -169,7 +198,22 @@ export default function CadastroInternos() {
         <Divider />
       </Typography>
 
-      <CadastroEndereco />
+      <CadastroEndereco 
+      cep={cep}
+      zona={zona}
+      logradouro={logradouro}
+      cidade={cidade}
+      estado={estado}
+      bairro={bairro}
+      alterarCep={setCep}
+      alterarZona={setZona}
+      alterarLogradouro={setLogradouro} 
+      alterarCidade={setCidade}
+      alterarEstado={setEstado}
+      alterarBairro={setBairro}
+      
+      
+      />
       </Card>
       <Card sx={{ mb: 2, marginTop:'20px' }}>
       <Typography component="h2" variant="h6" sx={{ mb: 3 }}>
@@ -206,6 +250,16 @@ export default function CadastroInternos() {
       </Typography>
 
       <VinculosSociais 
+      estadoCivil={estadoCivil}
+      outroEstadoCivil={outroEstadoCivil}
+      ajuda={ajuda}
+      outraAjuda={outraAjuda}
+      capacidade={capacidade}
+      alterarEstadoCivil={setEstadoCivil}
+      alterarOutroEstadoCivil={setOutroEstadoCivil}
+      alterarAjuda={setAjuda}
+      alterarOutraAjuda={setOutraAjuda}
+      alterarCapacidade={setCapacidade}
       
       />
       </Card>
