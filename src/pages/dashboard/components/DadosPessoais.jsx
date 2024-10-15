@@ -5,6 +5,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Grid2 from '@mui/material/Grid2';
+import InputMask from 'react-input-mask';
 
 
 
@@ -60,16 +61,22 @@ export default function DadosPessoais({alterarNome,
       </Grid2>
 
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
-        <TextField
+      <InputMask
+        mask="999.999.999-99" // Máscara para CPF
+        value={cpf}
+        onChange={(e) => alterarCpf(e.target.value.replace(/\D/g, ''))} // Armazenar apenas números
+      >
+        {(inputProps) => (
+          <TextField
+          {...inputProps} // Aplicar as propriedades do InputMask no TextField
           sx={{ width: '20ch', paddingTop: '10px' }}
           required
           id="CPF"
           label="CPF"
-          value={cpf}
-          onChange={(e) => alterarCpf(e.target.value)}
-          
-          
-        />
+          fullWidth
+          />
+        )}
+      </InputMask>
       </Grid2>
 
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
@@ -89,31 +96,45 @@ export default function DadosPessoais({alterarNome,
         />
       </Grid2>
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
-      
+        <InputMask
+        mask = "99.999.999-99"
+        value={rg}
+        onChange={(e) => alterarRg(e.target.value.replace(/\D/g, '')) }
+        >
+        {(inputProps) => (
+         
         <TextField
+        {...inputProps}
         sx={{ width: '20ch', paddingTop: '10px' }}
         required
         type='text'
         id='RG'
         label='RG'
-        value={rg}
-        onChange={(e) => alterarRg(e.target.value) }
+        
+        
         
         /> 
-          
-
+        )}
+          </InputMask>
       </Grid2>
       
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
+        <InputMask
+        mask="(99) 99999-9999"
+        value={contato}
+        onChange={(e) => alterarContato(e.target.value.replace(/\D/g, '')) }
+        >
+        {(inputProps) => (
         <TextField
+          {...inputProps}
           sx={{ width: '20ch', paddingTop: '10px' }}
           required
           id="Celular"
           label="Contato"
-          value={contato}
-          onChange={(e) => alterarContato(e.target.value) }
           
-        />
+          
+        /> )}
+        </InputMask>
       </Grid2>
 
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
@@ -153,15 +174,22 @@ export default function DadosPessoais({alterarNome,
       </Grid2>
 
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
+        <InputMask
+        mask="(99) 99999-9999"
+        value={contatoResponsavel}
+        onChange={(e) => alterarContatoResponsavel(e.target.value.replace(/\D/g, ''))}
+        >
+        {(inputProps) => (
         <TextField
+          {...inputProps}  
           sx={{ width: '20ch', paddingTop: '10px' }}
           required
           id="ContatoResponsavel"
           label="Contato Responsavel"
-          value={contatoResponsavel}
-          onChange={(e) => alterarContatoResponsavel(e.target.value) }
           
-        />
+          
+        />)}
+        </InputMask>
       </Grid2>
       
 

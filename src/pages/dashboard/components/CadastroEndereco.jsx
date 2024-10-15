@@ -6,6 +6,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
+import InputMask from 'react-input-mask';
 
 export default function CadastroEndereco ({cep,
   zona,
@@ -54,17 +55,23 @@ export default function CadastroEndereco ({cep,
     return (
         <Grid2 container spacing={2} sx={{ width: '100%', margin: '0 auto', justifyContent: 'center'}}>
         <Grid2 item xs={12} sm={6} md={4} lg={3}>
+        <InputMask
+         mask="99999-999"
+         value = {cep}
+         onChange = {handleCepChange}>
+          {(inputProps) => (
         <TextField
+         {...inputProps}
           sx={{ width: '30ch', padding: '10px', paddingLeft: '5px', mr: -2 }}
           required
           
           label="CEP"
-          value = {cep}
-          onChange = {handleCepChange}
+         
           
           
           
-        />
+        />)}
+        </InputMask>
       </Grid2>
       
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
