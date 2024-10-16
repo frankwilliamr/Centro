@@ -1,8 +1,31 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { columns, rows } from '../internals/data/gridData';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+
 
 export default function CustomizedDataGrid() {
+  const [rows, setRows] = useState([]);
+
+  useEffect(() => {
+    axios.get('https://jsonplaceholder.typicode.com/posts')
+      .then(response => {
+        setRows(response.data);
+      })
+      .catch(error => {
+        console.error('Erro ao buscar dados', error);
+      });
+  }, []);
+
+  const columns = [
+    
+    { field: 'title', headerName: 'Nome',minWidth: 200, flex: 1.5, 
+      renderCell: (params) => (
+        <a href={`/detalhes/${params.row.id}`}>{params.row.title}</a> // Redireciona para a página de detalhes
+      )
+    },
+    { field: 'id', headerName: 'Ultimo atendimento', minWidth: 80, flex: 1},
+  ];
   return (
     <DataGrid
       autoHeight

@@ -31,7 +31,7 @@ export const rows = [
     pageTitle: 'Homepage Overview',
     status: 'Online',
     eventCount: 8345,
-    users: 212423,
+    users: 'testando',
     viewsPerUser: 18.5,
     averageTime: '2m 15s',
     conversions: [

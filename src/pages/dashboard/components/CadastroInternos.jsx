@@ -68,9 +68,24 @@ export default function CadastroInternos() {
   const handleSubmit = async () => {
     if (loading) return; // Evita múltiplos envios enquanto está carregando
 
+    
+
+    const camposObrigatorios = [];
+    
+    if (!nome) camposObrigatorios.push('Nome')
+    if (!cpf) {
+         camposObrigatorios.push('CPF')
+    } else if (cpf.length !== 11) {
+       camposObrigatorios.push('CPF (deve conter 11 dígitos numéricos)');
+    }
+
+    if (camposObrigatorios.length > 0) {
+      alert(`Preencha os seguintes campos obrigatórios: ${camposObrigatorios.join(', ')}`);
+      return; 
+  }
+
     setSuccess(false);
     setLoading(true);
-
     try {
       //Dados Sociais - Verificando se a opção outros foi utilizada.
       const religiaoFinal = religiao === 'outro' ? outraReligiao : religiao;
@@ -83,6 +98,7 @@ export default function CadastroInternos() {
       const estadoCivilFinal = estadoCivil === 'outro' ? outroEstadoCivil : estadoCivil;
       const ajudaFinal = ajuda ==='outro' ? outraAjuda : ajuda;
 
+      
 
       // Unindo os dados de diferentes componentes
       const dadosParaEnvio = {
@@ -132,6 +148,12 @@ export default function CadastroInternos() {
       // Se os dados forem enviados com sucesso, define success como true
       setLoading(false);
       setSuccess(true);
+
+     setTimeout(() => {
+      alert('Cadastro feito com sucesso!');
+      window.location.reload();
+     }, 2000);
+
       
       
     } catch (error) {
