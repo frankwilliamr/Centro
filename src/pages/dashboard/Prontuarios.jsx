@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { createTheme, ThemeProvider, alpha } from '@mui/material/styles';
-
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-
 import AppNavbar from './components/AppNavbar';
 import ListaInternos from './components/ListaInternos';
 import SideMenu from './components/SideMenu';

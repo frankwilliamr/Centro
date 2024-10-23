@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+import Paciente from './pages/dashboard/Paciente';
 import SignIn from './pages/sign-in/SignIn';
 import DashBoard from './pages/dashboard/Dashboard';
 import Prontuarios from './pages/dashboard/Prontuarios';
@@ -51,6 +52,7 @@ export default function App() {
         <CssBaseline enableColorScheme />
           
         <Routes>
+          <Route path='/pacientes' element={ <Paciente/>}/>
           <Route path="/dashboard" element={<DashBoard />} />
           <Route path="/prontuarios" element={<Prontuarios />} />
           <Route path="/cadastro-internos" element={<Cadastro />} />
