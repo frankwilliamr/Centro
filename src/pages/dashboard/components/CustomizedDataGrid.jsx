@@ -8,9 +8,10 @@ export default function CustomizedDataGrid() {
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
-    axios.get('https://jsonplaceholder.typicode.com/posts')
+    axios.get('http://localhost:3000/prontuarios')
       .then(response => {
         setRows(response.data);
+        
       })
       .catch(error => {
         console.error('Erro ao buscar dados', error);
@@ -19,9 +20,9 @@ export default function CustomizedDataGrid() {
 
   const columns = [
     
-    { field: 'title', headerName: 'Nome',minWidth: 200, flex: 1.5, 
+    { field: 'nome', headerName: 'Nome',minWidth: 200, flex: 1.5, 
       renderCell: (params) => (
-        <a href={`/detalhes/${params.row.id}`}>{params.row.title}</a> // Redireciona para a página de detalhes
+        <a href={`/detalhes/${params.row.id}`}>{params.row.nome}</a> // Redireciona para a página de detalhes
       )
     },
     { field: 'id', headerName: 'Ultimo atendimento', minWidth: 80, flex: 1},

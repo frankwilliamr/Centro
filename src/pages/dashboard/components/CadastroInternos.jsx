@@ -14,6 +14,8 @@ import VinculosSociais from './VinculosSociais';
 import Divider from '@mui/material/Divider';
 import { Card } from '@mui/material';
 import axios from 'axios';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '../../../../firebase';
 
 export default function CadastroInternos() {
   const [loading, setLoading] = React.useState(false);
@@ -102,48 +104,49 @@ export default function CadastroInternos() {
 
       // Unindo os dados de diferentes componentes
       const dadosParaEnvio = {
-        //Dados Pessoais
-        nome,
-        cpf,
-        nascimento,
-        rg,
-        contato,
-        responsavel,
-        parentesco,
-        contatoResponsavel,
-        sexo,
-        mae,
-        pai,
-        nacionalidade,
-        naturalidade,
+        //: //Dados Pessoais
+        nome: nome,
+        cpf: cpf,
+        nascimento: nascimento,
+        rg: rg,
+        contato: contato,
+        responsavel: responsavel,
+        parentesco: parentesco,
+        contatoResponsavel: contatoResponsavel,
+        sexo: sexo,
+        mae: mae,
+        pai: pai,
+        nacionalidade: nacionalidade,
+        naturalidade: naturalidade,
 
-        //Dados Sociais
-        religiaoFinal,
-        escolaridade,
-        ocupacaoFinal,
-        previdenciaFinal,
-        beneficiosFinal,
-        moradiaFinal,
+        //: //Dados Sociais
+        religiaoFinal: religiaoFinal,
+        escolaridade: escolaridade,
+        ocupacaoFinal: ocupacaoFinal,
+        previdenciaFinal: previdenciaFinal,
+        beneficiosFinal: beneficiosFinal,
+        moradiaFinal: moradiaFinal,
 
-        //Endereço
-        cep,
-        zona,
-        logradouro,
-        cidade,
-        estado,
-        bairro,
+        //: //Endereço
+        cep: cep,
+        zona: zona,
+        logradouro: logradouro,
+        cidade: cidade,
+        estado: estado,
+        bairro: bairro,
 
-       // Vinculo social
-       ajudaFinal,
-       estadoCivilFinal,
-       capacidade,
+       //: // Vinculo social
+       ajudaFinal: ajudaFinal,
+       estadoCivilFinal: estadoCivilFinal,
+       capacidade: capacidade,
         
       };
             
       // Enviando os dados via axios
-      const response = await axios.post('https://jsonplaceholder.typicode.com/posts', dadosParaEnvio);
-      console.log('Dados enviados com sucesso:', response.data);
-      
+      // const response = await axios.post('https://jsonplaceholder.typicode.com/posts', dadosParaEnvio);
+      // console.log('Dados enviados com sucesso:', response.data);
+      const docRef = await addDoc(collection(db, 'internos'), dadosParaEnvio);
+      console.log('Dados enviados com sucesso. ID do documento:', docRef.id);
       
       // Se os dados forem enviados com sucesso, define success como true
       setLoading(false);
