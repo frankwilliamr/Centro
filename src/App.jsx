@@ -52,7 +52,7 @@ export default function App() {
         <CssBaseline enableColorScheme />
           
         <Routes>
-          <Route path='/pacientes' element={ <Paciente/>}/>
+          <Route path='/pacientes/:id' element={ <Paciente/>}/>
           <Route path="/dashboard" element={<DashBoard />} />
           <Route path="/prontuarios" element={<Prontuarios />} />
           <Route path="/cadastro-internos" element={<Cadastro />} />

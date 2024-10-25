@@ -102,7 +102,7 @@ export default function CadastroInternos() {
 
       
 
-      // Unindo os dados de diferentes componentes
+      
       const dadosParaEnvio = {
         //: //Dados Pessoais
         nome: nome,

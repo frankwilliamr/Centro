@@ -1,34 +1,61 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, } from "react";
 import axios from "axios";
-import {  Grid2, Typography, Paper, Box, Card, TextField, Button } from "@mui/material";
+import {  Grid2, Typography, Box, Card, TextField, Button } from "@mui/material";
 import Divider from '@mui/material/Divider';
 import AppNavbar from './components/AppNavbar';
 import SideMenu from './components/SideMenu';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../../firebase';
+import { useParams } from 'react-router-dom';
 
 
-export default function Paciente(){
-  
+export default function Paciente({}){
+  const { id } = useParams();
   const [dados, setDados] = useState([]);
   const [editando, setEditando] = useState(false); 
   const [editedTitle, setEditedTitle] = useState(''); 
   
-  
-
   useEffect(() => {
     
-    axios.get("https://jsonplaceholder.typicode.com/posts?id=1")
+    const fetchDados = async () => {
+      try {
         
-      .then(response => {
-        setDados(response.data.find(id => id.id === 1)); 
-        setEditedTitle(dados.title)
+        const docRef = doc(db, "internos", id); 
+
         
+        const docSnap = await getDoc(docRef);
         
-      })
-      
-      .catch(error => {
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          setDados(data);
+          setEditedTitle(dados.nome)
+           // Atribui o título ou outro campo que você queira
+        } else {
+          console.log("Nenhum documento encontrado!");
+        }
+      } catch (error) {
         console.error("Erro ao buscar os dados:", error);
-      });
-  }, []);
+      }
+    };
+
+    fetchDados();
+  }, [id]);
+
+  // useEffect(() => {
+    
+  //   axios.get("https://jsonplaceholder.typicode.com/posts?id=1")
+        
+  //     .then(response => {
+  //       setDados(response.data.find(id => id.id === 1)); 
+  //       setEditedTitle(dados.title)
+        
+        
+  //     })
+      
+  //     .catch(error => {
+  //       console.error("Erro ao buscar os dados:", error);
+  //     });
+  // }, []);
   
   const handleEditar = () => {
     
