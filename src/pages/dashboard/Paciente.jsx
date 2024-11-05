@@ -4,7 +4,7 @@ import {  Grid2, Typography, Box, Card, TextField, Button } from "@mui/material"
 import Divider from '@mui/material/Divider';
 import AppNavbar from './components/AppNavbar';
 import SideMenu from './components/SideMenu';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../firebase';
 import { useParams } from 'react-router-dom';
 
@@ -28,7 +28,8 @@ export default function Paciente({}){
         if (docSnap.exists()) {
           const data = docSnap.data();
           setDados(data);
-          setEditedTitle(dados.nome)
+          setEditedTitle(data.nome)
+          
            // Atribui o título ou outro campo que você queira
         } else {
           console.log("Nenhum documento encontrado!");
@@ -62,22 +63,37 @@ export default function Paciente({}){
     setEditando(true); 
   };
   
-  const handleSalvar = () => {
-    console.log(editedTitle)
-    axios.put("https://jsonplaceholder.typicode.com//posts/1", {
-      title: editedTitle, 
-    })
-    .then((response) => {
-      console.log("Dados salvos:", response.data);
-      setEditando(false); 
+//   const handleSalvar = () => {
+//     console.log(editedTitle)
+//     axios.put("https://jsonplaceholder.typicode.com//posts/1", {
+//       title: editedTitle, 
+//     })
+//     .then((response) => {
+//       console.log("Dados salvos:", response.data);
+//       setEditando(false); 
       
    
-    })
-    .catch((error) => {
-      console.error("Erro ao salvar os dados:", error);
+//     })
+//     .catch((error) => {
+//       console.error("Erro ao salvar os dados:", error);
+//     });
+// };
+async function handleSalvar() {
+  const docRef = doc(db, "internos", id); 
+  
+  try {
+    await updateDoc(docRef, {
+      nome: editedTitle,
     });
-};
-    
+    console.log("Dados salvos");
+    setEditando(false);
+  } catch (error) {
+    console.error("Erro ao salvar os dados:", error);
+  }
+  
+}
+
+
   
   
   const handleCancelar = () => {
