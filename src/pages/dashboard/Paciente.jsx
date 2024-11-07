@@ -7,15 +7,54 @@ import SideMenu from './components/SideMenu';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../firebase';
 import { useParams } from 'react-router-dom';
+import InputMask from 'react-input-mask';
 
 
 export default function Paciente({}){
   const { id } = useParams();
   const [dados, setDados] = useState([]);
   const [editando, setEditando] = useState(false); 
-  const [editedTitle, setEditedTitle] = useState(''); 
+  const [editedNome, setEditedNome] = useState(''); 
+  const [cpf, setCpf] = React.useState('');
+  const [nascimento, setNascimento] = React.useState('');
+  const [rg, setRg] = React.useState('');
+  const [contato, setContato] = React.useState('');
+  const [responsavel, setResponsavel] = React.useState('');
+  const [parentesco, setParentesco] = React.useState('');
+  const [contatoResponsavel, setContatoResponsavel] = React.useState('');
+  const [sexo, setSexo] = React.useState('');
+  const [mae, setMae] = React.useState('');
+  const [pai, setPai] = React.useState('');
+  const [nacionalidade, setNacionalidade] = React.useState(''); 
+  const [naturalidade, setNaturalidade] = React.useState('');
+
+  //Dados Sociais
+  const [religiao, setReligiao] = React.useState ('');  
+  const [outraReligiao, setOutraReligiao] = React.useState('');
+  const [escolaridade, setEscolaridade] = React.useState('');
+  const [ocupacao, setOcupacao] = React.useState('');
+  const [outraOcupacao, setOutraOcupaccao] = React.useState('');
+  const [previdencia, setPrevidencia] = React.useState('');
+  const [outraPrevidencia, setOutraPrevidencia] = React.useState('');
+  const [beneficios, setBeneficios] = React.useState('');
+  const [outrosBeneficios, setOutrosBeneficios] = React.useState('');
+  const [moradia, setMoradia] = React.useState('');
+  const [outraMoradia, setOutraMoradia] = React.useState('');
   
-  useEffect(() => {
+  //Endereço
+    const [cep, setCep] = React.useState('');
+    const [zona, setZona] = React.useState('');
+    const [logradouro, setLogradouro] = React.useState('');
+    const [cidade, setCidade] = React.useState('');
+    const [estado, setEstado] = React.useState('');
+    const [bairro, setBairro] = React.useState('');
+  //Vinculos Sociais
+    const [estadoCivil, setEstadoCivil] = React.useState('');
+    const [outroEstadoCivil, setOutroEstadoCivil] = React.useState('');
+    const [ajuda, setAjuda] = React.useState('');
+    const [outraAjuda, setOutraAjuda] = React.useState('');
+    const [capacidade, setCapacidade] = React.useState('');
+  
     
     const fetchDados = async () => {
       try {
@@ -28,7 +67,10 @@ export default function Paciente({}){
         if (docSnap.exists()) {
           const data = docSnap.data();
           setDados(data);
-          setEditedTitle(data.nome)
+          setEditedNome(data.nome)
+          setCpf(data.cpf)
+          setNascimento(data.nascimento)
+          
           
            // Atribui o título ou outro campo que você queira
         } else {
@@ -39,7 +81,9 @@ export default function Paciente({}){
       }
     };
 
+  useEffect(() => {
     fetchDados();
+    
   }, [id]);
 
   // useEffect(() => {
@@ -83,7 +127,7 @@ async function handleSalvar() {
   
   try {
     await updateDoc(docRef, {
-      nome: editedTitle,
+      nome: editedNome,
     });
     console.log("Dados salvos");
     setEditando(false);
@@ -97,8 +141,13 @@ async function handleSalvar() {
   
   
   const handleCancelar = () => {
-    setEditando(false); 
+    
+    setEditando(false);
+    fetchDados();
+    
   };
+  
+  
   return(
     
     <Box sx={{ ml: 2, display: 'flex' }}>
@@ -106,7 +155,7 @@ async function handleSalvar() {
           <AppNavbar />
 
       
-      <Card sx={{ mb: 2, marginTop:'20px' }}>
+      <Card sx={{ width: '100%', mt: 2, mr: 2}}>
       <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
         Dados Pessoais
         <Divider />
@@ -134,20 +183,63 @@ async function handleSalvar() {
               )}
             </Grid2>
       <Grid2 container spacing={2} sx={{ width: '100%', margin: '0 auto', justifyContent: 'center'}}>
-      <Grid2 item xs={12} sm={6}>
-          <Box>
+      <Grid2 item xs={12} sm={6} md={4} lg={3}>
+          
           <TextField
-                fullWidth
-                label="CPF"
-                value={editedTitle}
-                onChange={(e) => setEditedTitle(e.target.value)}
+                sx={{  width: '50ch', paddingTop: '10px' }}
+                required
+                id="outlined-required"
+                label="Nome Completo"
+                value={editedNome}
+                onChange={(e) => setEditedNome(e.target.value)}
                 InputProps={{
                   readOnly: !editando,
                 }}
-                variant="outlined"
+                
               />
-          </Box>
+          
         </Grid2>
+
+        <Grid2 item xs={12} sm={6} md={4} lg={3}>
+      <InputMask
+        mask="999.999.999-99" // Máscara para CPF
+        value={cpf}
+                
+        
+      >
+        {(inputProps) => (
+          <TextField
+          {...inputProps} // Aplicar as propriedades do InputMask no TextField
+          sx={{ width: '20ch', paddingTop: '10px' }}
+          
+          id="CPF"
+          label="CPF"
+          fullWidth
+          InputProps={{
+            readOnly: true,
+          }}
+          />
+        )}
+      </InputMask>
+      </Grid2>
+      <Grid2 item xs={12} sm={6} md={4} lg={3}>
+        <TextField
+          sx={{  width: '15ch', paddingTop: '10px' }}
+          
+          
+          id="nascimento"
+          label= "Data de nascimento"
+          value={nascimento}
+          InputProps={{
+            readOnly: true,
+          }}
+          
+          
+          
+        />
+      </Grid2>
+
+
         </Grid2>
       </Card>
       
