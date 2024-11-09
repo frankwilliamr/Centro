@@ -70,6 +70,8 @@ export default function Paciente({}){
           setEditedNome(data.nome)
           setCpf(data.cpf)
           setNascimento(data.nascimento)
+          setRg(data.rg)
+          setContato(data.contato)
           
           
            // Atribui o título ou outro campo que você queira
@@ -128,6 +130,7 @@ async function handleSalvar() {
   try {
     await updateDoc(docRef, {
       nome: editedNome,
+      contato: contato,
     });
     console.log("Dados salvos");
     setEditando(false);
@@ -186,7 +189,15 @@ async function handleSalvar() {
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
           
           <TextField
-                sx={{  width: '50ch', paddingTop: '10px' }}
+                sx={{  
+                  width: '50ch', 
+                  paddingTop: '10px', 
+                  '.MuiInputBase-root': {
+                  backgroundColor: editando ? '#f0f0f0' : 'none', 
+                  borderRadius: '4px',
+            
+                      },
+                }}
                 required
                 id="outlined-required"
                 label="Nome Completo"
@@ -200,17 +211,25 @@ async function handleSalvar() {
           
         </Grid2>
 
-        <Grid2 item xs={12} sm={6} md={4} lg={3}>
+      <Grid2 item xs={12} sm={6} md={4} lg={3}>
       <InputMask
         mask="999.999.999-99" // Máscara para CPF
         value={cpf}
-                
+        
         
       >
         {(inputProps) => (
           <TextField
           {...inputProps} // Aplicar as propriedades do InputMask no TextField
-          sx={{ width: '20ch', paddingTop: '10px' }}
+          sx={{ 
+            width: '20ch', 
+            paddingTop: '10px',
+            '.MuiInputBase-root': {
+            backgroundColor: editando ? '#f0f0f0' : 'none', 
+            borderRadius: '4px',
+            
+          },
+           }}
           
           id="CPF"
           label="CPF"
@@ -224,7 +243,17 @@ async function handleSalvar() {
       </Grid2>
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
         <TextField
-          sx={{  width: '15ch', paddingTop: '10px' }}
+          sx={{  
+            width: '17ch', 
+            paddingTop: '10px',
+            
+            '.MuiInputBase-root': {
+            backgroundColor: editando ? '#f0f0f0' : 'none', 
+            borderRadius: '4px',
+            
+              },
+            
+           }}
           
           
           id="nascimento"
@@ -239,6 +268,62 @@ async function handleSalvar() {
         />
       </Grid2>
 
+      <Grid2 item xs={12} sm={6} md={4} lg={3}>
+        <InputMask
+        mask = "99.999.999-99"
+        value={rg}
+        
+        >
+        {(inputProps) => (
+         
+        <TextField
+        {...inputProps}
+        sx={{ 
+          width: '20ch',
+          paddingTop: '10px',
+          '.MuiInputBase-root': {
+            backgroundColor: editando ? '#f0f0f0' : 'none', 
+            borderRadius: '4px',
+            
+              },
+        }}
+        
+        type='text'
+        id='RG'
+        label='RG'
+        InputProps={{
+          readOnly: true,
+        }}
+        
+        
+        /> 
+        )}
+          </InputMask>
+      </Grid2>
+      <Grid2 item xs={12} sm={6} md={4} lg={3}>
+        <InputMask
+        mask="(99) 99999-9999"
+        value={contato}
+        onChange={(e) => setContato(e.target.value.replace(/\D/g, '')) }
+        >
+        {(inputProps) => (
+        <TextField
+          {...inputProps}
+          sx={{ 
+            width: '20ch',
+            paddingTop: '10px',
+            
+          }}
+          
+          id="Celular"
+          label="Contato"
+          InputProps={{
+            readOnly: !editando,
+          }}
+          
+        /> )}
+        </InputMask>
+      </Grid2>
 
         </Grid2>
       </Card>
