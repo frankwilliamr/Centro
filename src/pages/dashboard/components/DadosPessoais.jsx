@@ -151,6 +151,7 @@ export default function DadosPessoais({alterarNome,
           
         /> 
       </Grid2>
+      
       <Grid2 item xs={12} sm={6} md={4} lg={3} >
       <FormControl  variant="standard" sx={{ minWidth: 120 }}
           >

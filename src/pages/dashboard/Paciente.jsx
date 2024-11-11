@@ -8,7 +8,10 @@ import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../firebase';
 import { useParams } from 'react-router-dom';
 import InputMask from 'react-input-mask';
-
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 export default function Paciente({}){
   const { id } = useParams();
@@ -72,7 +75,8 @@ export default function Paciente({}){
           setNascimento(data.nascimento)
           setRg(data.rg)
           setContato(data.contato)
-          
+          setResponsavel(data.responsavel)
+          setParentesco(data.parentesco)
           
            // Atribui o título ou outro campo que você queira
         } else {
@@ -131,6 +135,8 @@ async function handleSalvar() {
     await updateDoc(docRef, {
       nome: editedNome,
       contato: contato,
+      responsavel: responsavel,
+      parentesco: parentesco,
     });
     console.log("Dados salvos");
     setEditando(false);
@@ -282,10 +288,11 @@ async function handleSalvar() {
           width: '20ch',
           paddingTop: '10px',
           '.MuiInputBase-root': {
-            backgroundColor: editando ? '#f0f0f0' : 'none', 
+            backgroundColor: editando ? '#dfdfdf' : 'none', 
             borderRadius: '4px',
             
               },
+              
         }}
         
         type='text'
@@ -324,8 +331,47 @@ async function handleSalvar() {
         /> )}
         </InputMask>
       </Grid2>
+      <Grid2 item xs={12} sm={6} md={4} lg={3}>
+      
+       
+      <TextField
+        sx={{ width: '50ch', paddingTop: '10px' }}
+        required
+        id="Responsavel"
+        label="Responsavel"
+        value={responsavel}
+        onChange={(e) => setResponsavel(e.target.value)}
+        fullWidth
+        InputProps={{
+          readOnly: !editando,
+        }}
+      /> 
+    </Grid2>
 
-        </Grid2>
+    <Grid2 item xs={12} sm={6} md={4} lg={3} >
+      <FormControl  variant="standard" sx={{ minWidth: 120 }}
+          >
+        <InputLabel required id="Parentesco" shrink sx={{ fontSize: '1.2rem' }}>Parentesco</InputLabel>
+        
+        <Select
+          
+          labelId="Parentesco"
+          id="Parentesco"
+          value={parentesco}
+          onChange={(e) => setParentesco(e.target.value)}
+          disabled={!editando}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value='Pai'>Pai</MenuItem>
+          <MenuItem value='Mãe'>Mãe</MenuItem>
+          <MenuItem value='Avô/Avó'>Avô/Avó</MenuItem>
+        </Select>
+      </FormControl>
+      </Grid2>
+
+      </Grid2>
       </Card>
       
     </Box>
