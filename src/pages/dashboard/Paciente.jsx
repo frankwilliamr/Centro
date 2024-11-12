@@ -12,6 +12,8 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import { alpha } from '@mui/material/styles';
+
 
 export default function Paciente({}){
   const { id } = useParams();
@@ -199,10 +201,10 @@ async function handleSalvar() {
                   width: '50ch', 
                   paddingTop: '10px', 
                   '.MuiInputBase-root': {
-                  backgroundColor: editando ? '#f0f0f0' : 'none', 
-                  borderRadius: '4px',
+                      backgroundColor: editando ? (theme) => alpha(theme.palette.text.primary, 0.05) : 'inherit',
+                      borderRadius: '4px',
             
-                      },
+              },
                 }}
                 required
                 id="outlined-required"
@@ -210,7 +212,7 @@ async function handleSalvar() {
                 value={editedNome}
                 onChange={(e) => setEditedNome(e.target.value)}
                 InputProps={{
-                  readOnly: !editando,
+                  readOnly: true,
                 }}
                 
               />
@@ -231,10 +233,10 @@ async function handleSalvar() {
             width: '20ch', 
             paddingTop: '10px',
             '.MuiInputBase-root': {
-            backgroundColor: editando ? '#f0f0f0' : 'none', 
+            backgroundColor: editando ? (theme) => alpha(theme.palette.text.primary, 0.05) : 'inherit',
             borderRadius: '4px',
             
-          },
+              },
            }}
           
           id="CPF"
@@ -252,9 +254,8 @@ async function handleSalvar() {
           sx={{  
             width: '17ch', 
             paddingTop: '10px',
-            
             '.MuiInputBase-root': {
-            backgroundColor: editando ? '#f0f0f0' : 'none', 
+            backgroundColor: editando ? (theme) => alpha(theme.palette.text.primary, 0.05) : 'inherit',
             borderRadius: '4px',
             
               },
@@ -288,7 +289,7 @@ async function handleSalvar() {
           width: '20ch',
           paddingTop: '10px',
           '.MuiInputBase-root': {
-            backgroundColor: editando ? '#dfdfdf' : 'none', 
+            backgroundColor: editando ? (theme) => alpha(theme.palette.text.primary, 0.05) : 'inherit',
             borderRadius: '4px',
             
               },
@@ -319,6 +320,11 @@ async function handleSalvar() {
           sx={{ 
             width: '20ch',
             paddingTop: '10px',
+            '.MuiInputBase-root': {
+            backgroundColor: editando ? 'none' : 'inherit',
+            borderRadius: '4px',
+            
+              },
             
           }}
           
@@ -335,8 +341,16 @@ async function handleSalvar() {
       
        
       <TextField
-        sx={{ width: '50ch', paddingTop: '10px' }}
-        required
+        sx={{ 
+          width: '50ch', 
+          paddingTop: '10px',
+          '.MuiInputBase-root': {
+            backgroundColor: editando ? 'none' : 'inherit',
+            borderRadius: '4px',
+            
+              },
+        }}
+        
         id="Responsavel"
         label="Responsavel"
         value={responsavel}
