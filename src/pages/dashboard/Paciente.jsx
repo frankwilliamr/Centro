@@ -95,7 +95,9 @@ export default function Paciente({}){
           setOutraOcupacao(data.ocupacaoFinal)
           setPrevidencia(data.previdenciaFinal === 'sim' ? data.previdencia : 'não')
           setOutraPrevidencia(data.previdenciaFinal)
-           
+          setBeneficios(data.beneficiosFinal === 'BPC' || data.beneficiosFinal === 'Bolsa Família' ? data.beneficiosFinal : 'outro')
+          setOutrosBeneficios(data.beneficiosFinal === 'BPC' || data.beneficiosFinal === 'Bolsa Família' ? '' : data.beneficiosFinal ) 
+
         } else {
           console.log("Nenhum documento encontrado!");
         }
@@ -720,6 +722,48 @@ async function handleSalvar() {
               }, }}
         />)}
 
+      </FormControl>
+      </Grid2>
+      
+      <Grid2 item xs={12} sm={6} lg={3}  >
+        <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
+          >
+        <InputLabel required id="beneficio" shrink sx={{ fontSize: '1.2rem' }}>Benefícios Sociais</InputLabel>
+        
+        <Select
+          sx={{ width: '20ch'}}
+          labelId="beneficio"
+          id="beneficio"
+          value={beneficios}
+          onChange={(e) => setBeneficios(e.target.value)}
+          disabled={!editando}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value='BPC'>BPC</MenuItem>
+          <MenuItem value='Bolsa Família'>Bolsa Família</MenuItem>
+          <MenuItem value='outro'>Outros</MenuItem>
+
+        </Select>
+        {beneficios === 'outro' && (
+        <TextField
+          label="Outros"
+          
+          value={outrosBeneficios}
+          onChange={(e) => setOutrosBeneficios(e.target.value)}
+          InputProps={{readOnly: !editando,}}
+          sx={{ width: '30ch', 
+            paddingTop: '10px',
+            marginLeft: 2, 
+            '.MuiInputBase-root': {
+            backgroundColor: editando ? 'none' : 'inherit',
+            borderRadius: '4px',
+            
+              }, }}
+        />)}
+
+     
       </FormControl>
       </Grid2>
 
