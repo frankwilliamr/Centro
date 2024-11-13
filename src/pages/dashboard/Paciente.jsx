@@ -19,6 +19,7 @@ export default function Paciente({}){
   const { id } = useParams();
   const [dados, setDados] = useState([]);
   const [editando, setEditando] = useState(false); 
+  //Dados Pessoais
   const [editedNome, setEditedNome] = useState(''); 
   const [cpf, setCpf] = React.useState('');
   const [nascimento, setNascimento] = React.useState('');
@@ -79,6 +80,12 @@ export default function Paciente({}){
           setContato(data.contato)
           setResponsavel(data.responsavel)
           setParentesco(data.parentesco)
+          setContatoResponsavel(data.contatoResponsavel)
+          setSexo(data.sexo)
+          setMae(data.mae)
+          setPai(data.pai)
+          setNacionalidade(data.nacionalidade)
+          setNaturalidade(data.naturalidade)
           
            // Atribui o título ou outro campo que você queira
         } else {
@@ -139,6 +146,12 @@ async function handleSalvar() {
       contato: contato,
       responsavel: responsavel,
       parentesco: parentesco,
+      contatoResponsavel: contatoResponsavel,
+      mae: mae,
+      pai: pai,
+      nacionalidade: nacionalidade,
+      naturalidade: naturalidade,
+      
     });
     console.log("Dados salvos");
     setEditando(false);
@@ -168,7 +181,7 @@ async function handleSalvar() {
       
       <Card sx={{ width: '100%', mt: 2, mr: 2}}>
       <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
-        Dados Pessoais
+        Prontuario de {editedNome}
         <Divider />
       </Typography>
       
@@ -330,9 +343,8 @@ async function handleSalvar() {
           
           id="Celular"
           label="Contato"
-          InputProps={{
-            readOnly: !editando,
-          }}
+          InputProps={{readOnly: !editando, }}
+          InputLabelProps={{shrink: true}}
           
         /> )}
         </InputMask>
@@ -356,16 +368,15 @@ async function handleSalvar() {
         value={responsavel}
         onChange={(e) => setResponsavel(e.target.value)}
         fullWidth
-        InputProps={{
-          readOnly: !editando,
-        }}
+        InputProps={{readOnly: !editando,}}
+        InputLabelProps={{shrink: true}}
       /> 
     </Grid2>
 
     <Grid2 item xs={12} sm={6} md={4} lg={3} >
       <FormControl  variant="standard" sx={{ minWidth: 120 }}
           >
-        <InputLabel required id="Parentesco" shrink sx={{ fontSize: '1.2rem' }}>Parentesco</InputLabel>
+        <InputLabel  id="Parentesco" shrink sx={{ fontSize: '1.2rem' }}>Parentesco</InputLabel>
         
         <Select
           
@@ -383,6 +394,144 @@ async function handleSalvar() {
           <MenuItem value='Avô/Avó'>Avô/Avó</MenuItem>
         </Select>
       </FormControl>
+      </Grid2>
+      
+      <Grid2 item xs={12} sm={6} md={4} lg={3}>
+        <InputMask
+        mask="(99) 99999-9999"
+        value={contatoResponsavel}
+        onChange={(e) => setContatoResponsavel(e.target.value.replace(/\D/g, ''))}
+        >
+        {(inputProps) => (
+        <TextField
+          {...inputProps}  
+          sx={{ 
+            width: '20ch', 
+            paddingTop: '10px',
+            '.MuiInputBase-root': {
+            backgroundColor: editando ? 'none' : 'inherit',
+            borderRadius: '4px',
+            
+              },
+          }}
+          
+          id="ContatoResponsavel"
+          label="Contato Responsavel"
+          InputProps={{readOnly: !editando, }}
+          InputLabelProps={{shrink: true}}
+          
+        />)}
+        </InputMask>
+      </Grid2>
+      
+      <Grid2 item xs={12} sm={6} md={4} lg={3}>
+      <FormControl variant="standard" sx={{ minWidth: 120 }}
+          >
+        <InputLabel  id="sexo" shrink sx={{ fontSize: '1.2rem' }}>Sexo</InputLabel>
+        
+        <Select
+          
+          labelId="sexo"
+          id="sexo"
+          value={sexo}
+          onChange={(e) => setSexo(e.target.value)}
+          disabled={true}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value='Masculino'>Masculino</MenuItem>
+          <MenuItem value='Feminino'>Feminino</MenuItem>
+          
+        </Select>
+      </FormControl>
+      </Grid2>
+      
+      <Grid2 item xs={12} sm={6} md={4} lg={3}>
+        <TextField
+          sx={{ 
+            
+            width: '50ch' , 
+            paddingTop: '10px', 
+            '.MuiInputBase-root': {
+            backgroundColor: editando ? 'none' : 'inherit',
+            borderRadius: '4px',
+            
+              },
+          }}
+          
+          id="mae"
+          label="Nome da Mãe"
+          value={mae}
+          onChange={(e) => setMae(e.target.value)}
+          InputProps={{ readOnly: !editando,}}
+          InputLabelProps={{shrink: true}}
+        />
+      </Grid2>
+      
+      <Grid2 item xs={12} sm={6} md={4} lg={3}>
+        <TextField
+          sx={{ 
+            width: '50ch', 
+            paddingTop: '10px',
+            '.MuiInputBase-root': {
+            backgroundColor: editando ? 'none' : 'inherit',
+            borderRadius: '4px',
+            
+              },
+           }}
+          required
+          id="pai"
+          label="Nome do Pai"
+          value={pai}
+          onChange={(e) => setPai(e.target.value)}
+          InputProps={{readOnly: !editando,}}
+          InputLabelProps={{shrink: true}}
+        />
+      </Grid2>
+      
+      <Grid2 item xs={12} sm={6} md={4} lg={3} >
+      <TextField
+          sx={{ 
+            width: '50ch', 
+            paddingTop: '10px', 
+            '.MuiInputBase-root': {
+            backgroundColor: editando ? 'none' : 'inherit',
+            borderRadius: '4px',
+            
+              },
+          }}
+          required
+          id="nacionalidade"
+          label="Nacionalidade"
+          value={nacionalidade}
+          onChange={(e) => setNacionalidade(e.target.value)}
+          InputProps={{readOnly: !editando,}}
+          InputLabelProps={{shrink: true}}
+          
+        />
+      </Grid2>
+      
+      <Grid2 item xs={12} sm={6} md={4} lg={3}>
+        <TextField
+          sx={{ 
+            width: '50ch', 
+            paddingTop: '10px',
+            '.MuiInputBase-root': {
+              backgroundColor: editando ? 'none' : 'inherit',
+              borderRadius: '4px',
+              
+                },
+           }}
+          required
+          id="naturalidade"
+          label="Naturalidade"
+          value={naturalidade}
+          onChange={(e) => setNaturalidade(e.target.value)}
+          InputProps={{readOnly: !editando,}}
+          InputLabelProps={{shrink: true}}
+          
+        />
       </Grid2>
 
       </Grid2>
