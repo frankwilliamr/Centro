@@ -32,7 +32,7 @@ export default function DadosSociais({ receberReligiao,
      
     return (
         <Grid2 container spacing={2} sx={{ width: '100%', margin: '0 auto', justifyContent: 'center', alignItems: 'flex-start' }}>
-           <Grid2 item xs={12} sm={6} lg={3}  >
+        <Grid2 item xs={12} sm={6} lg={3}  >
         <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
           >
         <InputLabel required id="religiao" shrink sx={{ fontSize: '1.2rem' }}>Religião</InputLabel>
@@ -70,7 +70,7 @@ export default function DadosSociais({ receberReligiao,
         
       </FormControl>
       </Grid2>
-          <Grid2 item xs={12} sm={6} lg={3}  >
+        <Grid2 item xs={12} sm={6} lg={3}  >
         <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
           >
         <InputLabel required id="escolaridade" shrink sx={{ fontSize: '1.2rem' }}>Escolaridade</InputLabel>

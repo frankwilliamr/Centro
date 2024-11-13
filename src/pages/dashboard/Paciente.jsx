@@ -39,7 +39,7 @@ export default function Paciente({}){
   const [outraReligiao, setOutraReligiao] = React.useState('');
   const [escolaridade, setEscolaridade] = React.useState('');
   const [ocupacao, setOcupacao] = React.useState('');
-  const [outraOcupacao, setOutraOcupaccao] = React.useState('');
+  const [outraOcupacao, setOutraOcupacao] = React.useState('');
   const [previdencia, setPrevidencia] = React.useState('');
   const [outraPrevidencia, setOutraPrevidencia] = React.useState('');
   const [beneficios, setBeneficios] = React.useState('');
@@ -86,8 +86,16 @@ export default function Paciente({}){
           setPai(data.pai)
           setNacionalidade(data.nacionalidade)
           setNaturalidade(data.naturalidade)
-          
-           // Atribui o título ou outro campo que você queira
+          setOutraReligiao(data.religiaoFinal)
+          setReligiao(['Católico', 'Protestante', 'Espírita', 'Candomblé', 'Evangelico',].includes(data.religiaoFinal) 
+          ? data.religiaoFinal: 'outro')
+          setEscolaridade(data.escolaridade)
+          setOcupacao(['Desempregado', 'Empregado', 'Autonomo', 'Dona de Casa', 'Estudante', 'EmpregadoFixo', 'Empregador', 'Mercado Informal', 'Aposentado'].includes(data.ocupacaoFinal)
+        ? data.ocupacaoFinal : 'outro')
+          setOutraOcupacao(data.ocupacaoFinal)
+          setPrevidencia(data.previdenciaFinal === 'sim' ? data.previdencia : 'não')
+          setOutraPrevidencia(data.previdenciaFinal)
+           
         } else {
           console.log("Nenhum documento encontrado!");
         }
@@ -141,6 +149,10 @@ async function handleSalvar() {
   const docRef = doc(db, "internos", id); 
   
   try {
+    //Dados Sociais
+    const religiaoFinal = religiao === 'outro' ? outraReligiao : religiao;
+    const ocupacaoFinal = ocupacao === 'outro' ? outraOcupacao : ocupacao;
+    const previdenciaFinal = previdencia === 'sim' ? outraPrevidencia : previdencia;
     await updateDoc(docRef, {
       nome: editedNome,
       contato: contato,
@@ -151,6 +163,10 @@ async function handleSalvar() {
       pai: pai,
       nacionalidade: nacionalidade,
       naturalidade: naturalidade,
+      religiaoFinal: religiaoFinal,
+      escolaridade: escolaridade,
+      ocupacaoFinal: ocupacaoFinal,
+      previdenciaFinal: previdenciaFinal,
       
     });
     console.log("Dados salvos");
@@ -532,6 +548,179 @@ async function handleSalvar() {
           InputLabelProps={{shrink: true}}
           
         />
+      </Grid2>
+      
+      <Grid2 item xs={12} sm={6} lg={3}  >
+        <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
+          >
+        <InputLabel required id="religiao" shrink sx={{ fontSize: '1.2rem' }}>Religião</InputLabel>
+        
+        <Select
+          sx={{ width: '20ch'}}
+          labelId="religiao"
+          id="religiao"
+          value={religiao}
+          onChange={(e) => setReligiao(e.target.value)}
+          disabled={!editando}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value='Católico'>Católico</MenuItem>
+          <MenuItem value='Protestante'>Protestante</MenuItem>
+          <MenuItem value='Espírita'>Espírita</MenuItem>
+          <MenuItem value='Candomblé'>Candomblé</MenuItem>
+          <MenuItem value='Evangelico'>Evangelico</MenuItem>
+          <MenuItem value='outro'>Outros</MenuItem>
+
+      
+          
+        </Select>
+
+        {religiao === 'outro' && (
+        <TextField
+          label="Outros"
+          
+          value={outraReligiao}
+          onChange={(e) => setOutraReligiao(e.target.value)}
+          InputProps={{readOnly: !editando,}}
+          
+          sx={{
+            width: '30ch', 
+            paddingTop: '10px',
+            marginLeft: 2, 
+            '.MuiInputBase-root': {
+            backgroundColor: editando ? 'none' : 'inherit',
+            borderRadius: '4px',
+            
+              },
+            
+           }}
+        />
+      )}
+        
+      </FormControl>
+      </Grid2>
+
+      <Grid2 item xs={12} sm={6} lg={3}  >
+        <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
+          >
+        <InputLabel required id="escolaridade" shrink sx={{ fontSize: '1.2rem' }}>Escolaridade</InputLabel>
+        
+        <Select
+          sx={{ width: '20ch'}}
+          labelId="escolaridade"
+          id="escolaridade"
+          value={escolaridade}
+          onChange={(e) => setEscolaridade(e.target.value)}
+          disabled={!editando}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value='Analfabeto'>Analfabeto</MenuItem>
+          <MenuItem value='1º Grau inclompelto'>1º Grau inclompelto</MenuItem>
+          <MenuItem value='2º Grau inclompelto'>2º Grau inclompelto</MenuItem>
+          <MenuItem value='3º Grau inclompelto'>3º Grau inclompelto</MenuItem>
+          <MenuItem value='Analfabeto (Escreve o nome)'>Analfabeto (Escreve o nome)</MenuItem>
+          <MenuItem value='1º Grau completo'>1º Grau completo</MenuItem>
+          <MenuItem value='2º Grau completo'>2º Grau completo</MenuItem>
+          <MenuItem value='3º Grau completo'>3º Grau completo</MenuItem>
+          
+        </Select>
+
+        
+      </FormControl>
+      </Grid2>
+
+      <Grid2 item xs={12} sm={6} lg={3}  >
+        <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
+          >
+        <InputLabel required id="ocupacao" shrink sx={{ fontSize: '1.2rem' }}>Ocupação Atual</InputLabel>
+        
+        <Select
+          sx={{ width: '20ch'}}
+          labelId="ocupacao"
+          id="ocupacao"
+         value={ocupacao}
+         onChange={(e) => setOcupacao(e.target.value)}
+         disabled={!editando}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value='Desempregado'  >Desempregado</MenuItem>
+          <MenuItem value='Empregado'>Empregado</MenuItem>
+          <MenuItem value='Autonomo'>Autonomo</MenuItem>
+          <MenuItem value='Dona de Casa'>Dona de Casa</MenuItem>
+          <MenuItem value='Estudante'>Estudante</MenuItem>
+          <MenuItem value='EmpregadoFixo'>Empregado fixo</MenuItem>
+          <MenuItem value='Empregador'>Empregador</MenuItem>
+          <MenuItem value='Mercado Informal'>Mercado Informal</MenuItem>
+          <MenuItem value='Aposentado'>Aposentado</MenuItem>
+          <MenuItem value='outro'>Outros</MenuItem>
+        </Select>
+        
+        {ocupacao === 'outro' && (
+        <TextField
+          label="Outros"
+          
+          value={outraOcupacao}
+          onChange={(e) => setOutraOcupacao(e.target.value)}
+          InputProps={{readOnly: !editando,}}
+          sx={{ width: '30ch', 
+            paddingTop: '10px',
+            marginLeft: 2, 
+            '.MuiInputBase-root': {
+            backgroundColor: editando ? 'none' : 'inherit',
+            borderRadius: '4px',
+            
+              }, }}
+        />
+      )}
+        
+      </FormControl>
+      </Grid2>
+
+      <Grid2 item xs={12} sm={6} lg={3}  >
+        <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
+          >
+        <InputLabel required id="previdencia" shrink sx={{ fontSize: '1.2rem' }}>Vinculo previdênciario</InputLabel>
+        
+        <Select
+          sx={{ width: '25ch'}}
+          labelId="previdencia"
+          id="previdencia"
+          value={previdencia}
+          disabled={!editando}
+          onChange={(e) => setPrevidencia(e.target.value)}
+       
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value='não'  >Não</MenuItem>
+          <MenuItem value='sim'>Sim</MenuItem>
+        </Select>
+
+        {previdencia === 'sim' && (
+        <TextField
+          label="Quais"
+          variant="standard"
+          value={outraPrevidencia}
+          onChange={(e) => setOutraPrevidencia(e.target.value)}
+          InputProps={{readOnly: !editando,}}
+          sx={{ width: '30ch', 
+            paddingTop: '10px',
+            marginLeft: 2, 
+            '.MuiInputBase-root': {
+            backgroundColor: editando ? 'none' : 'inherit',
+            borderRadius: '4px',
+            
+              }, }}
+        />)}
+
+      </FormControl>
       </Grid2>
 
       </Grid2>
