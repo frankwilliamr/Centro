@@ -130,7 +130,7 @@ export default function CadastroEndereco ({cep,
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
       <FormControl variant="standard" sx={{ minWidth: 120 }}
           >
-        <InputLabel required id="Zona" shrink sx={{ fontSize: '1.2rem' }}>Zona</InputLabel>
+        <InputLabel  id="Zona" shrink sx={{ fontSize: '1.2rem' }}>Zona</InputLabel>
         
         <Select
           

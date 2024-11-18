@@ -13,6 +13,7 @@ import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { alpha } from '@mui/material/styles';
+import { Transform } from "@mui/icons-material";
 
 
 export default function Paciente({}){
@@ -95,7 +96,7 @@ export default function Paciente({}){
           ? data.ocupacaoFinal : 'outro')
           setOutraOcupacao(['Desempregado', 'Empregado', 'Autonomo', 'Dona de Casa', 'Estudante', 'EmpregadoFixo', 'Empregador', 'Mercado Informal', 'Aposentado'].includes(data.ocupacaoFinal)
           ? '' : data.ocupacaoFinal)
-          setPrevidencia(data.previdenciaFinal === 'sim' ? data.previdencia : 'não')
+          setPrevidencia(data.previdenciaFinal === 'não' ? data.previdenciaFinal : 'sim')
           setOutraPrevidencia(data.previdenciaFinal)
           setBeneficios(data.beneficiosFinal === 'BPC' || data.beneficiosFinal === 'Bolsa Família' ? data.beneficiosFinal : 'outro')
           setOutrosBeneficios(data.beneficiosFinal === 'BPC' || data.beneficiosFinal === 'Bolsa Família' ? '' : data.beneficiosFinal ) 
@@ -236,30 +237,45 @@ async function handleSalvar() {
   
   return(
     
-    <Box sx={{ ml: 2, display: 'flex' }}>
+    <Box sx={{ ml: 2, display: 'flex',  }}>
           <SideMenu />
           <AppNavbar />
 
       
       <Card sx={{ width: '100%', mt: 2, mr: 2}}>
-      <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
+        
+       <Grid2  
+        container 
+        spacing={2}
+         // Alinha os itens verticalmente no centro
+        justifyContent="space-between"
+         >
+        <Grid2 item  xs={12} sm={6}>
+        <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
         Prontuario de {editedNome}
-        <Divider />
-      </Typography>
-      
-      <Grid2 item xs={12} sm={6}>
-              {!editando ? (
-                <Button variant="contained" color="primary" onClick={handleEditar}>
+        
+       </Typography>
+        </Grid2>
+          <Grid2 item sx={{ml: 0, mt: 0}}>
+          {!editando ? (
+                <Button 
+                variant="contained" 
+                color="primary" 
+                onClick={handleEditar}
+                size="small"
+                sx={{ml: 0, width: '20px'}}
+                >
                   Editar
                 </Button>
               ) : (
                 <>
-                  <Button variant="contained" color="primary" onClick={handleSalvar}>
+                  <Button variant="contained" size="small" color="primary" onClick={handleSalvar}>
                     Salvar
                   </Button>
                   <Button
                     variant="outlined"
                     color="secondary"
+                    size="small"
                     sx={{ ml: 2 }}
                     onClick={handleCancelar}
                   >
@@ -267,8 +283,13 @@ async function handleSalvar() {
                   </Button>
                 </>
               )}
-            </Grid2>
-      <Grid2 container spacing={2} sx={{ width: '100%', margin: '0 auto', justifyContent: 'center'}}>
+              
+          </Grid2>
+              
+                
+      </Grid2>
+      <Divider />
+      <Grid2 container  spacing={2} sx={{ width: '100%', margin: '0 auto', justifyContent: 'center', mt: 2,}}>
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
           
           <TextField
@@ -281,7 +302,7 @@ async function handleSalvar() {
             
               },
                 }}
-                required
+                
                 id="outlined-required"
                 label="Nome Completo"
                 value={editedNome}
@@ -436,9 +457,9 @@ async function handleSalvar() {
     </Grid2>
 
     <Grid2 item xs={12} sm={6} md={4} lg={3} >
-      <FormControl  variant="standard" sx={{ minWidth: 120 }}
+      <FormControl   sx={{ minWidth: 120, paddingTop: '10px' }}
           >
-        <InputLabel  id="Parentesco" shrink sx={{ fontSize: '1.2rem' }}>Parentesco</InputLabel>
+        <InputLabel  id="Parentesco" shrink sx={{ fontSize: '0.8rem' }}>Parentesco</InputLabel>
         
         <Select
           
@@ -487,9 +508,9 @@ async function handleSalvar() {
       </Grid2>
       
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
-      <FormControl variant="standard" sx={{ minWidth: 120 }}
+      <FormControl  sx={{ minWidth: 120, paddingTop: '10px' }}
           >
-        <InputLabel  id="sexo" shrink sx={{ fontSize: '1.2rem' }}>Sexo</InputLabel>
+        <InputLabel  id="sexo" shrink sx={{ fontSize: '0.8  rem' }}>Sexo</InputLabel>
         
         <Select
           
@@ -513,7 +534,7 @@ async function handleSalvar() {
         <TextField
           sx={{ 
             
-            width: '50ch' , 
+            width: '40ch' , 
             paddingTop: '10px', 
             '.MuiInputBase-root': {
             backgroundColor: editando ? 'none' : 'inherit',
@@ -534,7 +555,7 @@ async function handleSalvar() {
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
         <TextField
           sx={{ 
-            width: '50ch', 
+            width: '40ch', 
             paddingTop: '10px',
             '.MuiInputBase-root': {
             backgroundColor: editando ? 'none' : 'inherit',
@@ -649,9 +670,9 @@ async function handleSalvar() {
       </Grid2>
 
       <Grid2 item xs={12} sm={6} lg={3}  >
-        <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
+        <FormControl fullWidth  sx={{ minWidth: 120, flexDirection: 'row', paddingTop: '10px'}}
           >
-        <InputLabel required id="escolaridade" shrink sx={{ fontSize: '1.2rem' }}>Escolaridade</InputLabel>
+        <InputLabel  id="escolaridade" shrink sx={{ fontSize: '0.8rem' }}>Escolaridade</InputLabel>
         
         <Select
           sx={{ width: '20ch'}}
@@ -680,9 +701,9 @@ async function handleSalvar() {
       </Grid2>
 
       <Grid2 item xs={12} sm={6} lg={3}  >
-        <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
+        <FormControl fullWidth  sx={{ minWidth: 120, flexDirection: 'row', paddingTop: '10px'}}
           >
-        <InputLabel required id="ocupacao" shrink sx={{ fontSize: '1.2rem' }}>Ocupação Atual</InputLabel>
+        <InputLabel  id="ocupacao" shrink sx={{ fontSize: '0.8rem' }}>Ocupação Atual</InputLabel>
         
         <Select
           sx={{ width: '20ch'}}
@@ -709,13 +730,19 @@ async function handleSalvar() {
         
         {ocupacao === 'outro' && (
         <TextField
-          label="Outros"
+          label="Ocupação Atual"
           
           value={outraOcupacao}
           onChange={(e) => setOutraOcupacao(e.target.value)}
           InputProps={{readOnly: !editando,}}
+          InputLabelProps={{
+            style: {
+            fontFamily: 'inherit',
+            transform: 'translate(0, -18px)', // Move o label para cima
+            fontSize: '0.6rem'
+          },}}
           sx={{ width: '30ch', 
-            paddingTop: '10px',
+            
             marginLeft: 2, 
             '.MuiInputBase-root': {
             backgroundColor: editando ? 'none' : 'inherit',
@@ -729,9 +756,9 @@ async function handleSalvar() {
       </Grid2>
 
       <Grid2 item xs={12} sm={6} lg={3}  >
-        <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
+        <FormControl fullWidth  sx={{ minWidth: 120, flexDirection: 'row', paddingTop: '10px'}}
           >
-        <InputLabel required id="previdencia" shrink sx={{ fontSize: '1.2rem' }}>Vinculo previdênciario</InputLabel>
+        <InputLabel  id="previdencia" shrink sx={{ fontSize: '0.8rem' }}>Vinculo previdênciario</InputLabel>
         
         <Select
           sx={{ width: '25ch'}}
@@ -745,19 +772,25 @@ async function handleSalvar() {
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value='não'  >Não</MenuItem>
+          <MenuItem value='não'>Não</MenuItem>
           <MenuItem value='sim'>Sim</MenuItem>
         </Select>
 
         {previdencia === 'sim' && (
         <TextField
-          label="Quais"
-          variant="standard"
+          label="Previdencia"
+          
           value={outraPrevidencia}
           onChange={(e) => setOutraPrevidencia(e.target.value)}
           InputProps={{readOnly: !editando,}}
+          InputLabelProps={{
+            style: {
+            fontFamily: 'inherit',
+            transform: 'translate(0, -18px)', // Move o label para cima
+            fontSize: '0.6rem'
+          },}}
           sx={{ width: '30ch', 
-            paddingTop: '10px',
+            
             marginLeft: 2, 
             '.MuiInputBase-root': {
             backgroundColor: editando ? 'none' : 'inherit',
@@ -770,9 +803,9 @@ async function handleSalvar() {
       </Grid2>
       
       <Grid2 item xs={12} sm={6} lg={3}  >
-        <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
+        <FormControl fullWidth  sx={{ minWidth: 120, flexDirection: 'row', paddingTop: '10px'}}
           >
-        <InputLabel required id="beneficio" shrink sx={{ fontSize: '1.2rem' }}>Benefícios Sociais</InputLabel>
+        <InputLabel  id="beneficio" shrink sx={{ fontSize: '0.8rem' }}>Benefícios Sociais</InputLabel>
         
         <Select
           sx={{ width: '20ch'}}
@@ -797,8 +830,14 @@ async function handleSalvar() {
           value={outrosBeneficios}
           onChange={(e) => setOutrosBeneficios(e.target.value)}
           InputProps={{readOnly: !editando,}}
+          InputLabelProps={{
+            style: {
+            fontFamily: 'inherit',
+            transform: 'translate(0, -18px)', 
+            fontSize: '0.6rem'
+          },}}
           sx={{ width: '30ch', 
-            paddingTop: '10px',
+            
             marginLeft: 2, 
             '.MuiInputBase-root': {
             backgroundColor: editando ? 'none' : 'inherit',
@@ -812,12 +851,12 @@ async function handleSalvar() {
       </Grid2>
 
       <Grid2 item xs={12} sm={6} lg={3}  >
-        <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
+        <FormControl fullWidth  sx={{ minWidth: 120, flexDirection: 'row', paddingTop: '10px'}}
           >
-        <InputLabel required id="Ocupacao" shrink sx={{ fontSize: '1.2rem' }}>Moradia Atual</InputLabel>
+        <InputLabel required id="Ocupacao" shrink sx={{ fontSize: '0.8rem' }}>Moradia Atual</InputLabel>
         
         <Select
-          sx={{ width: '30ch'}}
+          sx={{ width: '35ch'}}
           labelId="Moradia"
           id="Moradia"
           value={moradia}
@@ -838,13 +877,19 @@ async function handleSalvar() {
         </Select>
         {moradia === 'outro' && (
         <TextField
-          label="Outros"
+          label="Moradia Atual"
           
           value={outraMoradia}
           onChange={(e) => setOutraMoradia(e.target.value)}
           InputProps={{readOnly: !editando,}}
+          InputLabelProps={{
+            style: {
+            fontFamily: 'inherit',
+            transform: 'translate(0, -18px)', // Move o label para cima
+            fontSize: '0.6rem'
+          },}}
           sx={{ width: '30ch', 
-            paddingTop: '10px',
+            
             marginLeft: 2, 
             '.MuiInputBase-root': {
             backgroundColor: editando ? 'none' : 'inherit',
@@ -970,9 +1015,9 @@ async function handleSalvar() {
       </Grid2>       
       
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
-      <FormControl variant="standard" sx={{ minWidth: 120 }}
+      <FormControl  sx={{ minWidth: 120, paddingTop: '10px' }}
           >
-        <InputLabel required id="Zona" shrink sx={{ fontSize: '1.2rem' }}>Zona</InputLabel>
+        <InputLabel required id="Zona" shrink sx={{ fontSize: '0.8rem' }}>Zona</InputLabel>
         
         <Select
           
