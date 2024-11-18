@@ -86,17 +86,29 @@ export default function Paciente({}){
           setPai(data.pai)
           setNacionalidade(data.nacionalidade)
           setNaturalidade(data.naturalidade)
-          setOutraReligiao(data.religiaoFinal)
+          setOutraReligiao(['Católico', 'Protestante', 'Espírita', 'Candomblé', 'Evangelico',].includes(data.religiaoFinal) 
+          ? '' : data.religiaoFinal)
           setReligiao(['Católico', 'Protestante', 'Espírita', 'Candomblé', 'Evangelico',].includes(data.religiaoFinal) 
           ? data.religiaoFinal: 'outro')
           setEscolaridade(data.escolaridade)
           setOcupacao(['Desempregado', 'Empregado', 'Autonomo', 'Dona de Casa', 'Estudante', 'EmpregadoFixo', 'Empregador', 'Mercado Informal', 'Aposentado'].includes(data.ocupacaoFinal)
-        ? data.ocupacaoFinal : 'outro')
-          setOutraOcupacao(data.ocupacaoFinal)
+          ? data.ocupacaoFinal : 'outro')
+          setOutraOcupacao(['Desempregado', 'Empregado', 'Autonomo', 'Dona de Casa', 'Estudante', 'EmpregadoFixo', 'Empregador', 'Mercado Informal', 'Aposentado'].includes(data.ocupacaoFinal)
+          ? '' : data.ocupacaoFinal)
           setPrevidencia(data.previdenciaFinal === 'sim' ? data.previdencia : 'não')
           setOutraPrevidencia(data.previdenciaFinal)
           setBeneficios(data.beneficiosFinal === 'BPC' || data.beneficiosFinal === 'Bolsa Família' ? data.beneficiosFinal : 'outro')
           setOutrosBeneficios(data.beneficiosFinal === 'BPC' || data.beneficiosFinal === 'Bolsa Família' ? '' : data.beneficiosFinal ) 
+          setMoradia(['Em situação de rua', 'Albergado em abrigos públicos', 'Serviço residencial terapêutico', 'Não possui residência fixa', 'Moradia regular sozinho', 'Moradia regular com familiar', '' ].includes(data.moradiaFinal)
+          ? data.moradiaFinal : 'outro')
+          setOutraMoradia(['Em situação de rua', 'Albergado em abrigos públicos', 'Serviço residencial terapêutico', 'Não possui residência fixa', 'Moradia regular sozinho', 'Moradia regular com familiar'  ].includes(data.moradiaFinal)
+          ? '' : data.moradiaFinal)
+          setCep(data.cep)
+          setBairro(data.bairro)
+          setLogradouro(data.logradouro)
+          setCidade(data.cidade)
+          setEstado(data.estado)
+          setZona(data.zona)
 
         } else {
           console.log("Nenhum documento encontrado!");
@@ -155,6 +167,9 @@ async function handleSalvar() {
     const religiaoFinal = religiao === 'outro' ? outraReligiao : religiao;
     const ocupacaoFinal = ocupacao === 'outro' ? outraOcupacao : ocupacao;
     const previdenciaFinal = previdencia === 'sim' ? outraPrevidencia : previdencia;
+    const beneficiosFinal = beneficios === 'outro' ? outrosBeneficios : beneficios;
+    const moradiaFinal = moradia === 'outro' ? outrosBeneficios : moradia;
+    
     await updateDoc(docRef, {
       nome: editedNome,
       contato: contato,
@@ -169,7 +184,14 @@ async function handleSalvar() {
       escolaridade: escolaridade,
       ocupacaoFinal: ocupacaoFinal,
       previdenciaFinal: previdenciaFinal,
-      
+      beneficiosFinal: beneficiosFinal,
+      moradiaFinal: moradiaFinal,
+      cep: cep,
+      bairro: bairro,
+      logradouro: logradouro,
+      cidade: cidade,
+      estado: estado,
+      zona: zona,
     });
     console.log("Dados salvos");
     setEditando(false);
@@ -189,6 +211,28 @@ async function handleSalvar() {
     
   };
   
+  const handleCepChange = async (event) => {
+    const cepValue = event.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+    setCep(cepValue);
+
+    if (cepValue.length === 8) {
+      try {
+        const response = await axios.get(`https://viacep.com.br/ws/${cepValue}/json/`);
+        const data = response.data;
+        if (!data.erro) {
+          
+          setLogradouro(data.logradouro || '')
+          setCidade(data.localidade || '')
+          setEstado(data.estado || '')
+          setBairro(data.bairro || '')
+        } else {
+          alert('CEP não encontrado!');
+        }
+      } catch (error) {
+        alert('Erro ao buscar CEP!');
+      }
+    }
+  };
   
   return(
     
@@ -511,7 +555,7 @@ async function handleSalvar() {
       <Grid2 item xs={12} sm={6} md={4} lg={3} >
       <TextField
           sx={{ 
-            width: '50ch', 
+            width: '30ch', 
             paddingTop: '10px', 
             '.MuiInputBase-root': {
             backgroundColor: editando ? 'none' : 'inherit',
@@ -533,7 +577,7 @@ async function handleSalvar() {
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
         <TextField
           sx={{ 
-            width: '50ch', 
+            width: '30ch', 
             paddingTop: '10px',
             '.MuiInputBase-root': {
               backgroundColor: editando ? 'none' : 'inherit',
@@ -541,7 +585,7 @@ async function handleSalvar() {
               
                 },
            }}
-          required
+          
           id="naturalidade"
           label="Naturalidade"
           value={naturalidade}
@@ -553,9 +597,9 @@ async function handleSalvar() {
       </Grid2>
       
       <Grid2 item xs={12} sm={6} lg={3}  >
-        <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
+        <FormControl fullWidth  sx={{ minWidth: 120, flexDirection: 'row', paddingTop: '10px'}}
           >
-        <InputLabel required id="religiao" shrink sx={{ fontSize: '1.2rem' }}>Religião</InputLabel>
+        <InputLabel  id="religiao" shrink sx={{ fontSize: '0.8rem', marginLeft: 1 }}>Religião</InputLabel>
         
         <Select
           sx={{ width: '20ch'}}
@@ -589,7 +633,7 @@ async function handleSalvar() {
           
           sx={{
             width: '30ch', 
-            paddingTop: '10px',
+            
             marginLeft: 2, 
             '.MuiInputBase-root': {
             backgroundColor: editando ? 'none' : 'inherit',
@@ -766,6 +810,187 @@ async function handleSalvar() {
      
       </FormControl>
       </Grid2>
+
+      <Grid2 item xs={12} sm={6} lg={3}  >
+        <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
+          >
+        <InputLabel required id="Ocupacao" shrink sx={{ fontSize: '1.2rem' }}>Moradia Atual</InputLabel>
+        
+        <Select
+          sx={{ width: '30ch'}}
+          labelId="Moradia"
+          id="Moradia"
+          value={moradia}
+          onChange={(e) => setMoradia(e.target.value)}
+          disabled={!editando}
+         
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value='Em situação de rua'  >Em situação de rua</MenuItem>
+          <MenuItem value='Albergado em abrigos públicos'>Albergado em abrigos públicos</MenuItem>
+          <MenuItem value='Serviço residencial terapêutico'>Serviço residencial terapêutico</MenuItem>
+          <MenuItem value='Não possui residência fixa'>Não possui residência fixa</MenuItem>
+          <MenuItem value='Moradia regular sozinho'>Moradia regular sozinho</MenuItem>
+          <MenuItem value='Moradia regular com familiar'>Moradia regular com familiar</MenuItem>
+          <MenuItem value='outro'>Outro</MenuItem>
+        </Select>
+        {moradia === 'outro' && (
+        <TextField
+          label="Outros"
+          
+          value={outraMoradia}
+          onChange={(e) => setOutraMoradia(e.target.value)}
+          InputProps={{readOnly: !editando,}}
+          sx={{ width: '30ch', 
+            paddingTop: '10px',
+            marginLeft: 2, 
+            '.MuiInputBase-root': {
+            backgroundColor: editando ? 'none' : 'inherit',
+            borderRadius: '4px',
+            
+              }, }}
+        />
+      )}
+   
+      </FormControl>
+      </Grid2>
+      
+        <Grid2 item xs={12} sm={6} md={4} lg={3}>
+        <InputMask
+         mask="99999-999"
+         value = {cep}
+         onChange = {handleCepChange}>
+          {(inputProps) => (
+        <TextField
+         InputProps={{readOnly: !editando,}}
+         sx={{ width: '30ch', 
+          paddingTop: '10px',
+           
+          '.MuiInputBase-root': {
+          backgroundColor: editando ? 'none' : 'inherit',
+          borderRadius: '4px',
+          
+            }, }}
+          
+          
+          label="CEP"
+         
+          
+          
+          
+        />)}
+        </InputMask>
+      </Grid2>    
+
+      <Grid2 item xs={12} sm={6} md={4} lg={3}>
+        <TextField
+          InputProps={{readOnly: !editando,}}
+          sx={{ width: '30ch', 
+           paddingTop: '10px',
+            
+           '.MuiInputBase-root': {
+           backgroundColor: editando ? 'none' : 'inherit',
+           borderRadius: '4px',
+           
+             }, }}
+          
+          name = 'bairro'
+          label="Bairro"
+          value = {bairro}
+          onChange = {(e) => setBairro(e.target.value)}
+          
+          
+          
+        />
+      </Grid2>
+
+      <Grid2 item xs={12} sm={6} md={4} lg={3}>
+        <TextField
+          InputProps={{readOnly: !editando,}}
+          sx={{ width: '40ch', 
+           paddingTop: '10px',
+
+           '.MuiInputBase-root': {
+           backgroundColor: editando ? 'none' : 'inherit',
+           borderRadius: '4px',
+           
+             }, }}
+          
+          label="Endereço"
+          value = {logradouro}
+          onChange = {(e)=> setLogradouro(e.target.value)}
+          
+          
+          
+        />
+      </Grid2>
+      
+      <Grid2 item xs={12} sm={6} md={4} lg={3}>
+        <TextField
+          InputProps={{readOnly: !editando,}}
+          sx={{ width: '40ch', 
+           paddingTop: '10px',
+           
+           '.MuiInputBase-root': {
+           backgroundColor: editando ? 'none' : 'inherit',
+           borderRadius: '4px',
+           
+             }, }}
+          name = 'cidade'
+          label="Municipio de Residência"
+          value = {cidade}
+          onChange = {(e) => setCidade(e.target.value)}
+          
+          
+          
+        />
+      </Grid2>
+      
+      <Grid2 item xs={12} sm={6} md={4} lg={3}>
+        <TextField
+         InputProps={{readOnly: !editando,}}
+         sx={{ width: '25ch', 
+          paddingTop: '10px',
+          
+          '.MuiInputBase-root': {
+          backgroundColor: editando ? 'none' : 'inherit',
+          borderRadius: '4px',
+          
+            }, }}
+          name = 'estado'
+          label="Estado"
+          value = {estado}
+          onChange = {(e) => setEstado(e.target.value)}
+          
+          
+          
+        />
+      </Grid2>       
+      
+      <Grid2 item xs={12} sm={6} md={4} lg={3}>
+      <FormControl variant="standard" sx={{ minWidth: 120 }}
+          >
+        <InputLabel required id="Zona" shrink sx={{ fontSize: '1.2rem' }}>Zona</InputLabel>
+        
+        <Select
+          
+          labelId="Zona"
+          id="zona"
+          value={zona}
+          onChange={(e) => setZona(e.target.value)}
+          disabled={!editando}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value='Zona Rural'>Zona Rural</MenuItem>
+          <MenuItem value='Zona Urbana'>Zona Urbana</MenuItem>
+          
+        </Select>
+      </FormControl>
+      </Grid2>      
 
       </Grid2>
       </Card>
