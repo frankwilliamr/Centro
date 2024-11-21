@@ -61,8 +61,14 @@ export default function Paciente({}){
     const [ajuda, setAjuda] = React.useState('');
     const [outraAjuda, setOutraAjuda] = React.useState('');
     const [capacidade, setCapacidade] = React.useState('');
-  
+
+    let listOcupacao = ['Desempregado', 'Empregado', 'Autonomo', 'Dona de Casa', 'Estudante', 'EmpregadoFixo', 'Empregador', 'Mercado Informal', 'Aposentado']
     
+    function mudanca(setOpcao, setOutraOpcao, valor ) {
+          setOpcao('outro')
+          setOutraOpcao(valor)
+
+    }
     const fetchDados = async () => {
       try {
         
@@ -92,10 +98,13 @@ export default function Paciente({}){
           setReligiao(['Católico', 'Protestante', 'Espírita', 'Candomblé', 'Evangelico',].includes(data.religiaoFinal) 
           ? data.religiaoFinal: 'outro')
           setEscolaridade(data.escolaridade)
-          setOcupacao(['Desempregado', 'Empregado', 'Autonomo', 'Dona de Casa', 'Estudante', 'EmpregadoFixo', 'Empregador', 'Mercado Informal', 'Aposentado'].includes(data.ocupacaoFinal)
-          ? data.ocupacaoFinal : 'outro')
-          setOutraOcupacao(['Desempregado', 'Empregado', 'Autonomo', 'Dona de Casa', 'Estudante', 'EmpregadoFixo', 'Empregador', 'Mercado Informal', 'Aposentado'].includes(data.ocupacaoFinal)
-          ? '' : data.ocupacaoFinal)
+          console.log(data.ocupacaoFinal)
+          
+          listOcupacao.includes(data?.ocupacaoFinal) ? setOcupacao(data?.ocupacaoFinal) : mudanca(setOcupacao, setOutraOcupacao, data?.ocupacaoFinal)
+          // setOcupacao(['Desempregado', 'Empregado', 'Autonomo', 'Dona de Casa', 'Estudante', 'EmpregadoFixo', 'Empregador', 'Mercado Informal', 'Aposentado'].includes(data.ocupacaoFinal)
+          // ? data.ocupacaoFinal : 'outro')
+          // setOutraOcupacao(['Desempregado', 'Empregado', 'Autonomo', 'Dona de Casa', 'Estudante', 'EmpregadoFixo', 'Empregador', 'Mercado Informal', 'Aposentado'].includes(data.ocupacaoFinal)
+          // ? '' : data.ocupacaoFinal)
           setPrevidencia(data.previdenciaFinal === 'não' ? data.previdenciaFinal : 'sim')
           setOutraPrevidencia(data.previdenciaFinal)
           setBeneficios(data.beneficiosFinal === 'BPC' || data.beneficiosFinal === 'Bolsa Família' ? data.beneficiosFinal : 'outro')
