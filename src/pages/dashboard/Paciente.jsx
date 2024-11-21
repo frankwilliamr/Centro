@@ -110,6 +110,15 @@ export default function Paciente({}){
           setCidade(data.cidade)
           setEstado(data.estado)
           setZona(data.zona)
+          setEstadoCivil(['Solteiro','Separado de fato, não legalmente', 'Viúvo', 'Casado ou unido consensualmente', 'Divorciado legalmente'].includes(data.estadoCivilFinal)
+        ? data.estadoCivilFinal : 'outro')
+          setOutroEstadoCivil(['Solteiro','Separado de fato, não legalmente', 'Viúvo', 'Casado ou unido consensualmente', 'Divorciado legalmente'].includes(data.estadoCivil)
+          ? '' : data.estadoCivilFinal )
+          setAjuda(['Com ninguém', 'Vizinhos / Amigos', 'Familiares', 'outro'].includes(data.ajudaFinal)
+        ? data.ajudaFinal : 'outro')
+          setOutraAjuda(['Com ninguém', 'Vizinhos / Amigos', 'Familiares', 'outro'].includes(data.ajudaFinal)
+          ? '' : data.ajudaFinal )
+          setCapacidade(data.capacidade)
 
         } else {
           console.log("Nenhum documento encontrado!");
@@ -170,9 +179,11 @@ async function handleSalvar() {
     const previdenciaFinal = previdencia === 'sim' ? outraPrevidencia : previdencia;
     const beneficiosFinal = beneficios === 'outro' ? outrosBeneficios : beneficios;
     const moradiaFinal = moradia === 'outro' ? outrosBeneficios : moradia;
+    const estadoCivilFinal = estadoCivil === 'outro' ? outroEstadoCivil : estadoCivil;
+    const ajudaFinal = ajuda === 'outro' ? outraAjuda : ajuda;
     
     await updateDoc(docRef, {
-      nome: editedNome,
+    nome: editedNome,
       contato: contato,
       responsavel: responsavel,
       parentesco: parentesco,
@@ -193,6 +204,9 @@ async function handleSalvar() {
       cidade: cidade,
       estado: estado,
       zona: zona,
+      estadoCivilFinal: estadoCivilFinal,
+      ajudaFinal: ajudaFinal,
+      capacidade: capacidade,
     });
     console.log("Dados salvos");
     setEditando(false);
@@ -1037,7 +1051,156 @@ async function handleSalvar() {
       </FormControl>
       </Grid2>      
 
+      <Grid2 item xs={12} sm={6} lg={3}  >
+        <FormControl fullWidth  sx={{ minWidth: 120, flexDirection: 'row', paddingTop: '10px'}}
+          >
+        <InputLabel  id="estadoCivil" shrink sx={{ fontSize: '0.8rem' }}>Situação Conjugal</InputLabel>
+        
+        <Select
+          sx={{ width: '35ch'}}
+          labelId="estadoCivil"
+          id="estadoCivil"
+          disabled={!editando}
+          value={estadoCivil}
+          onChange={(e) => setEstadoCivil(e.target.value)}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value='Solteiro'>Solteiro</MenuItem>
+          <MenuItem value='Separado de fato, não legalmente'>Separado de fato, não legalmente</MenuItem>
+          <MenuItem value='Viúvo'>Viúvo</MenuItem>
+          <MenuItem value='Casado ou unido consensualmente'>Casado ou unido consensualmente</MenuItem>
+          <MenuItem value='Divorciado legalmente'>Divorciado legalmente</MenuItem>
+          <MenuItem value='outro'>Outros</MenuItem>
+
+      
+          
+        </Select>
+        {estadoCivil === 'outro' && (
+        <TextField
+          label="Outros"
+          
+          value={outroEstadoCivil}
+          onChange={(e) => setOutroEstadoCivil(e.target.value)}
+          InputProps={{readOnly: !editando,}}
+          InputLabelProps={{
+            style: {
+            fontFamily: 'inherit',
+            transform: 'translate(0, -18px)', // Move o label para cima
+            fontSize: '0.6rem'
+          },}}
+          sx={{ width: '30ch', 
+            
+            marginLeft: 2, 
+            '.MuiInputBase-root': {
+            backgroundColor: editando ? 'none' : 'inherit',
+            borderRadius: '4px',
+            
+              }, }}
+        />
+      )}
+        
+      </FormControl>
       </Grid2>
+
+      <Grid2 item xs={12} sm={6} lg={3}  >
+        <FormControl fullWidth  sx={{ minWidth: 120, flexDirection: 'row', paddingTop: '10px'}}
+          >
+        <InputLabel  id="escolaridade" shrink sx={{ fontSize: '0.8rem' }}>Com quem o usuário conta</InputLabel>
+        
+        <Select
+          sx={{ width: '30ch'}}
+          labelId="Parentesco"
+          id="Parentesco"
+          value={ajuda}
+          onChange={(e) => setAjuda(e.target.value)}
+          disabled={!editando}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value='Com ninguém'>Com ninguém</MenuItem>
+          <MenuItem value='Vizinhos / Amigos'>Vizinhos / Amigos</MenuItem>
+          <MenuItem value='Familiares'>Familiares</MenuItem>
+          <MenuItem value='outro'>Outros</MenuItem>
+          
+        </Select>
+        {ajuda === 'outro' && (
+        <TextField
+          label="Outro"
+          
+          value={outraAjuda}
+          onChange={(e) => setOutraAjuda(e.target.value)}
+          InputProps={{readOnly: !editando,}}
+          InputLabelProps={{
+            style: {
+            fontFamily: 'inherit',
+            transform: 'translate(0, -18px)', // Move o label para cima
+            fontSize: '0.6rem'
+          },}}
+          sx={{ width: '30ch', 
+            
+            marginLeft: 2, 
+            '.MuiInputBase-root': {
+            backgroundColor: editando ? 'none' : 'inherit',
+            borderRadius: '4px',
+            
+              }, }}
+        />
+      )}
+        
+      </FormControl>
+      
+      </Grid2>
+      
+      <Grid2 item xs={12} sm={6} lg={3}  >
+        <FormControl fullWidth  sx={{ minWidth: 120, flexDirection: 'row', paddingTop: '10px'}}
+          >
+        <InputLabel required id="capacidade" shrink sx={{ fontSize: '0.8rem' }}>Capacidades e Habilidades</InputLabel>
+        
+        <Select
+          sx={{ width: '40ch'}}
+          labelId="capacidade"
+          id="capacidade"
+          value={capacidade}
+          onChange={(e) => setCapacidade(e.target.value)}
+         
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value='Totalmente Dependente'  >Totalmente Dependente</MenuItem>
+          <MenuItem value='Moderadamente grave(rever supervisão constante)'>Moderadamente grave(rever supervisão constante)</MenuItem>
+          <MenuItem value='Moderado (requer mínimo de supervisão ou estímulo diário)'>Moderado (requer mínimo de supervisão ou estímulo diário)</MenuItem>
+          <MenuItem value='Leve (requer mínimo de supervisão ou estímulo)'> Leve (requer mínimo de supervisão ou estímulo)</MenuItem>
+          <MenuItem value='Completamente independente'>Completamente independente </MenuItem>
+          
+        </Select>
+
+        
+      </FormControl>
+      </Grid2>
+
+      </Grid2>
+      <Divider sx={{mt: 3}}/>
+      <Grid2 sx={{
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        display: 'flex',
+    
+  }}>
+      <Button   
+                variant="contained" 
+                color="primary" 
+                onClick={handleEditar}
+                size="large"
+                sx={{ml: 0, width: '150px', mt: 3,}}
+                >
+                  Atualizações
+                </Button>
+      </Grid2>
+      
       </Card>
       
     </Box>
