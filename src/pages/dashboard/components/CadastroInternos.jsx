@@ -142,9 +142,7 @@ export default function CadastroInternos() {
         
       };
             
-      // Enviando os dados via axios
-      // const response = await axios.post('https://jsonplaceholder.typicode.com/posts', dadosParaEnvio);
-      // console.log('Dados enviados com sucesso:', response.data);
+      
       const docRef = await addDoc(collection(db, 'internos'), dadosParaEnvio);
       console.log('Dados enviados com sucesso. ID do documento:', docRef.id);
       

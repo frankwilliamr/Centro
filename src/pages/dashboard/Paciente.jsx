@@ -14,10 +14,13 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { alpha } from '@mui/material/styles';
 import { Transform } from "@mui/icons-material";
+import { Navigate, useNavigate } from "react-router-dom";
 
 
 export default function Paciente({}){
   const { id } = useParams();
+  const navigate = useNavigate();
+  
   const [dados, setDados] = useState([]);
   const [editando, setEditando] = useState(false); 
   //Dados Pessoais
@@ -62,9 +65,13 @@ export default function Paciente({}){
     const [outraAjuda, setOutraAjuda] = React.useState('');
     const [capacidade, setCapacidade] = React.useState('');
 
-    let listOcupacao = ['Desempregado', 'Empregado', 'Autonomo', 'Dona de Casa', 'Estudante', 'EmpregadoFixo', 'Empregador', 'Mercado Informal', 'Aposentado']
+    let listOcupacao = ['Desempregado', 'Empregado', 'Autonomo', 'Dona de Casa', 'Estudante', 'EmpregadoFixo', 'Empregador', 'Mercado Informal', 'Aposentado', '']
+    let listReligiao = ['Católico', 'Protestante', 'Espírita', 'Candomblé', 'Evangelico', '']
+    let listMoradia = ['Em situação de rua', 'Albergado em abrigos públicos', 'Serviço residencial terapêutico', 'Não possui residência fixa', 'Moradia regular sozinho', 'Moradia regular com familiar', '' ]
+    let listEstadoCivil = ['Solteiro','Separado de fato, não legalmente', 'Viúvo', 'Casado ou unido consensualmente', 'Divorciado legalmente', '']
+    let listAjuda = ['Com ninguém', 'Vizinhos / Amigos', 'Familiares', '']
     
-    function mudanca(setOpcao, setOutraOpcao, valor ) {
+    function opcao(setOpcao, setOutraOpcao, valor ) {
           setOpcao('outro')
           setOutraOpcao(valor)
 
@@ -93,41 +100,21 @@ export default function Paciente({}){
           setPai(data.pai)
           setNacionalidade(data.nacionalidade)
           setNaturalidade(data.naturalidade)
-          setOutraReligiao(['Católico', 'Protestante', 'Espírita', 'Candomblé', 'Evangelico',].includes(data.religiaoFinal) 
-          ? '' : data.religiaoFinal)
-          setReligiao(['Católico', 'Protestante', 'Espírita', 'Candomblé', 'Evangelico',].includes(data.religiaoFinal) 
-          ? data.religiaoFinal: 'outro')
+          listReligiao.includes(data.religiaoFinal) ? setReligiao(data.religiaoFinal) : opcao(setReligiao, setOutraReligiao, data.religiaoFinal) 
           setEscolaridade(data.escolaridade)
-          console.log(data.ocupacaoFinal)
-          
-          listOcupacao.includes(data?.ocupacaoFinal) ? setOcupacao(data?.ocupacaoFinal) : mudanca(setOcupacao, setOutraOcupacao, data?.ocupacaoFinal)
-          // setOcupacao(['Desempregado', 'Empregado', 'Autonomo', 'Dona de Casa', 'Estudante', 'EmpregadoFixo', 'Empregador', 'Mercado Informal', 'Aposentado'].includes(data.ocupacaoFinal)
-          // ? data.ocupacaoFinal : 'outro')
-          // setOutraOcupacao(['Desempregado', 'Empregado', 'Autonomo', 'Dona de Casa', 'Estudante', 'EmpregadoFixo', 'Empregador', 'Mercado Informal', 'Aposentado'].includes(data.ocupacaoFinal)
-          // ? '' : data.ocupacaoFinal)
-          setPrevidencia(data.previdenciaFinal === 'não' ? data.previdenciaFinal : 'sim')
+          listOcupacao.includes(data?.ocupacaoFinal) ? setOcupacao(data?.ocupacaoFinal) : opcao(setOcupacao, setOutraOcupacao, data?.ocupacaoFinal)
+          data.previdenciaFinal === 'não' ?  setPrevidencia(data.previdenciaFinal) : opcao(setPrevidencia, setOutraPrevidencia, data.previdencia)
           setOutraPrevidencia(data.previdenciaFinal)
-          setBeneficios(data.beneficiosFinal === 'BPC' || data.beneficiosFinal === 'Bolsa Família' ? data.beneficiosFinal : 'outro')
-          setOutrosBeneficios(data.beneficiosFinal === 'BPC' || data.beneficiosFinal === 'Bolsa Família' ? '' : data.beneficiosFinal ) 
-          setMoradia(['Em situação de rua', 'Albergado em abrigos públicos', 'Serviço residencial terapêutico', 'Não possui residência fixa', 'Moradia regular sozinho', 'Moradia regular com familiar', '' ].includes(data.moradiaFinal)
-          ? data.moradiaFinal : 'outro')
-          setOutraMoradia(['Em situação de rua', 'Albergado em abrigos públicos', 'Serviço residencial terapêutico', 'Não possui residência fixa', 'Moradia regular sozinho', 'Moradia regular com familiar'  ].includes(data.moradiaFinal)
-          ? '' : data.moradiaFinal)
+          data.beneficiosFinal === 'BPC' || data.beneficiosFinal === 'Bolsa Família' ? setBeneficios(data.beneficiosFinal) : opcao(setBeneficios, setOutrosBeneficios, data.beneficiosFinal)
+          listMoradia.includes(data.moradiaFinal) ? setMoradia(data.moradiaFinal) : opcao(setMoradia, setOutraMoradia, data.moradiaFinal)
           setCep(data.cep)
           setBairro(data.bairro)
           setLogradouro(data.logradouro)
           setCidade(data.cidade)
           setEstado(data.estado)
           setZona(data.zona)
-          setEstadoCivil(['Solteiro','Separado de fato, não legalmente', 'Viúvo', 'Casado ou unido consensualmente', 'Divorciado legalmente'].includes(data.estadoCivilFinal)
-        ? data.estadoCivilFinal : 'outro')
-          setOutroEstadoCivil(['Solteiro','Separado de fato, não legalmente', 'Viúvo', 'Casado ou unido consensualmente', 'Divorciado legalmente'].includes(data.estadoCivil)
-          ? '' : data.estadoCivilFinal )
-          setAjuda(['Com ninguém', 'Vizinhos / Amigos', 'Familiares', 'outro'].includes(data.ajudaFinal)
-        ? data.ajudaFinal : 'outro')
-          setOutraAjuda(['Com ninguém', 'Vizinhos / Amigos', 'Familiares', 'outro'].includes(data.ajudaFinal)
-          ? '' : data.ajudaFinal )
-          setCapacidade(data.capacidade)
+          listEstadoCivil.includes(data.estadoCivilFinal) ? setEstadoCivil(data.estadoCivilFinal) : opcao(setEstadoCivil, setOutroEstadoCivil, data.estadoCivilFinal)
+          listAjuda.includes(data.ajudaFinal) ? setAjuda(data.ajudaFinal) : opcao(setAjuda, setOutraAjuda, data.ajudaFinal)
 
         } else {
           console.log("Nenhum documento encontrado!");
@@ -142,42 +129,14 @@ export default function Paciente({}){
     
   }, [id]);
 
-  // useEffect(() => {
-    
-  //   axios.get("https://jsonplaceholder.typicode.com/posts?id=1")
-        
-  //     .then(response => {
-  //       setDados(response.data.find(id => id.id === 1)); 
-  //       setEditedTitle(dados.title)
-        
-        
-  //     })
-      
-  //     .catch(error => {
-  //       console.error("Erro ao buscar os dados:", error);
-  //     });
-  // }, []);
-  
+  const handleAtualizacao = () =>{
+    window.open(`/paciente/listaatualizacao/${id}`, '_blank', 'width=800,height=600');
+  }
   const handleEditar = () => {
     
     setEditando(true); 
   };
   
-//   const handleSalvar = () => {
-//     console.log(editedTitle)
-//     axios.put("https://jsonplaceholder.typicode.com//posts/1", {
-//       title: editedTitle, 
-//     })
-//     .then((response) => {
-//       console.log("Dados salvos:", response.data);
-//       setEditando(false); 
-      
-   
-//     })
-//     .catch((error) => {
-//       console.error("Erro ao salvar os dados:", error);
-//     });
-// };
 async function handleSalvar() {
   const docRef = doc(db, "internos", id); 
   
@@ -192,7 +151,7 @@ async function handleSalvar() {
     const ajudaFinal = ajuda === 'outro' ? outraAjuda : ajuda;
     
     await updateDoc(docRef, {
-    nome: editedNome,
+      nome: editedNome,
       contato: contato,
       responsavel: responsavel,
       parentesco: parentesco,
@@ -270,7 +229,7 @@ async function handleSalvar() {
        <Grid2  
         container 
         spacing={2}
-         // Alinha os itens verticalmente no centro
+         
         justifyContent="space-between"
          >
         <Grid2 item  xs={12} sm={6}>
@@ -1202,7 +1161,7 @@ async function handleSalvar() {
       <Button   
                 variant="contained" 
                 color="primary" 
-                onClick={handleEditar}
+                onClick={handleAtualizacao}
                 size="large"
                 sx={{ml: 0, width: '150px', mt: 3,}}
                 >

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
+import ListaAtualizacoes from './pages/dashboard/components/ListaAtualizacoes';
+import Atualizacao from './pages/dashboard/components/Atualizacao'
 import Paciente from './pages/dashboard/Paciente';
 import SignIn from './pages/sign-in/SignIn';
 import DashBoard from './pages/dashboard/Dashboard';
@@ -10,6 +11,7 @@ import getDashboardTheme from './pages/dashboard/theme/getDashboardTheme';
 import TemplateFrame from './pages/dashboard/TemplateFrame';
 import { createTheme, ThemeProvider, alpha } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+
 
 export default function App() {
   const [mode, setMode] = React.useState('light');
@@ -52,6 +54,8 @@ export default function App() {
         <CssBaseline enableColorScheme />
           
         <Routes>
+          <Route path='/paciente/listaAtualizacao/:id' element={<ListaAtualizacoes/>}/>
+          <Route path='/atualizacao/:id' element={<Atualizacao/>}/>
           <Route path='/pacientes/:id' element={ <Paciente/>}/>
           <Route path="/dashboard" element={<DashBoard />} />
           <Route path="/prontuarios" element={<Prontuarios />} />

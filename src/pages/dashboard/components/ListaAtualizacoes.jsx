@@ -1,37 +1,44 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, doc } from 'firebase/firestore';
 import { db } from '../../../../firebase';
 import axios from 'axios';
+import { Box } from '@mui/material';
+import { useParams } from 'react-router-dom';
 
-
-export default function CustomizedDataGrid() {
+export default function listaAtualizacoes() {
   const [rows, setRows] = useState([]);
+  const { id } = useParams();
 
   
   
   useEffect(() => {
-    const fetchProntuarios = async () => {
+    const fetchAtualizacoes = async () => {
       try {
-        // Referência à coleção "prontuarios"
-        const prontuariosCollection = collection(db, 'internos');
-        // Obtém os documentos
-        const prontuariosSnapshot = await getDocs(prontuariosCollection);
-        // Mapeia os dados
-        const prontuariosList = prontuariosSnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        // Define os dados no estado
-        setRows(prontuariosList);
+        const internoDocRef = doc(db, 'internos', id);
+    
+    // Referência à subcoleção "atualizacoes" dentro do documento
+    const atualizacoesCollection = collection(internoDocRef, 'atualizacao');
+    
+    // Obtém os documentos da subcoleção
+    const atualizacoesSnapshot = await getDocs(atualizacoesCollection);
+    
+    // Mapeia os dados da subcoleção
+    const atualizacoesList = atualizacoesSnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    
+    // Define os dados no estado
+    setRows(atualizacoesList);
         
       } catch (error) {
         console.error('Erro ao buscar dados', error);
       }
     };
 
-    fetchProntuarios();
+    fetchAtualizacoes();
   }, []);
   
 
@@ -39,12 +46,13 @@ export default function CustomizedDataGrid() {
     
     { field: 'nome', headerName: 'Nome',minWidth: 200, flex: 1.5, 
       renderCell: (params) => (
-        <a href={`/pacientes/${params.row.id}`}>{params.row.nome}</a> // Redireciona para a página de detalhes
+        <a href={`/atualizacao/${params.row.id}`}>{params.row.titulo}</a> // Redireciona para a página de detalhes
       )
     },
-    { field: 'id', headerName: 'Ultimo atendimento', minWidth: 80, flex: 1},
+    { field: 'data', headerName: 'Ultimo atendimento', minWidth: 80, flex: 1},
   ];
   return (
+    <Box sx={{margin: 10 , display: 'flex',  justifyContent: 'center'   }}>
     <DataGrid
       autoHeight
       
@@ -86,5 +94,6 @@ export default function CustomizedDataGrid() {
         },
       }}
     />
+    </Box>
   );
 }
