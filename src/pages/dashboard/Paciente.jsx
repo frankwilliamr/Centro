@@ -13,13 +13,12 @@ import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { alpha } from '@mui/material/styles';
-import { Transform } from "@mui/icons-material";
-import { Navigate, useNavigate } from "react-router-dom";
+
 
 
 export default function Paciente({}){
   const { id } = useParams();
-  const navigate = useNavigate();
+  
   
   const [dados, setDados] = useState([]);
   const [editando, setEditando] = useState(false); 
@@ -103,7 +102,7 @@ export default function Paciente({}){
           listReligiao.includes(data.religiaoFinal) ? setReligiao(data.religiaoFinal) : opcao(setReligiao, setOutraReligiao, data.religiaoFinal) 
           setEscolaridade(data.escolaridade)
           listOcupacao.includes(data?.ocupacaoFinal) ? setOcupacao(data?.ocupacaoFinal) : opcao(setOcupacao, setOutraOcupacao, data?.ocupacaoFinal)
-          data.previdenciaFinal === 'não' ?  setPrevidencia(data.previdenciaFinal) : opcao(setPrevidencia, setOutraPrevidencia, data.previdencia)
+          data.previdenciaFinal === 'não' || data.previdenciaFinal === '' ?  setPrevidencia(data.previdenciaFinal) : opcao(setPrevidencia, setOutraPrevidencia, data.previdencia)
           setOutraPrevidencia(data.previdenciaFinal)
           data.beneficiosFinal === 'BPC' || data.beneficiosFinal === 'Bolsa Família' ? setBeneficios(data.beneficiosFinal) : opcao(setBeneficios, setOutrosBeneficios, data.beneficiosFinal)
           listMoradia.includes(data.moradiaFinal) ? setMoradia(data.moradiaFinal) : opcao(setMoradia, setOutraMoradia, data.moradiaFinal)
@@ -271,7 +270,7 @@ async function handleSalvar() {
                 
       </Grid2>
       <Divider />
-      <Grid2 container  spacing={2} sx={{ width: '100%', margin: '0 auto', justifyContent: 'center', mt: 2,}}>
+      <Grid2 container  spacing={2} sx={{ width: '100%', margin: '0 auto', justifyContent: 'center', mt: 4}}>
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
           
           <TextField
@@ -755,10 +754,10 @@ async function handleSalvar() {
             <em>None</em>
           </MenuItem>
           <MenuItem value='não'>Não</MenuItem>
-          <MenuItem value='sim'>Sim</MenuItem>
+          <MenuItem value='outro'>Sim</MenuItem>
         </Select>
 
-        {previdencia === 'sim' && (
+        {previdencia === 'outro' && (
         <TextField
           label="Previdencia"
           

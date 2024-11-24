@@ -55,7 +55,7 @@ export default function App() {
           
         <Routes>
           <Route path='/paciente/listaAtualizacao/:id' element={<ListaAtualizacoes/>}/>
-          <Route path='/atualizacao/:id' element={<Atualizacao/>}/>
+          <Route path='/atualizacao/:id/:adicionar?' element={<Atualizacao/>}/>
           <Route path='/pacientes/:id' element={ <Paciente/>}/>
           <Route path="/dashboard" element={<DashBoard />} />
           <Route path="/prontuarios" element={<Prontuarios />} />

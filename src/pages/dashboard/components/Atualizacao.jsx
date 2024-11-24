@@ -9,8 +9,10 @@ export default function Atualizacao(){
     const [titulo, setTitulo] = React.useState('');
     const [data, setData] = React.useState('');
     const [descricao, setDescricao] = React.useState('');
-    const { id } = useParams();
-    async function addToSubcollection(idInterno, dadosParaEnvio) {
+    const { id, adicionar } = useParams();
+
+
+    async function addToSubcollection() {
         try {
           // Referência ao documento específico na coleção 'internos'
           const docRef = doc(db, 'internos', id);
@@ -57,6 +59,8 @@ export default function Atualizacao(){
       required
       id="outlined-required"
       label="Título"
+      value={titulo}
+      onChange={(e) => setTitulo(e.target.value)}
     />
   </Grid2>
   <Grid2 item xs={12} sm={6}>
@@ -84,6 +88,8 @@ export default function Atualizacao(){
       multiline
       rows={8}
       defaultValue=""
+      value={descricao}
+      onChange={(e) => setDescricao(e.target.value)}
       InputProps={{
         sx: {
           height: '200px',
