@@ -57,7 +57,7 @@ export default function listaAtualizacoes() {
     
     { field: 'nome', headerName: 'Nome',minWidth: 200, flex: 1.5, 
       renderCell: (params) => (
-        <a href={`/atualizacao/${params.row.id}`}>{params.row.titulo}</a> 
+        <a href={`/atualizacao/${id}/${params.row.id}`}>{params.row.titulo}</a> 
       )
     },
     { field: 'data', headerName: 'Ultimo atendimento', minWidth: 80, flex: 1},
