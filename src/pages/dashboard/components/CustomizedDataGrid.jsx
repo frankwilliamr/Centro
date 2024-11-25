@@ -42,7 +42,7 @@ export default function CustomizedDataGrid() {
         <a href={`/pacientes/${params.row.id}`}>{params.row.nome}</a> // Redireciona para a página de detalhes
       )
     },
-    { field: 'id', headerName: 'Ultimo atendimento', minWidth: 80, flex: 1},
+    { field: 'ultimoAtendimento', headerName: 'Ultimo atendimento', minWidth: 80, flex: 1},
   ];
   return (
     <DataGrid

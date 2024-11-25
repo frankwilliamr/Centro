@@ -270,7 +270,7 @@ async function handleSalvar() {
                 
       </Grid2>
       <Divider />
-      <Grid2 container  spacing={2} sx={{ width: '100%', margin: '0 auto', justifyContent: 'center', mt: 4}}>
+      <Grid2 container  spacing={2} fullWidth sx={{ width: '100%', margin: '0 auto',  mt: 4, justifyContent: 'center', gap: 2}}>
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
           
           <TextField

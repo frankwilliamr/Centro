@@ -15,12 +15,12 @@ import { Navigate, useNavigate } from "react-router-dom";
 
 export default function listaAtualizacoes() {
   const [rows, setRows] = useState([]);
-  const { id } = useParams();
+  const { id, idAtt } = useParams();
   const navigate = useNavigate();
 
 
   const addAtualizacao = () => {
-      navigate(`/atualizacao/${id}/novo`);
+      navigate(`/atualizacao/${id}/nova/novo`);
       
   }
   

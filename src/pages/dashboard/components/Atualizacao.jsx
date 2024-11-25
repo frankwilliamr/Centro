@@ -1,20 +1,46 @@
 import { Box, TextField, Grid2, Card, Divider, Typography, Button } from "@mui/material"
-import React, { useEffect } from "react";
-import { collection, doc, addDoc, getDoc } from 'firebase/firestore';
+import React, { useEffect, } from "react";
+import { collection, doc, addDoc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from "../../../../firebase";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Try } from "@mui/icons-material";
-
+import { alpha } from '@mui/material/styles';
+import {Dialog,  DialogActions,  DialogContent, DialogContentText, DialogTitle} from '@mui/material';
 
 export default function Atualizacao(){
     const [titulo, setTitulo] = React.useState('');
-    const [data, setData] = React.useState('');
+    const [data, setData] = React.useState(new Date().toISOString().split('T')[0]);
     const [descricao, setDescricao] = React.useState('');
     const { id, adicionar, idAtt } = useParams();
     const [botao, setBotao] = React.useState(false);
-
+    const navigate = useNavigate();
+    const [open, setOpen] = React.useState(false);
  
+
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    const handleConfirm = () => {
+      handleClose(); // Fecha o diálogo
+      const camposObrigatorios = [];
+    
+    if (!titulo) camposObrigatorios.push('Titulo')
+    if (!descricao) {
+         camposObrigatorios.push('Descrição')
+    
+    }if (camposObrigatorios.length > 0) {
+      alert(`Preencha os seguintes campos obrigatórios: ${camposObrigatorios.join(', ')}`);
+      return; 
+   } 
+      addToSubcollection();  
+    };
+  
+    
+
     async function fetchAtualizacoes() {
+
+          
+
           try {
             const docRef = doc(db, 'internos', id);
         
@@ -27,6 +53,7 @@ export default function Atualizacao(){
               setTitulo(data.titulo)
               setData(data.data)
               setDescricao(data.descricao)
+              
             }else {
               console.log("Nenhum documento encontrado!", id);
               
@@ -41,7 +68,8 @@ export default function Atualizacao(){
         try {
           // Referência ao documento específico na coleção 'internos'
             const docRef = doc(db, 'internos', id);
-        
+            
+           
             // Referência à subcoleção dentro do documento
             const subcollectionRef = collection(docRef, 'atualizacao'); // Substitua 'suaSubcolecao' pelo nome da subcoleção
         
@@ -51,7 +79,15 @@ export default function Atualizacao(){
               data: data,
               descricao: descricao,
             });
-        
+            
+            alert('Dados cadastrados com sucesso!')
+              navigate(-1)
+
+            await updateDoc(docRef, {
+              ultimoAtendimento: data, // Atualiza o campo 'ultimoAtendimento' com a data fornecida
+            });
+
+            
             console.log('Documento adicionado na subcoleção com ID:', subDocRef.id);
             return subDocRef.id;
           
@@ -63,18 +99,20 @@ export default function Atualizacao(){
       useEffect(() => {
         if(adicionar !== 'novo'){
           fetchAtualizacoes();
-          console.log('testando fetch')
+          
         }else{
           setBotao(true);
         }
         
       }, [id, adicionar]);
       
-        
+        const voltarPagina = () => {
+            navigate(-1);
+        }
       
 
     return(
-        <Box sx={{ ml: 2, display: 'flex', mt: 4, justifyContent: 'center'  }}>
+        <Box sx={{ ml: 2, display: 'flex', mt: 4, justifyContent: 'center',   }}>
         <Card sx={{ mb: 2, marginTop:'20px' }}>
             <Grid2 
             container 
@@ -92,6 +130,7 @@ export default function Atualizacao(){
               variant="contained"
               size="small"
               color="primary"
+              onClick={voltarPagina}
               sx={{padding: '0px'}}
               
                        >
@@ -115,7 +154,7 @@ export default function Atualizacao(){
         width: '100%', 
         paddingTop: '10px',
         '.MuiInputBase-root': {
-                      backgroundColor: botao ? (theme) => alpha(theme.palette.text.primary, 0.05) : 'inherit',
+                      backgroundColor: !botao ? (theme) => alpha(theme.palette.text.primary, 0.05) : 'inherit',
                       
             
               },
@@ -136,7 +175,7 @@ export default function Atualizacao(){
         width: '100%', 
         paddingTop: '10px',
         '.MuiInputBase-root': {
-                      backgroundColor: botao ? (theme) => alpha(theme.palette.text.primary, 0.05) : 'inherit',
+                      backgroundColor: (theme) => alpha(theme.palette.text.primary, 0.05),
                       
             
               },
@@ -146,10 +185,8 @@ export default function Atualizacao(){
       id="nascimento"
       label="Data de nascimento"
       value={data}
-      onChange={(e) => setData(e.target.value)}
-      InputLabelProps={{
-        shrink: true,
-      }}
+      
+      
       InputProps={{
         readOnly: true,
       }}
@@ -169,10 +206,11 @@ export default function Atualizacao(){
       value={descricao}
       onChange={(e) => setDescricao(e.target.value)}
       InputProps={{
+        readOnly: !botao,
         sx: {
           height: '200px',
           overflow: 'auto',
-          readOnly: !botao,
+          
         },
       }}
       
@@ -181,7 +219,7 @@ export default function Atualizacao(){
         mt: 4, // margem superior para dar espaço
         paddingTop: '10px',
         '.MuiInputBase-root': {
-                      backgroundColor: botao ? (theme) => alpha(theme.palette.text.primary, 0.05) : 'inherit',
+                      backgroundColor:!botao ? (theme) => alpha(theme.palette.text.primary, 0.05) : 'inherit',
                       
             
               },
@@ -190,15 +228,52 @@ export default function Atualizacao(){
   </Grid2>
   <Divider/>
   {botao && (
+        <Grid2 container justifyContent= 'center'>
         <Button
           variant="contained"
+          size="small"
           color="primary"
-          onClick={addToSubcollection}
+          onClick={handleOpen}
+          sx={{padding: '0px', mr: 1, mt: 2}}
         >
           Salvar
         </Button>
-      )}
+       
+       
+       <Button
+        variant="outlined"
+        size="small"
+        color="secondary"
+        onClick={voltarPagina}
+        sx={{padding: '0px', mt: 2}}
         
+                 >
+             Cancelar
+           </Button>
+          </Grid2>
+          )}
+        <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="confirm-dialog-title"
+        aria-describedby="confirm-dialog-description"
+      >
+        <DialogTitle id="confirm-dialog-title">Confirmar Salvar</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="confirm-dialog-description">
+            Tem certeza que deseja salvar essas alterações?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          
+          <Button onClick={handleConfirm} color="primary" autoFocus>
+            Sim
+          </Button>
+          <Button onClick={handleClose} color="secondary">
+            Não
+          </Button>
+        </DialogActions>
+      </Dialog>
       </Card>
         </Box>
     )

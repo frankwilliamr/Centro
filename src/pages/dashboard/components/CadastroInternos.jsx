@@ -139,7 +139,7 @@ export default function CadastroInternos() {
        ajudaFinal: ajudaFinal,
        estadoCivilFinal: estadoCivilFinal,
        capacidade: capacidade,
-        
+       ultimoAtendimento: '',
       };
             
       
