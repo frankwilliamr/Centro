@@ -19,13 +19,13 @@ export default function ListaInternos() {
         container
         spacing={2}
         columns={12}
-        sx={{ mb: (theme) => theme.spacing(2) }}
+        sx={{ margin: '0 auto' }}
       >
               
       </Grid>
       
-      <Grid container spacing={2} columns={12}>
-        <Grid size={{ md: 12, lg: 12 }}>
+      <Grid container  columns={12}>
+        <Grid size={{ md: 12, lg: 12, xs: 12 }}>
           <CustomizedDataGrid />
         </Grid>
         

@@ -10,6 +10,8 @@ import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
 import SideMenuMobile from './SideMenuMobile';
 import MenuButton from './MenuButton';
+import ToggleColorMode from './ToggleColorMode';
+import PropTypes from 'prop-types';
 
 const Toolbar = styled(MuiToolbar)({
   width: '100%',
@@ -35,34 +37,40 @@ export default function AppNavbar() {
   };
 
   return (
+    
     <AppBar
-      position="fixed"
+      
       sx={{
         display: { xs: 'auto', md: 'none' },
+        position: 'fixed',
         boxShadow: 0,
         bgcolor: 'background.paper',
         backgroundImage: 'none',
         borderBottom: '1px solid',
         borderColor: 'divider',
-        top: '56px',
+        
       }}
     >
       <Toolbar variant="regular">
         <Stack
           direction="row"
           sx={{
+            display: 'flex',
+            position: 'relative',
             justifyContent: 'space-between',
             alignItems: 'center',
             flexGrow: 1,
             width: '100%',
           }}
         >
+           
           <Stack direction="row" spacing={1} sx={{ justifyContent: 'center' }}>
-            <CustomIcon />
+            <CustomIcon/>
             <Typography variant="h4" component="h1" sx={{ color: 'text.primary' }}>
-              Dashboard
+              Pedra Viva
             </Typography>
           </Stack>
+         
           <MenuButton aria-label="menu" onClick={toggleDrawer(true)}>
             <MenuRoundedIcon />
           </MenuButton>
@@ -70,6 +78,9 @@ export default function AppNavbar() {
         </Stack>
       </Toolbar>
     </AppBar>
+     
+          
+    
   );
 }
 
@@ -97,3 +108,4 @@ export function CustomIcon() {
     </Box>
   );
 }
+

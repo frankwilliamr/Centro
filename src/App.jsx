@@ -11,7 +11,8 @@ import getDashboardTheme from './pages/dashboard/theme/getDashboardTheme';
 import TemplateFrame from './pages/dashboard/TemplateFrame';
 import { createTheme, ThemeProvider, alpha } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-
+import AppNavbar from './pages/dashboard/components/AppNavbar';
+import SideMenu from './pages/dashboard/components/SideMenu';
 
 export default function App() {
   const [mode, setMode] = React.useState('light');
@@ -52,7 +53,7 @@ export default function App() {
     >
       <ThemeProvider theme={showCustomTheme ? dashboardTheme : defaultTheme}>
         <CssBaseline enableColorScheme />
-          
+        
         <Routes>
           <Route path='/paciente/listaAtualizacao/:id' element={<ListaAtualizacoes/>}/>
           
