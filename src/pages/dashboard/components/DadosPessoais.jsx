@@ -11,7 +11,9 @@ import InputMask from 'react-input-mask';
 
 
 
-export default function DadosPessoais({alterarNome,
+export default function DadosPessoais({
+  
+  alterarNome,
   alterarCpf,
   alterarNascimento,
   alterarRg,
@@ -46,6 +48,7 @@ export default function DadosPessoais({alterarNome,
     
       
       <Grid2 container spacing={2} sx={{ width: '100%', margin: '0 auto', justifyContent: 'center'}}>
+      
       <Grid2 item  xs={12} sm={6} md={4} lg={3}>
       
         <TextField

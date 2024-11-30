@@ -36,7 +36,7 @@ export default function CustomizedDataGrid() {
   
 
   const columns = [
-    
+    {field: 'NumeroProntuario', headerName: 'Nº Prontuario', minWidth: 50, flex: 0.4, align: 'center'},
     { field: 'nome', headerName: 'Nome',minWidth: 200, flex: 1.5, 
       renderCell: (params) => (
         <a href={`/pacientes/${params.row.id}`}>{params.row.nome}</a> // Redireciona para a página de detalhes

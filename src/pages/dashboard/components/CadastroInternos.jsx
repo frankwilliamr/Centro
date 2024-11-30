@@ -13,13 +13,14 @@ import DadosSociais from './DadosSociais';
 import VinculosSociais from './VinculosSociais';
 import Divider from '@mui/material/Divider';
 import { Card } from '@mui/material';
-import axios from 'axios';
-import { collection, addDoc } from 'firebase/firestore';
+
+import { collection, addDoc, doc, getDoc, getDocs } from 'firebase/firestore';
 import { db } from '../../../../firebase';
 
 export default function CadastroInternos() {
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
+  const [numeroProntuario, setNumeroProntuario] = React.useState('');
 
   //Dados Pessoais
   const [nome, setNome] = React.useState('');
@@ -64,22 +65,47 @@ export default function CadastroInternos() {
     const [capacidade, setCapacidade] = React.useState('');
   
   
+    async function pegarUltimoId() {
+      try {
+        
+        const querySnapshot = await getDocs(collection(db, "internos"));
+        
+        let maiorNumero = 0;
 
-  const timer = React.useRef(null);
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          const numeroProntuario = data.NumeroProntuario;
+      
+          
+          if (numeroProntuario > maiorNumero) {
+            maiorNumero = numeroProntuario;
+          }
+        });
+        setNumeroProntuario(maiorNumero + 1)
+        
+      
+        
+        
+      } catch (error) {
+        console.error('Erro ao pegar os dados:', error);
+      }
+    }
+    React.useEffect(() => {
+      pegarUltimoId()
+      
+    }, []);
+ 
 
   const handleSubmit = async () => {
     if (loading) return; // Evita múltiplos envios enquanto está carregando
+
 
     
 
     const camposObrigatorios = [];
     
     if (!nome) camposObrigatorios.push('Nome')
-    if (!cpf) {
-         camposObrigatorios.push('CPF')
-    } else if (cpf.length !== 11) {
-       camposObrigatorios.push('CPF (deve conter 11 dígitos numéricos)');
-    }
+    
 
     if (camposObrigatorios.length > 0) {
       alert(`Preencha os seguintes campos obrigatórios: ${camposObrigatorios.join(', ')}`);
@@ -140,6 +166,7 @@ export default function CadastroInternos() {
        estadoCivilFinal: estadoCivilFinal,
        capacidade: capacidade,
        ultimoAtendimento: '',
+       NumeroProntuario: numeroProntuario,
       };
             
       
@@ -153,7 +180,7 @@ export default function CadastroInternos() {
      setTimeout(() => {
       alert('Cadastro feito com sucesso!');
       window.location.reload();
-     }, 2000);
+     }, 1000);
 
       
       
@@ -186,6 +213,7 @@ export default function CadastroInternos() {
       </Typography>
       
       <DadosPessoais 
+        
         nome={nome}
         cpf={cpf}
         nascimento={nascimento}
