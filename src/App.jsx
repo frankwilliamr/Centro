@@ -9,16 +9,17 @@ import Prontuarios from './pages/dashboard/Prontuarios';
 import Cadastro from './pages/dashboard/Cadastro';
 import getDashboardTheme from './pages/dashboard/theme/getDashboardTheme';
 import TemplateFrame from './pages/dashboard/TemplateFrame';
-import { createTheme, ThemeProvider, alpha } from '@mui/material/styles';
+import { createTheme, ThemeProvider, alpha} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import AppNavbar from './pages/dashboard/components/AppNavbar';
-import SideMenu from './pages/dashboard/components/SideMenu';
+import { CircularProgress, Box } from '@mui/material';
+
 
 export default function App() {
   const [mode, setMode] = React.useState('light');
   const [showCustomTheme, setShowCustomTheme] = React.useState(true);
   const dashboardTheme = createTheme(getDashboardTheme(mode));
   const defaultTheme = createTheme({ palette: { mode } });
+  const [isThemeLoaded, setIsThemeLoaded] = React.useState(false);
   // This code only runs on the client side, to determine the system color preference
   React.useEffect(() => {
     // Check if there is a preferred mode in localStorage
@@ -32,6 +33,9 @@ export default function App() {
       ).matches;
       setMode(systemPrefersDark ? 'dark' : 'light');
     }
+    
+      setIsThemeLoaded(true); // Atualiza o estado para indicar que o tema foi "carregado"
+    
   }, []);
 
   const toggleColorMode = () => {
@@ -42,7 +46,24 @@ export default function App() {
 
   const toggleCustomTheme = () => {
     setShowCustomTheme((prev) => !prev);
+    localStorage.setItem('themeMode', newMode);
   };
+  
+  if (!isThemeLoaded) {
+    return (
+      <Box 
+        sx={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          height: '100vh', 
+          backgroundColor: '#fff' // Cor de fundo enquanto carrega, pode ser o fundo claro
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
   return (
     <BrowserRouter>
     <TemplateFrame

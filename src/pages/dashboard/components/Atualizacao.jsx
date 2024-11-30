@@ -9,7 +9,7 @@ import {Dialog,  DialogActions,  DialogContent, DialogContentText, DialogTitle} 
 
 export default function Atualizacao(){
     const [titulo, setTitulo] = React.useState('');
-    const [data, setData] = React.useState(new Date().toISOString().split('T')[0]);
+    const [data, setData] = React.useState('');
     const [descricao, setDescricao] = React.useState('');
     const { id, adicionar, idAtt } = useParams();
     const [botao, setBotao] = React.useState(false);
@@ -72,7 +72,7 @@ export default function Atualizacao(){
            
             // Referência à subcoleção dentro do documento
             const subcollectionRef = collection(docRef, 'atualizacao'); // Substitua 'suaSubcolecao' pelo nome da subcoleção
-        
+
             // Adiciona o documento na subcoleção
             const subDocRef = await addDoc(subcollectionRef,{
               titulo: titulo,
@@ -102,6 +102,15 @@ export default function Atualizacao(){
           
         }else{
           setBotao(true);
+          const dataHora = {
+            
+              date: new Date().toISOString().split('T')[0],
+              time: new Date().toLocaleTimeString('en-US', { hour12: false })
+              
+          }
+          const dataCorreta = dataHora.date.split('-').reverse().join('-')
+          setData(`${dataCorreta} - ${dataHora.time}`)
+          
         }
         
       }, [id, adicionar]);
@@ -172,7 +181,7 @@ export default function Atualizacao(){
   <Grid2 item xs={12} sm={6}>
     <TextField
       sx={{ 
-        width: '100%', 
+        width: '85%', 
         paddingTop: '10px',
         '.MuiInputBase-root': {
                       backgroundColor: (theme) => alpha(theme.palette.text.primary, 0.05),
@@ -180,8 +189,8 @@ export default function Atualizacao(){
             
               },
        }}
-      required
-      type="date"
+      
+      
       id="nascimento"
       label="Data de nascimento"
       value={data}

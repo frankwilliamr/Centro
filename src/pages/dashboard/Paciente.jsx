@@ -222,7 +222,7 @@ async function handleSalvar() {
           <SideMenu />
           <AppNavbar />
 
-      
+    
       <Card sx={{ width: '100%', mt: 2, mr: 2}}>
         
        <Grid2  
@@ -1169,7 +1169,7 @@ async function handleSalvar() {
       </Grid2>
       
       </Card>
-      
+     
     </Box>
     
 
