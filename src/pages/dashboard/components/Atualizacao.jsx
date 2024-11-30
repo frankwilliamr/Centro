@@ -6,12 +6,13 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Try } from "@mui/icons-material";
 import { alpha } from '@mui/material/styles';
 import {Dialog,  DialogActions,  DialogContent, DialogContentText, DialogTitle} from '@mui/material';
+import { useLocation } from 'react-router-dom';
 
 export default function Atualizacao(){
     const [titulo, setTitulo] = React.useState('');
     const [data, setData] = React.useState('');
     const [descricao, setDescricao] = React.useState('');
-    
+    const [nome, setNome] = React.useState('');
     const { id, adicionar, idAtt } = useParams();
     const [botao, setBotao] = React.useState(false);
     const navigate = useNavigate();
@@ -20,8 +21,16 @@ export default function Atualizacao(){
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    
+    
+      const location = useLocation();
+      const { state } = location;
+      
+      
+   
 
-    const handleConfirm = () => {
+
+      const handleConfirm = () => {
       handleClose(); // Fecha o diálogo
       const camposObrigatorios = [];
     
@@ -101,9 +110,10 @@ export default function Atualizacao(){
       useEffect(() => {
         if(adicionar !== 'novo'){
           fetchAtualizacoes();
-          
+          setNome(state.nome)
         }else{
           setBotao(true);
+          setNome(state.nome)
           const dataHora = {
             
               date: new Date().toISOString().split('T')[0],
@@ -133,7 +143,7 @@ export default function Atualizacao(){
             >
               
                 <Grid2><Typography component="h2" variant="h6" >
-                Atualizações</Typography>
+                Atualizações de {nome} </Typography>
                 </Grid2>
                 <Grid2>
             {!botao && (

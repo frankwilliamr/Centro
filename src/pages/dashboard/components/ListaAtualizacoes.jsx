@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
-
+import { Link } from 'react-router-dom';
 import { Navigate, useNavigate } from "react-router-dom";
 
 
@@ -21,7 +21,9 @@ export default function listaAtualizacoes() {
 
 
   const addAtualizacao = () => {
-      navigate(`/atualizacao/${id}/nova/novo`);
+    navigate(`/atualizacao/${id}/nova/novo`, {
+      state: { nome: nome }, // Passando o estado 'nome'
+    });
       
   }
   
@@ -63,7 +65,13 @@ export default function listaAtualizacoes() {
     
     { field: 'nome', headerName: 'Nome',minWidth: 200, flex: 1.5, 
       renderCell: (params) => (
-        <a href={`/atualizacao/${id}/${params.row.id}`}>{params.row.titulo}</a> 
+        // <a href={`/atualizacao/${id}/${params.row.id}`}>{params.row.titulo}</a> 
+        <Link
+        to={`/atualizacao/${id}/${params.row.id}`}
+        state={{ nome: nome }} // Passa o state como um objeto
+    >
+      {params.row.titulo}
+    </Link>
       )
     },
     { field: 'data', headerName: 'Ultimo atendimento', minWidth: 80, flex: 1},
