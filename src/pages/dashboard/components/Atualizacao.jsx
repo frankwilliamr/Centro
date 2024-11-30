@@ -11,6 +11,7 @@ export default function Atualizacao(){
     const [titulo, setTitulo] = React.useState('');
     const [data, setData] = React.useState('');
     const [descricao, setDescricao] = React.useState('');
+    
     const { id, adicionar, idAtt } = useParams();
     const [botao, setBotao] = React.useState(false);
     const navigate = useNavigate();
@@ -43,7 +44,8 @@ export default function Atualizacao(){
 
           try {
             const docRef = doc(db, 'internos', id);
-        
+            
+            
             // Referência à subcoleção dentro do documento
             const subDocRef = doc(docRef, 'atualizacao', idAtt); 
 

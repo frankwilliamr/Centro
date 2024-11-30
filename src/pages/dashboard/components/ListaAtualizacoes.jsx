@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridTableRowsIcon } from '@mui/x-data-grid';
 import { useState, useEffect } from 'react';
-import { collection, getDocs, doc } from 'firebase/firestore';
+import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import { db } from '../../../../firebase';
 import axios from 'axios';
-import { Box, Grid2 } from '@mui/material';
+import { Box, Grid2, Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import IconButton from '@mui/material/IconButton';
@@ -17,6 +17,7 @@ export default function listaAtualizacoes() {
   const [rows, setRows] = useState([]);
   const { id, idAtt } = useParams();
   const navigate = useNavigate();
+  const [nome, setNome] = React.useState('');
 
 
   const addAtualizacao = () => {
@@ -28,7 +29,12 @@ export default function listaAtualizacoes() {
     const fetchAtualizacoes = async () => {
       try {
         const internoDocRef = doc(db, 'internos', id);
-    
+
+        const docSnap = await getDoc(internoDocRef);
+        if(docSnap.exists()){
+          const data = docSnap.data();
+          setNome(data.nome)
+        }
     // Referência à subcoleção "atualizacoes" dentro do documento
     const atualizacoesCollection = collection(internoDocRef, 'atualizacao');
     
@@ -66,6 +72,13 @@ export default function listaAtualizacoes() {
   return (
     <Box sx={{margin: 3  }}>
       <Grid2  fullwidth >
+      <Grid2 container sx={{ justifyContent: 'space-between'}}>
+      <Grid2 item  xs={12} sm={6}>
+        <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
+        Atualizações de {nome}
+        
+       </Typography>
+        </Grid2>
       <Grid2 sx={{mb: 2, display: 'flex', justifyContent: 'flex-end'}}>
       <IconButton 
       color="primary" 
@@ -74,7 +87,8 @@ export default function listaAtualizacoes() {
       >
         <AddIcon />
       </IconButton>
-    </Grid2>
+      </Grid2>
+      </Grid2>
     <Grid2>
     <DataGrid
       autoHeight
