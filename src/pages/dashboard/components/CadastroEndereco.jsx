@@ -63,7 +63,7 @@ export default function CadastroEndereco ({cep,
         <TextField
          {...inputProps}
           sx={{ width: '30ch', padding: '10px', paddingLeft: '5px', mr: -2 }}
-          required
+          
           
           label="CEP"
          
@@ -90,7 +90,7 @@ export default function CadastroEndereco ({cep,
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
         <TextField
           sx={{ width: '50ch', padding: '10px', paddingLeft: '5px', mr: -2 }}
-          required
+          
           
           label="Endereço"
           value = {logradouro}
@@ -103,7 +103,7 @@ export default function CadastroEndereco ({cep,
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
         <TextField
           sx={{ width: '30ch', padding: '10px', paddingLeft: '5px', mr: -2 }}
-          required
+          
           name = 'cidade'
           label="Municipio de Residência"
           value = {cidade}
@@ -116,7 +116,7 @@ export default function CadastroEndereco ({cep,
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
         <TextField
           sx={{ width: '30ch', padding: '10px', paddingLeft: '5px', mr: -2 }}
-          required
+          
           name = 'estado'
           label="Estado"
           value = {estado}
@@ -128,9 +128,9 @@ export default function CadastroEndereco ({cep,
       </Grid2>
 
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
-      <FormControl variant="standard" sx={{ minWidth: 120 }}
+      <FormControl fullWidth  sx={{ minWidth: 120, paddingTop: '10px'}}
           >
-        <InputLabel  id="Zona" shrink sx={{ fontSize: '1.2rem' }}>Zona</InputLabel>
+        <InputLabel  id="Zona" shrink sx={{ fontSize: '0.8rem' }}>Zona</InputLabel>
         
         <Select
           

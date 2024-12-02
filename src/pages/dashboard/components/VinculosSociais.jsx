@@ -26,9 +26,9 @@ export default function VinculosSociais({
     return (
         <Grid2 container spacing={2} sx={{ width: '100%', margin: '0 auto', justifyContent: 'center', alignItems: 'flex-start' }}>
         <Grid2 item xs={12} sm={6} lg={3}  >
-        <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
+        <FormControl fullWidth  sx={{ minWidth: 120, flexDirection: 'row', padding: '10px'}}
           >
-        <InputLabel required id="estadoCivil" shrink sx={{ fontSize: '1.2rem' }}>Situação Conjugal</InputLabel>
+        <InputLabel  id="estadoCivil" shrink sx={{ fontSize: '0.8rem' }}>Situação Conjugal</InputLabel>
         
         <Select
           sx={{ width: '20ch'}}
@@ -52,8 +52,8 @@ export default function VinculosSociais({
         </Select>
         {estadoCivil === 'outro' && (
         <TextField
-          label="Outros"
-          variant="standard"
+          
+          
           value={outroEstadoCivil}
           onChange={(e) => alterarOutroEstadoCivil(e.target.value)}
           sx={{ marginLeft: 2 }}
@@ -63,14 +63,13 @@ export default function VinculosSociais({
       </FormControl>
       </Grid2>
           <Grid2 item xs={12} sm={6} lg={3}  >
-        <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
+        <FormControl fullWidth  sx={{  flexDirection: 'row', padding: '10px'}}
           >
-        <InputLabel required id="escolaridade" shrink sx={{ fontSize: '1.2rem' }}>Com quem o usuário conta</InputLabel>
+        <InputLabel   shrink sx={{ fontSize: '0.8rem' }}>Com quem o usuário conta</InputLabel>
         
         <Select
           sx={{ width: '30ch'}}
-          labelId="Parentesco"
-          id="Parentesco"
+          
           value={ajuda}
           onChange={(e) => alterarAjuda(e.target.value)}
         >
@@ -85,8 +84,8 @@ export default function VinculosSociais({
         </Select>
         {ajuda === 'outro' && (
         <TextField
-          label="Outro"
-          variant="standard"
+          
+          
           value={outraAjuda}
           onChange={(e) => alterarOutraAjuda(e.target.value)}
           sx={{ marginLeft: 2 }}
@@ -97,12 +96,12 @@ export default function VinculosSociais({
       </Grid2>
 
         <Grid2 item xs={12} sm={6} lg={3}  >
-        <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
+        <FormControl fullWidth  sx={{  flexDirection: 'row', padding: '10px'}}
           >
-        <InputLabel required id="capacidade" shrink sx={{ fontSize: '1.2rem' }}>Capacidades e Habilidades</InputLabel>
+        <InputLabel  id="capacidade" shrink sx={{ fontSize: '0.8rem' }}>Capacidades e Habilidades</InputLabel>
         
         <Select
-          sx={{ width: '30ch'}}
+          sx={{ width: '35ch'}}
           labelId="capacidade"
           id="capacidade"
           value={capacidade}
