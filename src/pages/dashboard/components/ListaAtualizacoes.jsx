@@ -68,7 +68,7 @@ export default function listaAtualizacoes() {
         // <a href={`/atualizacao/${id}/${params.row.id}`}>{params.row.titulo}</a> 
         <Link
         to={`/atualizacao/${id}/${params.row.id}`}
-        state={{ nome: nome }} // Passa o state como um objeto
+        state={{ nome: nome }} 
     >
       {params.row.titulo}
     </Link>
