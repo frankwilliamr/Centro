@@ -12,6 +12,10 @@ import TemplateFrame from './pages/dashboard/TemplateFrame';
 import { createTheme, ThemeProvider, alpha} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { CircularProgress, Box } from '@mui/material';
+import { Navigate } from 'react-router-dom';
+
+import { AuthProvider } from './pages/sign-in/Autenticacao';
+import ProtectedRoute from './pages/sign-in/ProtecaoRota';
 
 
 export default function App() {
@@ -49,6 +53,8 @@ export default function App() {
     localStorage.setItem('themeMode', newMode);
   };
   
+  
+ 
   if (!isThemeLoaded) {
     return (
       <Box 
@@ -65,6 +71,7 @@ export default function App() {
     );
   }
   return (
+    <AuthProvider>
     <BrowserRouter>
     <TemplateFrame
       toggleCustomTheme={toggleCustomTheme}
@@ -76,16 +83,19 @@ export default function App() {
         <CssBaseline enableColorScheme />
         
         <Routes>
-          <Route path='/paciente/listaAtualizacao/:id' element={<ListaAtualizacoes/>}/>
+          <Route path='/login' element={<SignIn/>} />
+          <Route path='/paciente/listaAtualizacao/:id'  element={<ProtectedRoute><ListaAtualizacoes/></ProtectedRoute>}/>
           
-          <Route path='/atualizacao/:id/:idAtt?/:adicionar?' element={<Atualizacao/>}/>
-          <Route path='/pacientes/:id' element={ <Paciente/>}/>
-          <Route path="/dashboard" element={<DashBoard />} />
-          <Route path="/prontuarios" element={<Prontuarios />} />
-          <Route path="/cadastro-internos" element={<Cadastro />} />
+          <Route path='/atualizacao/:id/:idAtt?/:adicionar?' element={<ProtectedRoute><Atualizacao/></ProtectedRoute>}/>
+          <Route path='/pacientes/:id' element={ <ProtectedRoute><Paciente/></ProtectedRoute>}/>
+          <Route path="/dashboard" element={<ProtectedRoute><DashBoard /></ProtectedRoute> } />
+          <Route path="/prontuarios" element={<ProtectedRoute><Prontuarios /></ProtectedRoute>} />
+          <Route path="/cadastro-internos" element={<ProtectedRoute><Cadastro /></ProtectedRoute>} />
+          <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </ThemeProvider>
       </TemplateFrame>
     </BrowserRouter>
+    </AuthProvider>
   );
 }

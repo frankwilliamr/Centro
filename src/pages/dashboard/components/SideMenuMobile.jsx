@@ -14,6 +14,15 @@ import MenuContent from './MenuContent';
 import CardAlert from './CardAlert';
 
 function SideMenuMobile({ open, toggleDrawer }) {
+
+  const logoutUser = async () => {
+    try {
+        await signOut(auth);
+        console.log("Usuário desconectado.");
+    } catch (error) {
+        console.error("Erro ao desconectar:", error.message);
+    }
+};
   return (
     <Drawer
       anchor="right"

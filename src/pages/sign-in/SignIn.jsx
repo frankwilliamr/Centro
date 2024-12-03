@@ -17,6 +17,9 @@ import ForgotPassword from './ForgotPassword.jsx';
 import getSignInTheme from './theme/getSignInTheme.jsx';
 import { Logo } from './CustomIcons.jsx';
 import TemplateFrame from './TemplateFrame.jsx';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../../../firebase.js';
+
 
 
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -59,95 +62,37 @@ export default function SignIn() {
   const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
-  const [open, setOpen] = React.useState(false);
+  const [email, setEmail] =React.useState('');
+  const [password, setPassword] = React.useState('');
+  
+  
+  
 
-  // This code only runs on the client side, to determine the system color preference
-  React.useEffect(() => {
-    // Check if there is a preferred mode in localStorage
-    const savedMode = localStorage.getItem('themeMode');
-    if (savedMode) {
-      setMode(savedMode);
-    } else {
-      // If no preference is found, it uses system preference
-      const systemPrefersDark = window.matchMedia(
-        '(prefers-color-scheme: dark)',
-      ).matches;
-      setMode(systemPrefersDark ? 'dark' : 'light');
+  const loginUser = async (e) => {
+    e.preventDefault();
+    
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        console.log("Usuário logado:", userCredential.user);
+    } catch (error) {
+      
+        console.error("Erro ao fazer login:", error.message);
+        
     }
-  }, []);
-
-  const toggleColorMode = () => {
-    const newMode = mode === 'dark' ? 'light' : 'dark';
-    setMode(newMode);
-    localStorage.setItem('themeMode', newMode); // Save the selected mode to localStorage
-  };
-
-  const toggleCustomTheme = () => {
-    setShowCustomTheme((prev) => !prev);
-  };
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
-
-  const validateInputs = () => {
-    const email = document.getElementById('email');
-    const password = document.getElementById('password');
-
-    let isValid = true;
-
-    if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
-      setEmailError(true);
-      setEmailErrorMessage('Use um email valido .');
-      isValid = false;
-    } else {
-      setEmailError(false);
-      setEmailErrorMessage('');
-    }
-
-    if (!password.value || password.value.length < 6) {
-      setPasswordError(true);
-      setPasswordErrorMessage('Password must be at least 6 characters long.');
-      isValid = false;
-    } else {
-      setPasswordError(false);
-      setPasswordErrorMessage('');
-    }
-
-    return isValid;
-  };
+};
+  
 
   return (
-    <TemplateFrame
-      toggleCustomTheme={toggleCustomTheme}
-      showCustomTheme={showCustomTheme}
-      mode={mode}
-      toggleColorMode={toggleColorMode}
-    >
-      <ThemeProvider theme={showCustomTheme ? SignInTheme : defaultTheme}>
+    
+      <>
         <CssBaseline enableColorScheme />
         <SignInContainer direction="column" justifyContent="space-between">
           <Card variant="outlined">
             <Logo/>
-           
-             
+                      
            
             <Box
-              component="form"
-              onSubmit={handleSubmit}
+              
               noValidate
               sx={{
                 display: 'flex',
@@ -165,7 +110,7 @@ export default function SignIn() {
                   type="email"
                   name="email"
                   placeholder="Seu@email.com"
-                  autoComplete="email"
+                  onChange={(e) => setEmail(e.target.value)}
                   autoFocus
                   required
                   fullWidth
@@ -186,7 +131,7 @@ export default function SignIn() {
                   placeholder="••••••"
                   type="password"
                   id="password"
-                  autoComplete="current-password"
+                  onChange={(e) => setPassword(e.target.value)}
                   autoFocus
                   required
                   fullWidth
@@ -194,16 +139,14 @@ export default function SignIn() {
                   color={passwordError ? 'error' : 'primary'}
                 />
               </FormControl>
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
-              <ForgotPassword open={open} handleClose={handleClose} />
+              
+             
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
-                onClick={validateInputs}
+                onClick={loginUser}
+                sx={{mt: 5}}
               >
                 Entrar
               </Button>
@@ -211,7 +154,7 @@ export default function SignIn() {
             </Box>
           </Card>
         </SignInContainer>
-      </ThemeProvider>
-    </TemplateFrame>
+        </>
+     
   );
 }
