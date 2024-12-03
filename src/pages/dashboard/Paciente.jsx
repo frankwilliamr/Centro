@@ -1103,7 +1103,7 @@ async function handleSalvar() {
           InputLabelProps={{
             style: {
             fontFamily: 'inherit',
-            transform: 'translate(0, -18px)', // Move o label para cima
+            transform: 'translate(0, -18px)',
             fontSize: '0.6rem'
           },}}
           sx={{ width: '30ch', 
@@ -1124,7 +1124,7 @@ async function handleSalvar() {
       <Grid2 item xs={12} sm={6} lg={3}  >
         <FormControl fullWidth  sx={{ minWidth: 120, flexDirection: 'row', paddingTop: '10px'}}
           >
-        <InputLabel required id="capacidade" shrink sx={{ fontSize: '0.8rem' }}>Capacidades e Habilidades</InputLabel>
+        <InputLabel  id="capacidade" shrink sx={{ fontSize: '0.8rem' }}>Capacidades e Habilidades</InputLabel>
         
         <Select
           sx={{ width: '40ch'}}

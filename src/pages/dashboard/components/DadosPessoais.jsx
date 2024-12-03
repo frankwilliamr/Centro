@@ -54,7 +54,7 @@ export default function DadosPessoais({
         <TextField
           sx={{  width: '50ch', paddingTop: '10px' }}
           required
-          id="outlined-required"
+          id="outlined"
           label="Nome Completo"
           value={nome}
           onChange={(e)=> alterarNome(e.target.value)}
@@ -73,7 +73,7 @@ export default function DadosPessoais({
           <TextField
           {...inputProps} // Aplicar as propriedades do InputMask no TextField
           sx={{ width: '20ch', paddingTop: '10px' }}
-          required
+          
           id="CPF"
           label="CPF"
           fullWidth
@@ -85,7 +85,7 @@ export default function DadosPessoais({
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
         <TextField
           sx={{  paddingTop: '10px' }}
-          required
+          
           type='date'
           id="nascimento"
           label= "Data de nascimento"
@@ -109,7 +109,7 @@ export default function DadosPessoais({
         <TextField
         {...inputProps}
         sx={{ width: '20ch', paddingTop: '10px' }}
-        required
+      
         type='text'
         id='RG'
         label='RG'
@@ -131,7 +131,7 @@ export default function DadosPessoais({
         <TextField
           {...inputProps}
           sx={{ width: '20ch', paddingTop: '10px' }}
-          required
+        
           id="Celular"
           label="Contato"
           
@@ -145,7 +145,7 @@ export default function DadosPessoais({
        
         <TextField
           sx={{ width: '50ch', paddingTop: '10px' }}
-          required
+        
           id="Responsavel"
           label="Responsavel"
           value={responsavel}
@@ -156,9 +156,9 @@ export default function DadosPessoais({
       </Grid2>
       
       <Grid2 item xs={12} sm={6} md={4} lg={3} >
-      <FormControl  variant="standard" sx={{ minWidth: 120 }}
+      <FormControl  fullWidth  sx={{ minWidth: 120,  paddingTop: '10px'}}
           >
-        <InputLabel required id="Parentesco" shrink sx={{ fontSize: '1.2rem' }}>Parentesco</InputLabel>
+        <InputLabel id="Parentesco" shrink sx={{ fontSize: '0.8rem' }}>Parentesco</InputLabel>
         
         <Select
           
@@ -168,7 +168,7 @@ export default function DadosPessoais({
           onChange={(e) => alterarParentesco(e.target.value)}
         >
           <MenuItem value="">
-            <em>None</em>
+            <em>Nenhum</em>
           </MenuItem>
           <MenuItem value='Pai'>Pai</MenuItem>
           <MenuItem value='Mãe'>Mãe</MenuItem>
@@ -187,7 +187,7 @@ export default function DadosPessoais({
         <TextField
           {...inputProps}  
           sx={{ width: '20ch', paddingTop: '10px' }}
-          required
+        
           id="ContatoResponsavel"
           label="Contato Responsavel"
           
@@ -198,9 +198,9 @@ export default function DadosPessoais({
       
 
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
-      <FormControl variant="standard" sx={{ minWidth: 120 }}
+      <FormControl fullWidth  sx={{ minWidth: 120,  paddingTop: '10px'}}
           >
-        <InputLabel required id="sexo" shrink sx={{ fontSize: '1.2rem' }}>Sexo</InputLabel>
+        <InputLabel id="sexo" shrink sx={{ fontSize: '0.8rem' }}>Sexo</InputLabel>
         
         <Select
           
@@ -211,7 +211,7 @@ export default function DadosPessoais({
           
         >
           <MenuItem value="">
-            <em>None</em>
+            <em>Nenhum</em>
           </MenuItem>
           <MenuItem value='Masculino'>Masculino</MenuItem>
           <MenuItem value='Feminino'>Feminino</MenuItem>
@@ -223,7 +223,7 @@ export default function DadosPessoais({
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
         <TextField
           sx={{ width: '50ch' , paddingTop: '10px'}}
-          required
+        
           id="mae"
           label="Nome da Mãe"
           value={mae}
@@ -235,7 +235,7 @@ export default function DadosPessoais({
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
         <TextField
           sx={{ width: '50ch', paddingTop: '10px' }}
-          required
+        
           id="pai"
           label="Nome do Pai"
           value={pai}
@@ -247,7 +247,7 @@ export default function DadosPessoais({
       <Grid2 item xs={12} sm={6} md={4} lg={3} >
       <TextField
           sx={{ width: '50ch', paddingTop: '10px' }}
-          required
+        
           id="nacionalidade"
           label="Nacionalidade"
           value={nacionalidade}
@@ -260,7 +260,7 @@ export default function DadosPessoais({
       <Grid2 item xs={12} sm={6} md={4} lg={3}>
         <TextField
           sx={{ width: '50ch', paddingTop: '10px' }}
-          required
+        
           id="naturalidade"
           label="Naturalidade"
           value={naturalidade}

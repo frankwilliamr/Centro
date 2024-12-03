@@ -3,7 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../../../firebase';
-import axios from 'axios';
+import { Link } from "@mui/material";
 
 
 export default function CustomizedDataGrid() {
@@ -39,7 +39,19 @@ export default function CustomizedDataGrid() {
     {field: 'NumeroProntuario', headerName: 'Nº Prontuario', minWidth: 50, flex: 0.4, align: 'center'},
     { field: 'nome', headerName: 'Nome',minWidth: 200, flex: 1.5, 
       renderCell: (params) => (
-        <a href={`/pacientes/${params.row.id}`}>{params.row.nome}</a> // Redireciona para a página de detalhes
+        <Link
+      href={`/pacientes/${params.row.id}`}
+      
+      sx={{
+        fontSize: '1.1rem',
+        color: "inherit", // Herda a cor do texto pai
+        "&:hover": {
+          color: "blue ", // Aplica cor no hover
+        },
+      }}
+    >
+      {params.row.nome}
+    </Link> // Redireciona para a página de detalhes
       )
     },
     { field: 'ultimoAtendimento', headerName: 'Ultimo atendimento', minWidth: 80, flex: 1},

@@ -33,12 +33,12 @@ export default function DadosSociais({ receberReligiao,
     return (
         <Grid2 container spacing={2} sx={{ width: '100%', margin: '0 auto', justifyContent: 'center', alignItems: 'flex-start' }}>
         <Grid2 item xs={12} sm={6} lg={3}  >
-        <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
+        <FormControl fullWidth  sx={{ minWidth: 120, flexDirection: 'row', paddingTop: '10px'}}
           >
-        <InputLabel required id="religiao" shrink sx={{ fontSize: '1.2rem' }}>Religião</InputLabel>
+        <InputLabel  id="religiao" shrink sx={{ fontSize: '0.8rem' }}>Religião</InputLabel>
         
         <Select
-          sx={{ width: '20ch'}}
+          sx={{ width: '20ch', ml: 1}}
           labelId="religiao"
           id="religiao"
           value={receberReligiao}
@@ -52,7 +52,7 @@ export default function DadosSociais({ receberReligiao,
           <MenuItem value='Espírita'>Espírita</MenuItem>
           <MenuItem value='Candomblé'>Candomblé</MenuItem>
           <MenuItem value='Evangelico'>Evangelico</MenuItem>
-          <MenuItem value='outro'>Outros</MenuItem>
+          <MenuItem value='outro'>Outra</MenuItem>
 
       
           
@@ -60,8 +60,8 @@ export default function DadosSociais({ receberReligiao,
 
         {receberReligiao === 'outro' && (
         <TextField
-          label="Outros"
-          variant="standard"
+          
+          
           
           onChange={(e) => alterarOutraReligiao(e.target.value)}
           sx={{ marginLeft: 2 }}
@@ -71,12 +71,12 @@ export default function DadosSociais({ receberReligiao,
       </FormControl>
       </Grid2>
         <Grid2 item xs={12} sm={6} lg={3}  >
-        <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
+        <FormControl fullWidth  sx={{ minWidth: 120, flexDirection: 'row', paddingTop: '10px'}}
           >
-        <InputLabel required id="escolaridade" shrink sx={{ fontSize: '1.2rem' }}>Escolaridade</InputLabel>
+        <InputLabel  id="escolaridade" shrink sx={{ fontSize: '0.8rem' }}>Escolaridade</InputLabel>
         
         <Select
-          sx={{ width: '20ch'}}
+          sx={{ width: '20ch', ml: 1}}
           labelId="escolaridade"
           id="escolaridade"
           value={receberEscolaridade}
@@ -102,12 +102,12 @@ export default function DadosSociais({ receberReligiao,
       </Grid2>
 
         <Grid2 item xs={12} sm={6} lg={3}  >
-        <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
+        <FormControl fullWidth  sx={{ minWidth: 120, flexDirection: 'row', paddingTop: '10px'}}
           >
-        <InputLabel required id="ocupacao" shrink sx={{ fontSize: '1.2rem' }}>Ocupação Atual</InputLabel>
+        <InputLabel  id="ocupacao" shrink sx={{ fontSize: '0.8rem' }}>Ocupação Atual</InputLabel>
         
         <Select
-          sx={{ width: '20ch'}}
+          sx={{ width: '20ch', ml: 1}}
           labelId="ocupacao"
           id="ocupacao"
          value={receberOcupacao}
@@ -125,13 +125,13 @@ export default function DadosSociais({ receberReligiao,
           <MenuItem value='Empregador'>Empregador</MenuItem>
           <MenuItem value='Mercado Informal'>Mercado Informal</MenuItem>
           <MenuItem value='Aposentado'>Aposentado</MenuItem>
-          <MenuItem value='outro'>Outro</MenuItem>
+          <MenuItem value='outro'>Outra</MenuItem>
         </Select>
         
         {receberOcupacao === 'outro' && (
         <TextField
-          label="Outros"
-          variant="standard"
+          
+
           
           onChange={(e) => alterarOutraOcupacao(e.target.value)}
           sx={{ marginLeft: 2 }}
@@ -142,12 +142,12 @@ export default function DadosSociais({ receberReligiao,
       </Grid2>
 
       <Grid2 item xs={12} sm={6} lg={3}  >
-        <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
+        <FormControl fullWidth  sx={{ minWidth: 120, flexDirection: 'row', paddingTop: '10px'}}
           >
-        <InputLabel required id="previdencia" shrink sx={{ fontSize: '1.2rem' }}>Vinculo previdênciario</InputLabel>
+        <InputLabel  id="previdencia" shrink sx={{ fontSize: '0.8rem' }}>Vinculo previdênciario</InputLabel>
         
         <Select
-          sx={{ width: '20ch'}}
+          sx={{ width: '20ch', ml: 1}}
           labelId="previdencia"
           id="previdencia"
           value={receberPrevidencia}
@@ -164,8 +164,14 @@ export default function DadosSociais({ receberReligiao,
         {receberPrevidencia === 'sim' && (
         <TextField
           label="Quais"
-          variant="standard"
-          
+
+           InputLabelProps={{
+            style: {
+            fontSize: '0.6rem',
+            transform: 'translate(10px, -18px)',
+            
+            
+          },}}
           onChange={(e) => alterarOutraPrevidencia(e.target.value)}
           sx={{ marginLeft: 2 }}
         />)}
@@ -173,12 +179,12 @@ export default function DadosSociais({ receberReligiao,
       </FormControl>
       </Grid2>
       <Grid2 item xs={12} sm={6} lg={3}  >
-        <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
+        <FormControl fullWidth  sx={{ minWidth: 120, flexDirection: 'row', paddingTop: '10px'}}
           >
-        <InputLabel required id="beneficio" shrink sx={{ fontSize: '1.2rem' }}>Benefícios Sociais</InputLabel>
+        <InputLabel  id="beneficio" shrink sx={{ fontSize: '0.8rem' }}>Benefícios Sociais</InputLabel>
         
         <Select
-          sx={{ width: '20ch'}}
+          sx={{ width: '20ch', ml: 1}}
           labelId="beneficio"
           id="beneficio"
           value={receberBeneficios}
@@ -195,8 +201,8 @@ export default function DadosSociais({ receberReligiao,
         </Select>
         {receberBeneficios === 'outro' && (
         <TextField
-          label="Outros"
-          variant="standard"
+          
+
           
           onChange={(e) => alterarOutrosBeneficios(e.target.value)}
           sx={{ marginLeft: 2 }}
@@ -207,12 +213,12 @@ export default function DadosSociais({ receberReligiao,
       </Grid2>
 
       <Grid2 item xs={12} sm={6} lg={3}  >
-        <FormControl fullWidth variant="standard" sx={{ minWidth: 120, flexDirection: 'row'}}
+        <FormControl fullWidth  sx={{ minWidth: 120, flexDirection: 'row', paddingTop: '10px'}}
           >
-        <InputLabel required id="Ocupacao" shrink sx={{ fontSize: '1.2rem' }}>Moradia Atual</InputLabel>
+        <InputLabel  id="Ocupacao" shrink sx={{ fontSize: '0.8rem' }}>Moradia Atual</InputLabel>
         
         <Select
-          sx={{ width: '20ch'}}
+          sx={{ width: '20ch', ml: 1}}
           labelId="Parentesco"
           id="Parentesco"
           value={receberMoradia}
@@ -228,12 +234,12 @@ export default function DadosSociais({ receberReligiao,
           <MenuItem value='Não possui residência fixa'>Não possui residência fixa</MenuItem>
           <MenuItem value='Moradia regular sozinho'>Moradia regular sozinho</MenuItem>
           <MenuItem value='Moradia regular com familiar'>Moradia regular com familiar</MenuItem>
-          <MenuItem value='outro'>Outro</MenuItem>
+          <MenuItem value='outro'>Outra</MenuItem>
         </Select>
         {receberMoradia === 'outro' && (
         <TextField
-          label="Outros"
-          variant="standard"
+          
+
           
           onChange={(e) => alterarOutraMoradia(e.target.value)}
           sx={{ marginLeft: 2 }}
