@@ -8,6 +8,7 @@ import AppNavbar from './components/AppNavbar';
 import MainGrid from './components/MainGrid';
 import SideMenu from './components/SideMenu';
 import TemplateFrame from './TemplateFrame';
+import PainelAdmin from './components/PainelAdmin';
 
 export default function Dashboard() {
   
@@ -37,7 +38,7 @@ export default function Dashboard() {
               }}
             >
               
-              <MainGrid />
+              <PainelAdmin/>
             </Stack>
           </Box>
         </Box>

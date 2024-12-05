@@ -19,7 +19,7 @@ import { Logo } from './CustomIcons.jsx';
 import TemplateFrame from './TemplateFrame.jsx';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../../../firebase.js';
-
+import { useNavigate } from 'react-router-dom';
 
 
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -64,7 +64,7 @@ export default function SignIn() {
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
   const [email, setEmail] =React.useState('');
   const [password, setPassword] = React.useState('');
-  
+  const navigate = useNavigate();
   
   
 
@@ -74,6 +74,7 @@ export default function SignIn() {
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         console.log("Usuário logado:", userCredential.user);
+        navigate('/dashboard')
     } catch (error) {
       
         console.error("Erro ao fazer login:", error.message);

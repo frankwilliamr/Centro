@@ -10,6 +10,8 @@ import ListItemIcon, { listItemIconClasses } from '@mui/material/ListItemIcon';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import MoreVertRoundedIcon from '@mui/icons-material/MoreVertRounded';
 import MenuButton from './MenuButton';
+import { signOut } from "firebase/auth";
+import { auth } from '../../../../firebase';
 
 const MenuItem = styled(MuiMenuItem)({
   margin: '2px 0',
@@ -24,6 +26,15 @@ export default function OptionsMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const logoutUser = async () => {
+    try {
+        await signOut(auth);
+        console.log("Usuário desconectado.");
+    } catch (error) {
+        console.error("Erro ao desconectar:", error.message);
+    }
+};
   return (
     <React.Fragment>
       <MenuButton
@@ -55,7 +66,7 @@ export default function OptionsMenu() {
       >
         
         <MenuItem
-          onClick={handleClose}
+          onClick={logoutUser}
           sx={{
             [`& .${listItemIconClasses.root}`]: {
               ml: 'auto',

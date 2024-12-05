@@ -12,6 +12,7 @@ import CardAlert from './CardAlert';
 import OptionsMenu from './OptionsMenu';
 import logo from './teste.png'
 
+
 const drawerWidth = 240;
 
 const Drawer = styled(MuiDrawer)({
@@ -26,6 +27,8 @@ const Drawer = styled(MuiDrawer)({
 });
 
 export default function SideMenu() {
+
+  
   return (
     <Drawer
       variant="permanent"

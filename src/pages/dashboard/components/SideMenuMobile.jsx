@@ -8,10 +8,11 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
-
+import { auth } from '../../../../firebase';
 import MenuButton from './MenuButton';
 import MenuContent from './MenuContent';
 import CardAlert from './CardAlert';
+import { signOut } from "firebase/auth";
 
 function SideMenuMobile({ open, toggleDrawer }) {
 
@@ -60,7 +61,7 @@ function SideMenuMobile({ open, toggleDrawer }) {
         </Stack>
         
         <Stack sx={{ p: 2 }}>
-          <Button variant="outlined" fullWidth startIcon={<LogoutRoundedIcon />}>
+          <Button variant="outlined" fullWidth onClick={logoutUser} startIcon={<LogoutRoundedIcon />}>
             Sair
           </Button>
         </Stack>
