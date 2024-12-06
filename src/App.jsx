@@ -7,6 +7,7 @@ import SignIn from './pages/sign-in/SignIn';
 import DashBoard from './pages/dashboard/Dashboard';
 import Prontuarios from './pages/dashboard/Prontuarios';
 import Cadastro from './pages/dashboard/Cadastro';
+import CadastroUsuarios from './pages/dashboard/components/CadastroUsuarios';
 import getDashboardTheme from './pages/dashboard/theme/getDashboardTheme';
 import TemplateFrame from './pages/dashboard/TemplateFrame';
 import { createTheme, ThemeProvider, alpha} from '@mui/material/styles';
@@ -85,7 +86,7 @@ export default function App() {
         <Routes>
           <Route path='/login' element={<SignIn/>} />
           <Route path='/paciente/listaAtualizacao/:id'  element={<ProtectedRoute><ListaAtualizacoes/></ProtectedRoute>}/>
-          
+          <Route path='/cadastroUsuario' element={<CadastroUsuarios/>}/>
           <Route path='/atualizacao/:id/:idAtt?/:adicionar?' element={<ProtectedRoute><Atualizacao/></ProtectedRoute>}/>
           <Route path='/pacientes/:id' element={ <ProtectedRoute><Paciente/></ProtectedRoute>}/>
           <Route path="/dashboard" element={<ProtectedRoute><DashBoard /></ProtectedRoute> } />
