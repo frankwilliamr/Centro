@@ -18,6 +18,7 @@
     "@mui/x-data-grid": "^7.17.0",
     "@mui/x-date-pickers": "^7.17.0",
     "@mui/x-tree-view": "^7.17.0",
+    "@sendgrid/mail": "^8.1.4",
     "axios": "^1.7.7",
     "dayjs": "^1.11.13",
     "firebase": "^11.0.1",
