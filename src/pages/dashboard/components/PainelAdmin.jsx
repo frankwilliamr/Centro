@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
-
+import { db } from '../../../../firebase';
+import { getDocs, doc, collection } from 'firebase/firestore';
 import {
     Table,
     TableBody,
@@ -18,20 +19,36 @@ import {
     IconButton
   } from '@mui/material';
   import AddIcon from '@mui/icons-material/Add';
+  import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function painelAdmin(){
     
-  const [usuarios, setUsuarios] = useState([
-        { id: 1, nome: 'João Silva', email: 'joao@email.com', cargo: 'Desenvolvedor', ativo: true },
-        { id: 2, nome: 'Maria Santos', email: 'maria@email.com', cargo: 'Designer', ativo: false },
-        { id: 3, nome: 'Carlos Lima', email: 'carlos@email.com', cargo: 'Gerente', ativo: true },
-      ]);
+  const [usuarios, setUsuarios] = useState([]);
       
-      
+  const fetchDados = async () => {
+    try {
+      const collectionRef = collection(db, "usuarios");
+      const querySnapshot = await getDocs(collectionRef);
+
+      if (!querySnapshot.empty) {
+        const usuariosData = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setUsuarios(usuariosData);
+      } else {
+        console.log("Nenhum documento encontrado!");
+      }
+    } catch (error) {
+      console.error("Erro ao buscar os dados:", error);
+    }
+  };
       const handleAdd = () =>{
         window.open(`/cadastroUsuario`, '_blank', 'width=800,height=600');
       }
-
+      React.useEffect(() => {
+        fetchDados()
+      })
     return(
         <Box sx={{ width: '100%', maxWidth: { sm: '100%', md: '1700px' }}}>
         <Card  sx={{margin: 2}}>
@@ -77,6 +94,7 @@ export default function painelAdmin(){
                     onChange={() => handleCheckboxChange(usuario.id)}
                   />
                 </TableCell>
+                <TableCell><DeleteIcon/></TableCell>
               </TableRow>
             ))}
           </TableBody>

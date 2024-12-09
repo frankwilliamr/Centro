@@ -13,7 +13,7 @@ export default function CadastroUsuarios(){
   const [nome, setNome] = React.useState('')
   const [email, setEmail] = React.useState('')
   const [cargo, setCargo] = React.useState('')
-  const sucesso = false
+  
   
 
   
