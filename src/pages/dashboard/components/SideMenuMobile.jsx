@@ -13,8 +13,10 @@ import MenuButton from './MenuButton';
 import MenuContent from './MenuContent';
 import CardAlert from './CardAlert';
 import { signOut } from "firebase/auth";
-
+import { useAuth } from '../../sign-in/Autenticacao';
+import { sendPasswordResetEmail } from 'firebase/auth';
 function SideMenuMobile({ open, toggleDrawer }) {
+  const { nome, email, loading } = useAuth();
 
   const logoutUser = async () => {
     try {
@@ -23,6 +25,16 @@ function SideMenuMobile({ open, toggleDrawer }) {
     } catch (error) {
         console.error("Erro ao desconectar:", error.message);
     }
+};
+const handleRedefinirSenha = async () => {
+     
+  
+  try {
+    await sendPasswordResetEmail(auth, email);
+    alert('Um e-mail de redefinição foi enviado para o seu email.');
+  } catch (error) {
+    console.log(`Erro ao enviar e-mail: ${error.message}`);
+  }
 };
   return (
     <Drawer
@@ -49,7 +61,7 @@ function SideMenuMobile({ open, toggleDrawer }) {
           >
             
             <Typography component="p" variant="h6">
-              Riley Carter
+              {nome}
             </Typography>
           </Stack>
           
@@ -61,6 +73,9 @@ function SideMenuMobile({ open, toggleDrawer }) {
         </Stack>
         
         <Stack sx={{ p: 2 }}>
+        <Button variant="outlined" fullWidth onClick={handleRedefinirSenha} sx={{mb: 1}}>
+            Alterar Senha
+          </Button>
           <Button variant="outlined" fullWidth onClick={logoutUser} startIcon={<LogoutRoundedIcon />}>
             Sair
           </Button>

@@ -13,12 +13,13 @@ import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { alpha } from '@mui/material/styles';
-
-
+import { useAuth } from "../sign-in/Autenticacao";
+import {Stack} from "@mui/material";
 
 export default function Paciente({}){
   const { id } = useParams();
-  
+  const {cargo} = useAuth();
+
   
   const [dados, setDados] = useState([]);
   const [editando, setEditando] = useState(false); 
@@ -151,6 +152,8 @@ async function handleSalvar() {
     
     await updateDoc(docRef, {
       nome: editedNome,
+      cpf: cpf,
+      nascimento: nascimento,
       contato: contato,
       responsavel: responsavel,
       parentesco: parentesco,
@@ -218,12 +221,27 @@ async function handleSalvar() {
   
   return(
     
-    <Box sx={{ ml: 2, display: 'flex',  }}>
+    <Box  sx={{ display: 'flex' }}>
           <SideMenu />
           <AppNavbar />
 
-    
-      <Card sx={{ width: '100%', mt: 2, mr: 2}}>
+    <Box component="main"
+            sx={(theme) => ({
+              flexGrow: 1,
+              backgroundColor: alpha(theme.palette.background.default, 1),
+              overflow: 'auto',
+              mt: 2
+            })}>
+              <Stack
+              spacing={2}
+              sx={{
+                alignItems: 'center',
+                mx: 3,
+                pb: 10,
+                mt: { xs: 8, md: 0 },
+              }}
+            >
+      <Card sx={{ width: '100%',  mr: 2}}>
         
        <Grid2  
         container 
@@ -278,7 +296,12 @@ async function handleSalvar() {
                   width: '50ch', 
                   paddingTop: '10px', 
                   '.MuiInputBase-root': {
-                      backgroundColor: editando ? (theme) => alpha(theme.palette.text.primary, 0.05) : 'inherit',
+                      backgroundColor: editando 
+                      ? (cargo === 'admin' 
+                          ? 'none' 
+                          : (theme) => alpha(theme.palette.text.primary, 0.05)
+                        ) 
+                      : 'inherit',
                       borderRadius: '4px',
             
               },
@@ -289,7 +312,7 @@ async function handleSalvar() {
                 value={editedNome}
                 onChange={(e) => setEditedNome(e.target.value)}
                 InputProps={{
-                  readOnly: true,
+                  readOnly: !(editando && cargo === 'admin'),
                 }}
                 
               />
@@ -300,7 +323,7 @@ async function handleSalvar() {
       <InputMask
         mask="999.999.999-99" // Máscara para CPF
         value={cpf}
-        
+        onChange={(e) => setCpf(e.target.value)}
         
       >
         {(inputProps) => (
@@ -310,7 +333,12 @@ async function handleSalvar() {
             width: '20ch', 
             paddingTop: '10px',
             '.MuiInputBase-root': {
-            backgroundColor: editando ? (theme) => alpha(theme.palette.text.primary, 0.05) : 'inherit',
+            backgroundColor: editando 
+            ? (cargo === 'admin' 
+                ? 'none' 
+                : (theme) => alpha(theme.palette.text.primary, 0.05)
+              ) 
+            : 'inherit',
             borderRadius: '4px',
             
               },
@@ -320,7 +348,7 @@ async function handleSalvar() {
           label="CPF"
           fullWidth
           InputProps={{
-            readOnly: true,
+            readOnly: !(editando && cargo === 'admin'),
           }}
           />
         )}
@@ -332,19 +360,23 @@ async function handleSalvar() {
             width: '17ch', 
             paddingTop: '10px',
             '.MuiInputBase-root': {
-            backgroundColor: editando ? (theme) => alpha(theme.palette.text.primary, 0.05) : 'inherit',
+            backgroundColor: editando ? 'none' : 'inherit',
             borderRadius: '4px',
             
               },
             
            }}
           
-          
+          type='date'
           id="nascimento"
           label= "Data de nascimento"
           value={nascimento}
+          onChange={(e) => setNascimento(e.target.value)}
+          InputLabelProps={{
+            shrink: true
+          }}
           InputProps={{
-            readOnly: true,
+            readOnly: !editando,
           }}
           
           
@@ -366,7 +398,7 @@ async function handleSalvar() {
           width: '20ch',
           paddingTop: '10px',
           '.MuiInputBase-root': {
-            backgroundColor: editando ? (theme) => alpha(theme.palette.text.primary, 0.05) : 'inherit',
+            backgroundColor: editando ? "none" : 'inherit',
             borderRadius: '4px',
             
               },
@@ -377,9 +409,9 @@ async function handleSalvar() {
         id='RG'
         label='RG'
         InputProps={{
-          readOnly: true,
+          readOnly: !editando,
         }}
-        
+        InputLabelProps={{shrink: true}}
         
         /> 
         )}
@@ -438,7 +470,7 @@ async function handleSalvar() {
     </Grid2>
 
     <Grid2 item xs={12} sm={6} md={4} lg={3} >
-      <FormControl   sx={{ minWidth: 120, paddingTop: '10px' }}
+      <FormControl   sx={{ minWidth: 120, paddingTop: '10px',  }}
           >
         <InputLabel  id="Parentesco" shrink sx={{ fontSize: '0.8rem' }}>Parentesco</InputLabel>
         
@@ -499,7 +531,7 @@ async function handleSalvar() {
           id="sexo"
           value={sexo}
           onChange={(e) => setSexo(e.target.value)}
-          disabled={true}
+          disabled={!editando}
         >
           <MenuItem value="">
             <em>None</em>
@@ -1157,19 +1189,22 @@ async function handleSalvar() {
         display: 'flex',
     
   }}>
-      <Button   
-                variant="contained" 
-                color="primary" 
-                onClick={handleAtualizacao}
-                size="large"
-                sx={{ml: 0, width: '150px', mt: 3,}}
-                >
-                  Atualizações
-                </Button>
+      {cargo !== 'admin' && (
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleAtualizacao}
+          size="large"
+          sx={{ ml: 0, width: '150px', mt: 3 }}
+        >
+          Atualizações
+        </Button>
+      )}
       </Grid2>
       
       </Card>
-     
+      </Stack>
+      </Box>
     </Box>
     
 

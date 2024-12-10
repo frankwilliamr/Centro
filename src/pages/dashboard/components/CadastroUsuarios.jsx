@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Card, TextField, MenuItem, Button, Select, Grid2, Typography, Divider } from '@mui/material';
 import axios from 'axios';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, setDoc, doc } from 'firebase/firestore';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../../../firebase';
 import { db } from '../../../../firebase';
@@ -40,16 +40,18 @@ export default function CadastroUsuarios(){
       
       // 3️⃣ Salva o usuário no Firestore
       const dadosParaEnvio = { 
+        
         nome: nome,
         email: email, 
         cargo: cargo,
         userId: userId, 
+        ativo: true,
         dataCriacao: new Date() 
       };
   
-      const docRef = await addDoc(collection(db, 'usuarios'), dadosParaEnvio);
+      const docRef = await setDoc(doc(db, 'usuarios', userId), dadosParaEnvio);
   
-      console.log('Usuário adicionado com sucesso. ID do documento:', docRef.id);
+      console.log('Usuário adicionado com sucesso. ID do documento:');
   
       // 4️⃣ Envia a senha para o e-mail do usuário
       await enviarEmail(email, senha);
@@ -59,7 +61,7 @@ export default function CadastroUsuarios(){
       setEmail('');
       setCargo('');
       window.close();
-      return { sucesso: true, userId, docId: docRef.id };
+      return { sucesso: true, userId};
   
     } catch (erro) {
       console.error('Erro ao adicionar o usuário:', erro);

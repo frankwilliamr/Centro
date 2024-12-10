@@ -12,12 +12,16 @@ import MoreVertRoundedIcon from '@mui/icons-material/MoreVertRounded';
 import MenuButton from './MenuButton';
 import { signOut } from "firebase/auth";
 import { auth } from '../../../../firebase';
+import { useAuth } from '../../sign-in/Autenticacao';
+import { sendPasswordResetEmail } from 'firebase/auth';
 
 const MenuItem = styled(MuiMenuItem)({
   margin: '2px 0',
 });
 
 export default function OptionsMenu() {
+  const {email} = useAuth();
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -34,6 +38,19 @@ export default function OptionsMenu() {
     } catch (error) {
         console.error("Erro ao desconectar:", error.message);
     }
+
+    
+};
+
+const handleRedefinirSenha = async () => {
+     
+  
+  try {
+    await sendPasswordResetEmail(auth, email);
+    console.log('Um e-mail de redefinição foi enviado para o seu email');
+  } catch (error) {
+    console.log(`Erro ao enviar e-mail: ${error.message}`);
+  }
 };
   return (
     <React.Fragment>
@@ -64,7 +81,7 @@ export default function OptionsMenu() {
           },
         }}
       >
-        
+        <MenuItem onClick={handleRedefinirSenha}> Alterar Senha</MenuItem>
         <MenuItem
           onClick={logoutUser}
           sx={{
@@ -74,11 +91,14 @@ export default function OptionsMenu() {
             },
           }}
         >
+          
           <ListItemText>Sair </ListItemText>
+          
           <ListItemIcon>
             <LogoutRoundedIcon fontSize="small" />
           </ListItemIcon>
         </MenuItem>
+
       </Menu>
     </React.Fragment>
   );

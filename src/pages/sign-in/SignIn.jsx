@@ -20,6 +20,8 @@ import TemplateFrame from './TemplateFrame.jsx';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../../../firebase.js';
 import { useNavigate } from 'react-router-dom';
+import { db } from '../../../firebase.js';
+import { getDoc, doc } from 'firebase/firestore';
 
 
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -72,12 +74,40 @@ export default function SignIn() {
     e.preventDefault();
     
     try {
+        // 1️⃣ Login com o Firebase Authentication
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        console.log("Usuário logado:", userCredential.user);
-        navigate('/dashboard')
+        const user = userCredential.user;
+        console.log("Usuário logado:", user);
+
+        // 2️⃣ Consulta ao Firestore para verificar se o usuário está ativo
+        const userDocRef = doc(db, "usuarios", user.uid); // Assume que o ID do documento no Firestore é o UID do usuário
+        const userDocSnap = await getDoc(userDocRef);
+        
+        if (userDocSnap.exists()) {
+            const userData = userDocSnap.data();
+            
+            if (userData.ativo) {
+                console.log("Usuário está ativo, redirecionando para o dashboard...");
+                
+                // 3️⃣ Redirecionar para o dashboard
+                navigate('/prontuarios');
+            } else {
+                console.error("Usuário não está ativo.");
+                alert("Sua conta está desativada. Entre em contato com o administrador.");
+            }
+        } else {
+            
+            console.error("Usuário não encontrado no Firestore.");
+            alert("Conta não cadastrada ou credenciais erradas.");
+        }
+
     } catch (error) {
-      
+      if (error.code === 'auth/invalid-credential') {
+        alert('Email ou senha incorreta!');
         console.error("Erro ao fazer login:", error.message);
+      }else{console.error("Erro ao fazer login:", error.message);
+        alert("Erro ao fazer login: " + error.message);
+      }
         
     }
 };

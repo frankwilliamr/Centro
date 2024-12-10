@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { db } from '../../../../firebase';
-import { getDocs, doc, collection } from 'firebase/firestore';
+import { getDocs, doc, collection, updateDoc } from 'firebase/firestore';
 import {
     Table,
     TableBody,
@@ -19,7 +19,7 @@ import {
     IconButton
   } from '@mui/material';
   import AddIcon from '@mui/icons-material/Add';
-  import DeleteIcon from '@mui/icons-material/Delete';
+  
 
 export default function painelAdmin(){
     
@@ -49,6 +49,31 @@ export default function painelAdmin(){
       React.useEffect(() => {
         fetchDados()
       })
+
+      const handleCheckboxChange = async (id) => {
+        try {
+          // Atualiza o estado local (opcional, mas melhora a experiência do usuário)
+          setUsuarios((prevUsuarios) =>
+            prevUsuarios.map((usuario) =>
+              usuario.id === id ? { ...usuario, ativo: !usuario.ativo } : usuario
+            )
+          );
+    
+          // Identifica o usuário no banco de dados Firebase (Firestore)
+          const usuarioRef = doc(db, "usuarios", id);
+          
+          // Pega o valor atual do ativo para alternar
+          const usuarioAtual = usuarios.find(usuario => usuario.id === id);
+          const novoValorAtivo = !usuarioAtual.ativo;
+    
+          // Atualiza o valor "ativo" no banco de dados
+          await updateDoc(usuarioRef, { ativo: novoValorAtivo });
+    
+          console.log(`Usuário foi atualizado com sucesso! `);
+        } catch (error) {
+          console.error('Erro ao atualizar o usuário no Firebase:', error);
+        }
+      };
     return(
         <Box sx={{ width: '100%', maxWidth: { sm: '100%', md: '1700px' }}}>
         <Card  sx={{margin: 2}}>
@@ -77,7 +102,7 @@ export default function painelAdmin(){
               <TableCell>E-mail</TableCell>
               <TableCell>Cargo</TableCell>
               <TableCell>Ativo</TableCell>
-              <TableCell>Excluir</TableCell>
+              
             </TableRow>
             
           </TableHead>
@@ -89,12 +114,14 @@ export default function painelAdmin(){
                 <TableCell>{usuario.email}</TableCell>
                 <TableCell>{usuario.cargo}</TableCell>
                 <TableCell>
+                {usuario.cargo !== 'admin' && (
                   <Checkbox
-                    checked={usuario.ativo}
-                    onChange={() => handleCheckboxChange(usuario.id)}
+                  checked={usuario.ativo}
+                  onChange={() => handleCheckboxChange(usuario.id)}
                   />
+          )}
                 </TableCell>
-                <TableCell><DeleteIcon/></TableCell>
+                
               </TableRow>
             ))}
           </TableBody>
