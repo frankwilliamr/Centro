@@ -1189,7 +1189,7 @@ async function handleSalvar() {
         display: 'flex',
     
   }}>
-      {cargo !== 'admin' && (
+      
         <Button
           variant="contained"
           color="primary"
@@ -1199,7 +1199,7 @@ async function handleSalvar() {
         >
           Atualizações
         </Button>
-      )}
+      
       </Grid2>
       
       </Card>
