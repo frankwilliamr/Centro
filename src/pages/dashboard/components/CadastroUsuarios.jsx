@@ -51,7 +51,7 @@ export default function CadastroUsuarios(){
   
       const docRef = await setDoc(doc(db, 'usuarios', userId), dadosParaEnvio);
   
-      console.log('Usuário adicionado com sucesso. ID do documento:');
+      
   
       // 4️⃣ Envia a senha para o e-mail do usuário
       await enviarEmail(email, senha);
@@ -89,13 +89,14 @@ export default function CadastroUsuarios(){
 
   async function enviarEmail(email, senha) {
     try {
-      const response = await axios.post('http://localhost:3000/sendEmail', {
+      console.log("teste se passa")
+      const response = await axios.post('../../../api/sendEmail', {
         email,
         senha,
       });
       console.log('E-mail enviado com sucesso:', response.data);
     } catch (erro) {
-      console.error('Erro ao enviar o e-mail:', erro);
+      console.error('Erro ao enviar o e-mail caminho:', erro);
     }
   }
 
