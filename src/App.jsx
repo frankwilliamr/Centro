@@ -84,7 +84,7 @@ export default function App() {
         <CssBaseline enableColorScheme />
         
         <Routes>
-          <Route path='/login' element={<SignIn/>} />
+          <Route path='#/login' element={<SignIn/>} />
           <Route path='/paciente/listaAtualizacao/:id'  element={<ProtectedRoute><ListaAtualizacoes/></ProtectedRoute>}/>
           <Route path='/cadastroUsuario' element={<CadastroUsuarios/>}/>
           <Route path='/atualizacao/:id/:idAtt?/:adicionar?' element={<ProtectedRoute><Atualizacao/></ProtectedRoute>}/>
