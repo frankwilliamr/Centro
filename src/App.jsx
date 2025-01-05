@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, HashRouter } from 'react-router-dom';
 import ListaAtualizacoes from './pages/dashboard/components/ListaAtualizacoes';
 import Atualizacao from './pages/dashboard/components/Atualizacao'
 import Paciente from './pages/dashboard/Paciente';
@@ -73,7 +73,7 @@ export default function App() {
   }
   return (
     <AuthProvider>
-    <BrowserRouter>
+    <HashRouter>
     <TemplateFrame
       toggleCustomTheme={toggleCustomTheme}
       showCustomTheme={showCustomTheme}
@@ -96,7 +96,7 @@ export default function App() {
         </Routes>
       </ThemeProvider>
       </TemplateFrame>
-    </BrowserRouter>
+    </HashRouter>
     </AuthProvider>
   );
 }
