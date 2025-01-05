@@ -46,7 +46,7 @@ export default function SideMenu() {
           p: 1.5,
         }}
       >
-       <img src= {logo} alt="" style={{ width: '200px', height: '50px', display: 'flex', justifyContent: 'flex-start', margin: '0 auto' }} />
+       <img src= {logo} alt="" style={{ width: '150px', height: '100px', display: 'flex', justifyContent: 'flex-start', margin: '0 auto' }} />
       </Box>
       <Divider />
       <MenuContent />

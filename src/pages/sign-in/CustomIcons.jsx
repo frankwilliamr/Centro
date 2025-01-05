@@ -11,6 +11,6 @@ export function Logo() {
   const logo = theme.palette.mode === 'dark' ? logoDark : logoLigh;
   return(
     
-    <img src={logo} alt='' style={{ width: '200px', height: '50px', display: 'flex', justifyContent: 'center', margin: '0 auto' }}/>
+    <img src={logo} alt='' style={{ width: '150px', height: '100px', display: 'flex', justifyContent: 'center', margin: '0 auto' }}/>
   )
 }
