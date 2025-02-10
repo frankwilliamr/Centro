@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { browserSessionPersistence, onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../../firebase'; // Certifique-se de importar o auth configurado
-import { setPersistence } from 'firebase/auth';
+import { setPersistence, browserLocalPersistence } from 'firebase/auth';
 import { getDoc, doc } from 'firebase/firestore';
 import { db } from '../../../firebase';
 
@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  setPersistence(auth, browserSessionPersistence)
+  setPersistence(auth, browserLocalPersistence)
   .then(() => {
     console.log("Persistência configurada para local");
   })

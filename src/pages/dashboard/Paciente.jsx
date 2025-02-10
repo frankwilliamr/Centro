@@ -130,7 +130,7 @@ export default function Paciente({}){
   }, [id]);
 
   const handleAtualizacao = () =>{
-    window.open(`/paciente/listaatualizacao/${id}`, '_blank', 'width=800,height=600');
+    window.open(`#/paciente/listaatualizacao/${id}`, '_blank', 'width=800,height=600');
   }
   const handleEditar = () => {
     

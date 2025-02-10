@@ -44,7 +44,7 @@ export default function painelAdmin(){
     }
   };
       const handleAdd = () =>{
-        window.open(`/cadastroUsuario`, '_blank', 'width=800,height=600');
+        window.open(`#/cadastroUsuario`, '_blank', 'width=800,height=600');
       }
       React.useEffect(() => {
         fetchDados()

@@ -40,7 +40,7 @@ export default function CustomizedDataGrid() {
     { field: 'nome', headerName: 'Nome',minWidth: 200, flex: 1.5, 
       renderCell: (params) => (
         <Link
-      href={`/pacientes/${params.row.id}`}
+      href={`#/pacientes/${params.row.id}`}
       
       sx={{
         fontSize: '1.1rem',
