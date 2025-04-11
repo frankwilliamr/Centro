@@ -14,8 +14,8 @@ import { createTheme, ThemeProvider, alpha} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { CircularProgress, Box } from '@mui/material';
 import { Navigate } from 'react-router-dom';
+import { useAuth } from './pages/sign-in/Autenticacao';
 
-import { AuthProvider } from './pages/sign-in/Autenticacao';
 import ProtectedRoute from './pages/sign-in/ProtecaoRota';
 
 
@@ -25,6 +25,7 @@ export default function App() {
   const dashboardTheme = createTheme(getDashboardTheme(mode));
   const defaultTheme = createTheme({ palette: { mode } });
   const [isThemeLoaded, setIsThemeLoaded] = React.useState(false);
+  const {loading} = useAuth();
   // This code only runs on the client side, to determine the system color preference
   React.useEffect(() => {
     // Check if there is a preferred mode in localStorage
@@ -56,7 +57,7 @@ export default function App() {
   
   
  
-  if (!isThemeLoaded) {
+  if (loading) {
     return (
       <Box 
         sx={{ 
@@ -72,7 +73,6 @@ export default function App() {
     );
   }
   return (
-    <AuthProvider>
     <HashRouter>
     <TemplateFrame
       toggleCustomTheme={toggleCustomTheme}
@@ -97,6 +97,6 @@ export default function App() {
       </ThemeProvider>
       </TemplateFrame>
     </HashRouter>
-    </AuthProvider>
+    
   );
 }

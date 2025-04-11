@@ -1,27 +1,26 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
 import CssBaseline from '@mui/material/CssBaseline';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Divider from '@mui/material/Divider';
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
-import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
-import { ThemeProvider, createTheme, styled } from '@mui/material/styles';
-import ForgotPassword from './ForgotPassword.jsx';
+import { createTheme, styled } from '@mui/material/styles';
 import getSignInTheme from './theme/getSignInTheme.jsx';
 import { Logo } from './CustomIcons.jsx';
-import TemplateFrame from './TemplateFrame.jsx';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../../../firebase.js';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../../../firebase.js';
 import { getDoc, doc } from 'firebase/firestore';
+import { useAuth } from './Autenticacao';
+import { Navigate } from 'react-router-dom';
+import { CircularProgress } from '@mui/material';
+
+
+
 
 
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -67,17 +66,35 @@ export default function SignIn() {
   const [email, setEmail] =React.useState('');
   const [password, setPassword] = React.useState('');
   const navigate = useNavigate();
-  
-  
+  const { currentUser, loading } = useAuth();
+  if (loading) {
+    return (
+      <Box 
+        sx={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          height: '100vh' 
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
 
+  if (currentUser) {
+    return <Navigate to="/prontuarios" />; // ou para o dashboard que você quiser
+  }
+  
   const loginUser = async (e) => {
     e.preventDefault();
     
     try {
+      
         // 1️⃣ Login com o Firebase Authentication
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
-        console.log("Usuário logado:", user);
+        console.log("Usuário logado:");
 
         // 2️⃣ Consulta ao Firestore para verificar se o usuário está ativo
         const userDocRef = doc(db, "usuarios", user.uid); // Assume que o ID do documento no Firestore é o UID do usuário
@@ -87,7 +104,7 @@ export default function SignIn() {
             const userData = userDocSnap.data();
             
             if (userData.ativo) {
-                console.log("Usuário está ativo, redirecionando para o dashboard...");
+                
                 
                 // 3️⃣ Redirecionar para o dashboard
                 navigate('/prontuarios');

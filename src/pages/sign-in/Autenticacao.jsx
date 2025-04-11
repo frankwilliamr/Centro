@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { browserSessionPersistence, onAuthStateChanged } from 'firebase/auth';
+
 import { auth } from '../../../firebase'; // Certifique-se de importar o auth configurado
-import { setPersistence, browserLocalPersistence } from 'firebase/auth';
+import { setPersistence, browserLocalPersistence, onAuthStateChanged  } from 'firebase/auth';
 import { getDoc, doc } from 'firebase/firestore';
 import { db } from '../../../firebase';
 
@@ -32,40 +32,37 @@ export const AuthProvider = ({ children }) => {
   const [email, setEmail] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
-      setLoading(false);
-
-      const fetchCargo = async () => {  // Definindo uma função assíncrona dentro do useEffect
-        if (user) {
-          setCurrentUser(user);
-          const userData = await fetchUserCargo(user.uid);  // Espera a Promise ser resolvida
-           setCargo(userData.cargo);   // Atualiza o estado com o cargo do usuário
-            setNome(userData.nome);     // Atualiza o estado com o nome do usuário
-            setEmail(userData.email);   // Atualiza o estado com o cargo do usuário
-        } else {
-          setCurrentUser(null);
-          setCargo(null);
-          setNome(null);
-          setEmail(null);
-        }
-
-        setLoading(false);  // Finaliza o carregamento
-      };
-
-      fetchCargo();  // Chama a função assíncrona dentro do useEffect
-
-    });
-    return () => unsubscribe();
+    // Define a função de inicialização
+    const initAuth = async () => {
+      try {
+        await setPersistence(auth, browserLocalPersistence);
+        console.log("✅ Persistência configurada para local");
+  
+        onAuthStateChanged(auth, async (user) => {
+          console.log("👤 onAuthStateChanged =>", user);
+          if (user) {
+            setCurrentUser(user);
+            const userData = await fetchUserCargo(user.uid);
+            setCargo(userData?.cargo || null);
+            setNome(userData?.nome || null);
+            setEmail(userData?.email || null);
+          } else {
+            setCurrentUser(null);
+            setCargo(null);
+            setNome(null);
+            setEmail(null);
+          }
+          setLoading(false);
+        });
+      } catch (error) {
+        console.error("❌ Erro ao configurar persistência:", error.message);
+        setLoading(false);
+      }
+    };
+  
+    // Chama a função de inicialização
+    initAuth();
   }, []);
-
-  setPersistence(auth, browserLocalPersistence)
-  .then(() => {
-    console.log("Persistência configurada para local");
-  })
-  .catch((error) => {
-    console.error("Erro ao configurar persistência:", error.message);
-  });
   return (
     <AuthContext.Provider value={{ currentUser, cargo, nome, email, loading }}>
       {children}
